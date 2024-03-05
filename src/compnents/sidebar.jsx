@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { FaBars } from 'react-icons/fa';
 import { useState } from 'react';
+import { generateUniqueId } from '../helpers/unique_id';
+import { isValidArray } from '../helpers/validators';
 
 const Sidebar = styled.div`
   position: fixed;
@@ -23,13 +25,36 @@ const ToggleButton = styled.button`
 const Icon = styled.div`
   font-size: ${({ isOpen }) => (isOpen ? '20px' : '16px')};
   transition: font-size 0.3s ease;
+`;
 
+const MenuItem = styled.a`
+    display: ${({ isOpen }) => isOpen ? 'block' : 'none'};
+    text-decoration: none;
+    margin: .5rem 2.3rem;
+    padding: .5rem;
+    color: white;
+    width: ${({ isOpen }) => isOpen ? 'calc(250px - 3.5rem)' : '60px'};
+    transition: width 0.3s ease;
+    border: 1px solid transparent;
+    :hover {
+      border: 1px solid white;
+      border-radius: 5px;
+    }
+`; 
+
+const BoxItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
 `;
 
 function ResponsiveSidebar() {
     const [isOpen, setIsOpen] = useState(window.innerWidth <= 786 ? false : true);
+    const menuItems = ['Crear Proyecto', 'Ver Proyectos'];
   
-    const toggleMenu = () => {
+  const toggleMenu = ev => {
+    ev.preventDefault();
       setIsOpen(!isOpen);
     };
   
@@ -40,7 +65,11 @@ function ResponsiveSidebar() {
             <FaBars />
           </Icon>
         </ToggleButton>
-        {/* Agrega aquí el resto de tu contenido del menú */}
+        <BoxItem className="container__items__menu">
+            {
+             isValidArray(menuItems) && menuItems?.map(item => (<MenuItem isOpen={isOpen} href='/create-proyect' key={generateUniqueId}>{item}</MenuItem>))
+            }
+        </BoxItem>
       </Sidebar>
     );
 }
