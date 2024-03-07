@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CreateProject from "./pages/create-project.page.jsx";
+import CreateProject from "./pages/gestion-projectos.page.jsx";
 import { Layout } from "./compnents/layout.jsx";
 import "./index.css";
 
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/create-project",
+        path: "/projects",
         element: <CreateProject />,
       },
     ]
