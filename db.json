@@ -1,0 +1,27 @@
+{
+    "routes": [
+        {
+            "url":"/",
+            "view-id":"workplace"
+        },
+        {
+            "url": "/projects",
+            "view-id": "projects"
+        }
+    ],
+    "projects": [
+        {
+
+        }
+    ],
+    "task": [
+        {
+
+        }
+    ],
+    "users": [
+        {
+
+        }
+    ]
+}
