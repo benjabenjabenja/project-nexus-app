@@ -67,7 +67,9 @@ function ResponsiveSidebar() {
         </ToggleButton>
         <BoxItem className="container__items__menu">
             {
-             isValidArray(menuItems) && menuItems?.map(item => (<MenuItem isOpen={isOpen} href='/create-proyect' key={generateUniqueId}>{item}</MenuItem>))
+            isValidArray(menuItems) &&
+            menuItems?.map(item => (
+              <MenuItem isOpen={isOpen} href='/create-project' key={generateUniqueId()}>{item}</MenuItem>))
             }
         </BoxItem>
       </Sidebar>
