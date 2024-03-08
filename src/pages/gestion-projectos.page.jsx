@@ -1,4 +1,3 @@
-import { Layout } from '../compnents/layout';
 
 const GestionProjectos = () => {
   return (

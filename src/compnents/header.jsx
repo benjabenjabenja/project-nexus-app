@@ -10,20 +10,11 @@ export const Header = styled.header`
     width: 100%;
     font-weight: 400;
     color: #212529;
+    background-size: contain;
+    background-position: center center;
 
     @media (min-width: 768px){
         flex-direction: row;
         height: 200px;
-        justify-content: space-between; 
     }
 `;
-
-export const HText = styled.h1`
-    margin: 0 auto;
-    padding: .5rem 2rem;
-    text-align: center;
-    font-size: 2rem;
-    @media  (min-width: 768px) {
-        padding: 2rem;
-    }
-`; 

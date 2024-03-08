@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Outlet } from 'react-router-dom';
 import ResponsiveSidebar from './sidebar'
-import {Header, HText} from './header'
+import { Header } from './header'
 
 const Wrapper = styled.div`
     background-color: #edede9;
@@ -12,12 +12,12 @@ const Wrapper = styled.div`
     min-height: 100vh;
 `;
 
-export function Layout() {
+function Layout() {
     return (
         <Wrapper>
             <ResponsiveSidebar />
-			<Header>
-				<HText>Bienvenido a Proyect nexus</HText>
+            <Header>
+                <img src="/logo-nexus-project.png" alt="" />
             </Header>
             <main className="content">
                 <Outlet />
@@ -25,3 +25,5 @@ export function Layout() {
         </Wrapper>
     )
 }
+
+export default Layout;
