@@ -1,22 +1,166 @@
 {
     "routes": [
         {
-            "url":"/",
+            "url":"/home",
             "view-id":"workplace"
         },
         {
             "url": "/projects",
             "view-id": "projects"
+        },
+        {
+            "url": "/tasks",
+            "view-id": "tasks"
+        },
+        {
+            "url": "/control-panel",
+            "view-id": "control panel"
         }
     ],
     "projects": [
         {
-
+            "name": "Project 1",
+            "limit_date": "11/12/2021",
+            "assigned_users":  ["John Doe","Jane Smith"],
+            "description": "This is the project description",
+            "status": "In progress",
+            "tasks":[
+                {
+                    "task_name":"Design the interface",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                }, 
+                {
+                    "task_name":"Code the application",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                },
+                {
+                    "task_name":"Code the applicatio2n",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                }
+            ],
+            "created_at": "10/01/2023"
+        },
+        {
+            "name": "Project 2",
+            "limit_date": "11/12/2021",
+            "assigned_users":  ["John Doe","Jane Smith"],
+            "description": "This is the project description",
+            "status": "In progress",
+            "tasks":[],
+            "created_at": "10/01/2023"
+        },
+        {
+            "name": "Project 3",
+            "limit_date": "11/12/2021",
+            "assigned_users":  ["John Doe","Jane Smith"],
+            "description": "This is the project description",
+            "status": "In progress",
+            "tasks":[
+                {
+                    "task_name":"Design the interface",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                }, 
+                {
+                    "task_name":"Code the application",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                },
+                {
+                    "task_name":"Code the applicatio2n",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                }
+            ],
+            "created_at": "10/01/2023"
+        },
+        {
+            "name": "Project 4",
+            "limit_date": "11/12/2021",
+            "assigned_users":  ["John Doe","Jane Smith"],
+            "description": "This is the project description",
+            "status": "In progress",
+            "tasks":[
+                {
+                    "task_name":"Design the interface",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                }, 
+                {
+                    "task_name":"Code the application",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                },
+                {
+                    "task_name":"Code the applicatio2n",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                }
+            ],
+            "created_at": "10/01/2023"
+        },
+        {
+            "name": "Project 5",
+            "limit_date": "11/12/2021",
+            "assigned_users":  ["John Doe","Jane Smith"],
+            "description": "This is the project description",
+            "status": "In progress",
+            "tasks":[],
+            "created_at": "10/01/2023"
+        },
+        {
+            "name": "Project 6",
+            "limit_date": "11/12/2021",
+            "assigned_users":  ["John Doe","Jane Smith"],
+            "description": "This is the project description",
+            "status": "In progress",
+            "tasks":[],
+            "created_at": "10/01/2023"
+        },
+        {
+            "name": "Project 7",
+            "limit_date": "11/12/2021",
+            "assigned_users":  ["John Doe","Jane Smith"],
+            "description": "This is the project description",
+            "status": "In progress",
+            "tasks":[
+                {
+                    "task_name":"Design the interface",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                }, 
+                {
+                    "task_name":"Code the application",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                },
+                {
+                    "task_name":"Code the applicatio2n",
+                    "completed": true,
+                    "due_date": "17/09/2021"
+                }
+            ],
+            "created_at": "10/01/2023"
         }
     ],
     "task": [
         {
-
+            "task_name":"Design the interface",
+            "completed": true,
+            "due_date": "17/09/2021"
+        }, 
+        {
+            "task_name":"Code the application",
+            "completed": true,
+            "due_date": "17/09/2021"
+        },
+        {
+            "task_name":"Code the applicatio2n",
+            "completed": true,
+            "due_date": "17/09/2021"
         }
     ],
     "users": [

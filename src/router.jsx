@@ -3,18 +3,37 @@ import {
     RouterProvider,
     createBrowserRouter
 } from "react-router-dom";
-import Layout from "./compnents/layout.jsx";
+import Layout, { loader as loaderRoutes} from "./compnents/layout.jsx";
 import GestionProjectos from "./pages/gestion-projectos.page.jsx";
-import { loader } from "./compnents/sidebar.jsx";
+import Home, { loader as loaderProjects } from "./pages/home.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,
-        loader,
+        loader: loaderRoutes,
         children: [
             {
+                path: "/home",
+                element: <Home />,
+                loader: loaderProjects,
+            },
+            {
                 path: "/projects",
+                element: <GestionProjectos />,
+                children: [
+                    {
+                        path: '/projects/project/:id',
+
+                    }
+                ]
+            },
+            {
+                path: "/tasks",
+                element: <GestionProjectos />,
+            },
+            {
+                path: "/control-panel",
                 element: <GestionProjectos />,
             },
         ],

@@ -16,6 +16,10 @@ body {
 	min-height: 100vh;
 }
 
+body a {
+	text-decoration: none;
+}
+
 .lato-thin {
 	font-family: "Lato", sans-serif;
 	font-weight: 100;
@@ -79,11 +83,16 @@ body {
 #root {
 	min-width: 100%;
 }
-
-.content {
-	margin-left: 4rem;
-	margin-right: 2rem;
-}
 header img.img__logo {
 	margin: 0 auto;
 }
+
+header nav a.transition__links {
+	transition: all ease-in-out .7s;
+}
+
+table tr:last-child, table tr:last-child td {
+	/* Estilos para la última fila de la tabla */
+	/* Por ejemplo, para quitar el borde inferior */
+	border-bottom: none;
+  }
