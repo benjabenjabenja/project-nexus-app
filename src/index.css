@@ -91,8 +91,7 @@ header nav a.transition__links {
 	transition: all ease-in-out .7s;
 }
 
-table tr:last-child, table tr:last-child td {
-	/* Estilos para la última fila de la tabla */
-	/* Por ejemplo, para quitar el borde inferior */
+table tr:last-child, 
+table tr:last-child td {
 	border-bottom: none;
-  }
+}

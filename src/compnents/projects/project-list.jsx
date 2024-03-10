@@ -51,9 +51,9 @@ function Row(props) {
                     )}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                    {project.name}
+                    {project.projectName}
                 </TableCell>
-                <TableCell>{project.limit_date}</TableCell>
+                <TableCell>{project.limitDate}</TableCell>
                 <TableCell>{project.description}</TableCell>
                 <TableCell>{project.status}</TableCell>
             </TableRow>
@@ -74,7 +74,7 @@ function Row(props) {
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Name</TableCell>
+                                        <TableCell>Project Name</TableCell>
                                         <TableCell>Completed</TableCell>
                                         <TableCell>Due date</TableCell>
                                     </TableRow>
@@ -85,7 +85,7 @@ function Row(props) {
                                             key={generateUniqueId()}
                                         >
                                             <TableCell>
-                                                {historyRow.task_name}
+                                                {historyRow.taskName}
                                             </TableCell>
                                             <TableCell>
                                                 {historyRow.completed
@@ -93,7 +93,7 @@ function Row(props) {
                                                     : "Pending"}
                                             </TableCell>
                                             <TableCell>
-                                                {historyRow.due_date}
+                                                {historyRow.limitDate}
                                             </TableCell>
                                         </TableRow>
                                     ))}
