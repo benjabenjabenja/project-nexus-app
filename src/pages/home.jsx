@@ -1,15 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 
 import { useLoaderData } from "react-router-dom";
-import enviroment from "../../enviroment"
 import { isValidArray } from "../helpers/validators";
 /* import ProjectList from "../compnents/projects/project-list"; */
 import CollapsibleTable from "../compnents/projects/project-list";
+import { get_projects } from "../services/projects";
 
 export async function loader() {
-    const url = `${enviroment.api_url}/projects`;
-    const projects = await fetch(url);
-    const json = await projects.json();
+    const json = await get_projects();
     return json || [];
 }
 
@@ -21,8 +19,8 @@ const Home = () => {
             {
                 isValidArray(projects) ?
                     <CollapsibleTable projects={projects} /> :
+
                     <p className="p-10 text-center m-auto">No hay proyectos disponibles.</p>
-     
             }
         </>
     );

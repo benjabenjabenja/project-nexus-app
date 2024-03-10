@@ -25,37 +25,60 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
+import { useNavigate } from "react-router-dom";
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 function Row(props) {
-    const { project } = props;
+
+    const navigate = useNavigate();
+    const { project, withActions } = props;
     const [open, setOpen] = React.useState(false);
+
+    const handlerDelete = ev => {
+        ev.preventDefault();
+        console.log("deleting project ", project.id);
+    }
+    
+    const handlerEdit = () => navigate.navigate(`/projects/project/${project.id}`);
 
     return (
         <>
             <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+                {/* Arrow Icon row */}
                 <TableCell>
-                    {isValidArray(project.tasks) ? (
+                    { isValidArray(project.tasks) ? (
                         <IconButton
                             aria-label="expand row"
                             size="small"
                             onClick={() => setOpen(!open)}
                         >
-                            {open ? (
-                                <KeyboardArrowUpIcon />
-                            ) : (
-                                <KeyboardArrowDownIcon />
-                            )}
+                            { open ? ( <KeyboardArrowUpIcon />) : (<KeyboardArrowDownIcon />) }
                         </IconButton>
-                    ) : (
-                        <p></p>
-                    )}
+                    ) : "" }
                 </TableCell>
-                <TableCell component="th" scope="row">
-                    {project.projectName}
-                </TableCell>
+                <TableCell component="th" scope="row">{project.projectName}</TableCell>
                 <TableCell>{project.limitDate}</TableCell>
                 <TableCell>{project.description}</TableCell>
                 <TableCell>{project.status}</TableCell>
+                <TableCell className={`${withActions ? 'block' : 'hidden'}`}>
+                    {withActions && (
+                        <>
+                            <IconButton
+                                aria-label="expand row"
+                                size="small"
+                                onClick={handlerEdit}
+                                color='primary'
+                            >
+                                <EditOutlinedIcon />
+                            </IconButton>
+                            <IconButton
+                                aria-label="expand row"
+                                size="small"
+                                onClick={handlerDelete}
+                                color='error'>delete</IconButton>
+                        </>
+                    )}
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell
@@ -107,15 +130,7 @@ function Row(props) {
     );
 }
 
-/* const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-]; */
-
-export default function CollapsibleTable({ projects }) {
+export default function CollapsibleTable({ projects, withActions }) {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -126,11 +141,12 @@ export default function CollapsibleTable({ projects }) {
                         <TableCell>Limit Date</TableCell>
                         <TableCell>Description</TableCell>
                         <TableCell>Status</TableCell>
+                        <TableCell className={`${withActions ? 'block':'hidden'}`}>Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {projects.map((row) => (
-                        <Row key={generateUniqueId()} project={row} />
+                        <Row key={generateUniqueId()} withActions={withActions} project={row} />
                     ))}
                 </TableBody>
             </Table>

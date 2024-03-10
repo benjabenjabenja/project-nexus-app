@@ -4,10 +4,11 @@ import {
     createBrowserRouter
 } from "react-router-dom";
 import Layout, { loader as loaderRoutes} from "./compnents/layout.jsx";
-import GestionProjectos from "./pages/projects/gestion-projectos.page.jsx";
+import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos.page.jsx";
 import Home, { loader as loaderProjects } from "./pages/home.jsx";
 import CreateProject from "./pages/projects/create-project.jsx";
-import { action as createProjectAction } from './pages/projects/create-project.jsx'
+import { action as createProjectAction } from './pages/projects/create-project.jsx';
+import Project, { loader as projectLoader } from './compnents/projects/project.jsx';
 
 const router = createBrowserRouter([
     {
@@ -23,20 +24,25 @@ const router = createBrowserRouter([
             {
                 path: "/projects",
                 element: <GestionProjectos />,
+                loader: loaderProjectsData,
                 children: [
                     {
                         path: '/projects/create-project',
                         element: <CreateProject />,
-                        action: createProjectAction
+                        action: createProjectAction,
+                    },
+                    {
+                        path: '/projects/:id',
+                        element: <Project />,
+                        loader: projectLoader
+                    },
+                    {
+                        path: "/projects/project/:id",
+                        element: <Project />,
+                        loader: projectLoader
                     }
                 ]
             },
-            /* debeode  pasar al childfren de proyecto pero no pude hacerlo andar */
-            /* {
-                path: '/projects/create-project',
-                element: <CreateProject />
-
-            }, */
             {
                 path: "/tasks",
                 element: <GestionProjectos />,

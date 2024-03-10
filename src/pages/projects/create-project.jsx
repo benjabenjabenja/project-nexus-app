@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Button, Container, Grid, TextField } from "@mui/material";
-import { Form, useActionData, /* useNavigate */ } from "react-router-dom";
+import { Form, redirect, useActionData } from "react-router-dom";
 import { create_project } from "../../services/projects";
 
 export async function action({ request }) {
@@ -11,28 +11,37 @@ export async function action({ request }) {
         alert("All fields must be filled out");
         return;
     }
+    // TODO - verificar campo a campo
+    const errors = [];
+
     const {
         projectName,
         description,
         limitDate,
     } = data;
+
+    if (projectName === "") errors.push('Project Name is required');
+    if (description === "") errors.push('Description is required');
+    if (limitDate === "") errors.push('Limit Date is required');
+
+    if(errors.length > 0){ return errors; }
+
     const createProjectResponse = await create_project({
         projectName,
         description,
         limitDate,
     });
-    return createProjectResponse || [];
+
+    return redirect(`/projects/${createProjectResponse.id}`);
 }
 
 function CreateProject() {
-    const createProjectResponse = useActionData();
-    console.log({ createProjectResponse });
-    // const navigation = useNavigate();
-
+    const errors_create_project = useActionData();
+    console.log({ errors_create_project });
     return (
         <>
             <Container maxWidth="sm">
-                <h2 className="text-xl mb-3">Create Project</h2>
+                <h2 className="text-2xl text-center font-bold mb-6">Create Project</h2>
                 <Form method="post">
                     <Grid container spacing={2}>
                         {/* Project Name */}
