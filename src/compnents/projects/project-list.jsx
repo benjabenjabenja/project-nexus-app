@@ -1,15 +1,5 @@
 /* eslint-disable react/prop-types */
-/* import { generateUniqueId } from "../../helpers/unique_id";
-
-const ProjectList = ({ projects }) => {
-    return (
-        projects.map(p => (<div key={generateUniqueId()}>{ p.name }</div>))
-    );
-}
-
-export default ProjectList; */
-
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -23,22 +13,23 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
 import { useNavigate } from "react-router-dom";
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 function Row(props) {
 
     const navigate = useNavigate();
     const { project, withActions } = props;
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handlerDelete = ev => {
         ev.preventDefault();
         console.log("deleting project ", project.id);
     }
-    
+
     const handlerEdit = () => navigate.navigate(`/projects/project/${project.id}`);
 
     return (
@@ -68,6 +59,7 @@ function Row(props) {
                                 size="small"
                                 onClick={handlerEdit}
                                 color='primary'
+                                title={'edit project'}
                             >
                                 <EditOutlinedIcon />
                             </IconButton>
@@ -75,7 +67,11 @@ function Row(props) {
                                 aria-label="expand row"
                                 size="small"
                                 onClick={handlerDelete}
-                                color='error'>delete</IconButton>
+                                color='error'
+                                title={'delete project'}
+                            >
+                                <DeleteOutlineOutlinedIcon />   
+                            </IconButton>
                         </>
                     )}
                 </TableCell>
