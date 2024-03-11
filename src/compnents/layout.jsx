@@ -35,12 +35,24 @@ function Layout() {
 						<Link
 							to={item.url}
                             key={generateUniqueId()}
-                            className={`px-3 py-2 text-white border border-transparent hover:border-slate-500 rounded-3xl hover:text-shadow-offset-y-2 transition__links ${location.pathname === item.url ? 'bg-slate-500' : ''}`}
+                            className={`
+                                px-3 py-2
+                                text-white
+                                border border-transparent
+                                hover:border-slate-500
+                                rounded-3xl
+                                hover:text-shadow-offset-y-2
+                                transition__links
+                                ${location.pathname === item.url ? 'bg-slate-500' : ''}`
+                            }
 						>
 							{ item["view-id"].toUpperCase() }
 						</Link>
 					))
-				}
+                }
+                <Link
+                    className="uppercase px-3 py-2 border text-white border-transparent hover:border-slate-500 hover:bg-slate-500 mr-0 ml-auto rounded-3xl transition__links"
+                    to="/logout">Logout</Link>    
                 </nav>
             </Header>
             <main className="bg-slate-50 rounded-md shadow-md px-5 py-10 mx-3 min-h-screen">
