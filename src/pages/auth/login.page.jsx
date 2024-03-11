@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import WrapperContainerPages from "../../compnents/wrapper";
 
 export async function action() {
 	return {}
@@ -26,7 +27,7 @@ const LoginForm = () => {
 				/>
 			</div>
 			<div className="flex items-center">
-				<label className="text-left w-1/6" htmlFor="password"><strong>  Password </strong> </label>
+				<label className="text-left w-1/6" htmlFor="password"><strong> Password </strong> </label>
 				<input
 					className="block w-2/4 p-2 rounded-md"
 					type={showPassword ?  "text" : "password"}
@@ -34,7 +35,7 @@ const LoginForm = () => {
 					id="password"
 				/>
 				<button
-					className="uppercase font-black ml-2 px-4 py-1 rounded text-center text-slate-600 md:outline"
+					className="uppercase font-black ml-2 px-4 py-1 text-center text-slate-600"
 					type="button"
 					title={showPassword ? "ocultar" : "mostrar"}
 					onClick={handlerShowPassword}
@@ -57,13 +58,20 @@ function LoginPage() {
 			<h1 className="text-6xl font-black px-2 py-10 text-slate-700">
 				Inicia sesión y <span className="text-slate-950">administra tus proyectos </span>
 			</h1>
-			<main className="bg-slate-200 px-5 py-10 text-center w-full">
+			<WrapperContainerPages>
 				<LoginForm />
-				<Link
-					className="text-slate-400 hover:text-slate-950 rounded-md w-1/4 ml-0 mr-auto"
-					to="/forgot-password"
-				> has olvidado tu contrasenia ?</Link>
-			</main>
+				<nav className=" flex flex-col lg:flex-row lg:flex lg:justify-between lg:items-center">
+					<Link
+						className="text-md text-slate-400 hover:text-slate-950 rounded-md ml-0 mr-auto w-full mb-2 lg:w-1/2"
+						to="/register"
+					> registrate a nuestra web! </Link>
+					<Link
+						className="text-md text-slate-400 hover:text-slate-950 rounded-md ml-auto mr-0 w-full mb-2 lg:w-1/2"
+						to="/forgot-password"
+					> cambiar contraseña ?</Link>
+
+				</nav>
+			</WrapperContainerPages>
 		</>
 	)
 }
