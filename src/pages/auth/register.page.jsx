@@ -88,7 +88,7 @@ const RegisterForm = () => {
                     </button>
                 </div>
             </div>
-            {/* button login */}
+            {/* button registro */}
 			<button
 				className="uppercase font-black my-2 px-4 py-3 rounded-md text-center sm:full md:w-2/3 hover:bg-slate-950 hover:text-slate-100 transition-colors"
 				type="submit"
