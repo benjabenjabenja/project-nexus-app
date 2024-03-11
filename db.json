@@ -219,6 +219,58 @@
       "name": "Joe Mario",
       "role": "MANAGER",
       "password": "123123"
+    },
+    {
+      "id": "4926",
+      "user": {
+        "name": "Benjamín González ",
+        "email": "jgonzalez.benjamin@gmail.com",
+        "repeat_email": "jgonzalez.benjamin@gmail.com",
+        "password": "1234",
+        "repeat_password": "1234"
+      }
+    },
+    {
+      "id": "d71a",
+      "user": {
+        "name": "Benjamín González ",
+        "email": "jgonzalez.benjamin@gmail.com",
+        "repeat_email": "jgonzalez.benjamin@gmail.com",
+        "password": "1234",
+        "repeat_password": "1234"
+      }
+    },
+    {
+      "id": "44bd",
+      "user": {
+        "name": "Benjamín González ",
+        "email": "jgonzalez.benjamin@gmail.com",
+        "repeat_email": "jgonzalez.benjamin@gmail.com",
+        "password": "1234",
+        "repeat_password": "1234"
+      }
+    },
+    {
+      "id": "945c",
+      "user": {
+        "name": "Benjamín González ",
+        "email": "jgonzalez.benjamin@gmail.com",
+        "password": "1234",
+        "tasks": [],
+        "role": null,
+        "isLoged": false
+      }
+    },
+    {
+      "id": "c74d",
+      "user": {
+        "name": "Benjamín González ",
+        "email": "jgonzalez.benjamin@gmail.com",
+        "password": "123",
+        "tasks": [],
+        "role": null,
+        "isLoged": false
+      }
     }
   ]
 }

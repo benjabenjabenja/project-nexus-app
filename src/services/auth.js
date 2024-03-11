@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { redirect } from 'react-router-dom';
 import enviroment from '../../enviroment';
 import { generateUniqueId } from '../helpers/unique_id';
-const __url_auth = `${enviroment.api_url}/users`
+import { get_user_by_id, get_users } from './users';
+const __url_auth = `${enviroment.api_url}/users`;
 
 export const login = async ({ email, password }) => {
     try {
-        const users = await get_usuarios();
+        const users = await get_users();
         const find = users.find(user => user.email === email && password === user.password);
         if (find) {
             const user_loged = {
@@ -14,16 +14,31 @@ export const login = async ({ email, password }) => {
                 token: generateUniqueId() + generateUniqueId(),
                 isAutenticated: true
             }
+
             localStorage.setItem("userId", JSON.stringify(user_loged.id));
             return user_loged;
         }
-        throw new Error('ERROR - usuario o contraseña incorrectos');
+        throw new Error('ERROR - [on login]: usuario o contraseña incorrectos');
     } catch (e) {
         throw new Error('ERROR - [on login]: ' + e.message);
     }
 };
 export const forgot_password = async ({ email }) => {
-    return [];
+    try {
+        const response = await get_user_by_id(email);
+        return await response.json();
+    } catch (e) {
+        throw new Error("ERROR - [on forgot password]: " + e.message);
+    }
+}
+export const logout = async ({ id }) => {
+    try {
+        const user_by_id = await get_user_by_id(id);
+        console.log({ user_by_id });
+    } catch (e) {
+        throw new Error('ERROR - [on  logout]: ' + e.message);
+    }
+    return
 }
 export const register = async function ({ user }) {
     try {
@@ -37,14 +52,5 @@ export const register = async function ({ user }) {
         return await response.json();
     } catch (e) {
         throw new Error('ERROR - [on register]: ' + e.message);
-    }
-}
-
-export const get_usuarios = async () => {
-    try {
-        const response = await fetch(__url_auth, { method: 'GET' });
-        return await response.json();
-    } catch (e) {
-        throw new Error('ERROR - [on get usuarios]: ' + e.message);
     }
 }

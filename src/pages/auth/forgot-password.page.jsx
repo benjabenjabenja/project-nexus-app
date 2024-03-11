@@ -14,10 +14,10 @@ export async function action({ request }) {
 		const regexp = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 		if (!regexp.test(email)) { errors.push('email no valido') }
 		if("".includes(email)) { errors.push('email es requerido') }
-		const loginResponse = await forgot_password({ email });
-        console.log({ loginResponse });
+		const forgotPasswordResponse = await forgot_password({ email });
+        console.log({ forgotPasswordResponse });
 		// TODO: redirect to /home
-		return;
+        return;
 	} catch (e) {
 		errors.push(e.message);
 	}
@@ -28,10 +28,7 @@ const ForgotPasswordForm = () => {
 	const errors = useActionData();
     return (
         <>
-            {
-				isValidArray(errors) &&
-                <AlertErrorForm errors={errors} />
-			}
+            { isValidArray(errors) && <AlertErrorForm errors={errors} /> }
 			<Form method="post">
 				<div className="flex items-center mb-2">
 					<label className="text-left w-1/6" htmlFor="email"><strong> Email </strong> </label>

@@ -14,7 +14,7 @@ import GestionTasks, { loader as loaderTasks } from "./pages/tasks/gestion-tasks
 import Home, { loader as loaderProjects } from "./pages/home";
 import AuthLayout from "./layouts/auth.layout"; 
 import LoginPage, { action as loginAction } from "./pages/auth/login.page";
-import RegisterPage from "./pages/auth/register.page";
+import RegisterPage, { action as registerAction } from "./pages/auth/register.page";
 import ForgotPasswordPage from "./pages/auth/forgot-password.page";
 import NewPasswordPage from "./pages/auth/new-password.page";
 import ConfirmAccountPage from "./pages/auth/confirm-account.page";
@@ -31,7 +31,8 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/register",
-                element: <RegisterPage />
+                element: <RegisterPage />,
+                action: registerAction
             },
             {
                 path: "/forgot-password",
