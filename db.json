@@ -94,35 +94,6 @@
       "id": "a203"
     },
     {
-      "projectName": "Project 4",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [
-        {
-          "taskName": "Design the interface",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the application",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the applicatio2n",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        }
-      ],
-      "createdAt": "10/01/2023",
-      "id": "7280"
-    },
-    {
       "projectName": "Project 5",
       "limit_date": "11/12/2021",
       "users": [
@@ -202,23 +173,21 @@
     {
       "id": "a052",
       "email": "asdf@asdf.com",
+      "repeat_email": "asdf@asdf.com",
       "name": "Juan",
       "role": "ADMIN",
       "password": "123123"
     },
     {
       "id": "a052QW",
-      "email": "asdf2@asdf.com",
-      "name": "Carlos",
-      "role": "DEVELOPER",
-      "password": "123123"
-    },
-    {
-      "id": "a052WEQ",
-      "email": "asdf1@asdf.com",
-      "name": "Joe Mario",
-      "role": "MANAGER",
-      "password": "123123"
+      "user": {
+          "email": "asdf2@asdf.com",
+          "repeat_email": "asdf2@asdf.com",
+          "name": "Carlos",
+          "role": "DEVELOPER",
+          "password": "123123",
+          "isLogged": false
+      }
     },
     {
       "id": "4926",
@@ -227,49 +196,8 @@
         "email": "jgonzalez.benjamin@gmail.com",
         "repeat_email": "jgonzalez.benjamin@gmail.com",
         "password": "1234",
-        "repeat_password": "1234"
-      }
-    },
-    {
-      "id": "d71a",
-      "user": {
-        "name": "Benjamín González ",
-        "email": "jgonzalez.benjamin@gmail.com",
-        "repeat_email": "jgonzalez.benjamin@gmail.com",
-        "password": "1234",
-        "repeat_password": "1234"
-      }
-    },
-    {
-      "id": "44bd",
-      "user": {
-        "name": "Benjamín González ",
-        "email": "jgonzalez.benjamin@gmail.com",
-        "repeat_email": "jgonzalez.benjamin@gmail.com",
-        "password": "1234",
-        "repeat_password": "1234"
-      }
-    },
-    {
-      "id": "945c",
-      "user": {
-        "name": "Benjamín González ",
-        "email": "jgonzalez.benjamin@gmail.com",
-        "password": "1234",
-        "tasks": [],
-        "role": null,
-        "isLoged": false
-      }
-    },
-    {
-      "id": "c74d",
-      "user": {
-        "name": "Benjamín González ",
-        "email": "jgonzalez.benjamin@gmail.com",
-        "password": "123",
-        "tasks": [],
-        "role": null,
-        "isLoged": false
+        "isLoged": false,
+        "role": "MANAGER"
       }
     }
   ]
