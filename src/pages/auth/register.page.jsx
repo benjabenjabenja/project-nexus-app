@@ -18,6 +18,7 @@ const RegisterForm = () => {
     }
     return (
         <form>
+            {/* input nombre */}
 			<div className="flex flex-col items-between gap-2 my-2">
 				<label className="block text-left" htmlFor="name"><strong> Nombre </strong> </label>
 				<input
@@ -27,6 +28,7 @@ const RegisterForm = () => {
 					id="name"
 				/>
             </div>
+            {/* input email */}
             <div className="flex flex-col items-between gap-2 my-2">
 				<label className="block text-left" htmlFor="email"><strong> Email </strong> </label>
 				<input
@@ -35,7 +37,8 @@ const RegisterForm = () => {
 					name="email"
 					id="email"
 				/>
-			</div>
+            </div>
+            {/* input repetir email */}
             <div className="flex flex-col items-between gap-2 my-2">
 				<label className="block text-left" htmlFor="email"><strong> Repetir Email </strong> </label>
 				<input
@@ -44,7 +47,8 @@ const RegisterForm = () => {
 					name="email"
 					id="email"
 				/>
-			</div>
+            </div>
+            {/* input password */}
 			<div className="flex flex-col items-between gap-2 w-full my-2">
                 <label className="text-left w-full" htmlFor="password"><strong> Password </strong> </label>
                 <div className="flex items-center">
@@ -62,13 +66,16 @@ const RegisterForm = () => {
                     > {showPassword ? "ocultar" : "mostrar"}
                     </button>
                 </div>
-			</div>
+            </div>
+            {/* input repetir passwrod */}
 			<div className="flex flex-col items-between gap-2 w-full my-2">
-                <label className="text-left w-full" htmlFor="password"><strong>Repetir Password </strong> </label>
+                <label className="text-left w-full" htmlFor="password">
+                    <strong>Repetir Password </strong>
+                </label>
                 <div className="flex items-center">
                     <input
                         className="block w-3/4 p-2 rounded-md"
-                        type={showRepeatPassword ?  "text" : "password"}
+                        type={showRepeatPassword ? "text" : "password"}
                         name="password"
                         id="password"
                     />
@@ -80,12 +87,13 @@ const RegisterForm = () => {
                     > {showRepeatPassword ? "ocultar" : "mostrar"}
                     </button>
                 </div>
-			</div>
+            </div>
+            {/* button login */}
 			<button
 				className="uppercase font-black my-2 px-4 py-3 rounded-md text-center sm:full md:w-2/3 hover:bg-slate-950 hover:text-slate-100 transition-colors"
 				type="submit"
 			>
-				login
+				registrar
 			</button>
 		</form>
     )
@@ -99,13 +107,13 @@ function RegisterPage() {
 			</h1>
 			<WrapperContainerPages>
 				<RegisterForm />
-				<nav className=" flex flex-col lg:flex-row lg:flex lg:justify-between lg:items-center">
+				<nav className="flex flex-col lg:flex-row lg:flex lg:justify-between lg:items-center">
 					<Link
-						className="text-md text-slate-400 hover:text-slate-950 rounded-md ml-0 mr-auto w-full mb-2 lg:w-1/2"
+						className="uppercase text-md text-slate-400 hover:text-slate-950 rounded-md ml-0 mr-auto w-full mb-2 lg:w-1/2"
 						to="/"
 					> ya tienes una cuenta? </Link>
 					<Link
-						className="text-md text-slate-400 hover:text-slate-950 rounded-md ml-auto mr-0 w-full mb-2 lg:w-1/2"
+						className="uppercase text-md text-slate-400 hover:text-slate-950 rounded-md ml-auto mr-0 w-full mb-2 lg:w-1/2"
 						to="/forgot-password"
 					> cambiar contraseña ?</Link>
 

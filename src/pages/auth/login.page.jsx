@@ -88,17 +88,17 @@ function LoginPage() {
 	return (
 		<>
 			<h1 className="text-6xl font-black px-2 py-10 text-slate-700">
-				Inicia sesión y <span className="text-slate-950">administra tus proyectos </span>
+				Inicia sesión y <span className="text-slate-950">administra tus proyectos y tareas</span>
 			</h1>
 			<WrapperContainerPages>
 				<LoginForm />
 				<nav className=" flex flex-col lg:flex-row lg:flex lg:justify-between lg:items-center">
 					<Link
-						className="text-md text-slate-400 hover:text-slate-950 rounded-md ml-0 mr-auto w-full mb-2 lg:w-1/2"
+						className="uppercase text-md text-slate-400 hover:text-slate-950 rounded-md ml-0 mr-auto w-full mb-2 lg:w-1/2"
 						to="/register"
 					> registrate a nuestra web! </Link>
 					<Link
-						className="text-md text-slate-400 hover:text-slate-950 rounded-md ml-auto mr-0 w-full mb-2 lg:w-1/2"
+						className="uppercase text-md text-slate-400 hover:text-slate-950 rounded-md ml-auto mr-0 w-full mb-2 lg:w-1/2"
 						to="/forgot-password"
 					> cambiar contraseña ?</Link>
 

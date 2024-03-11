@@ -22,6 +22,9 @@ export const login = async ({ email, password }) => {
         throw new Error('ERROR - [on login]: ' + e.message);
     }
 };
+export const forgot_password = async ({ email }) => {
+    return [];
+}
 export const register = async function ({ user }) {
     try {
         const response = await fetch(__url_auth, {
