@@ -18,6 +18,7 @@ import RegisterPage, { action as registerAction } from "./pages/auth/register.pa
 import ForgotPasswordPage from "./pages/auth/forgot-password.page";
 import NewPasswordPage from "./pages/auth/new-password.page";
 import ConfirmAccountPage from "./pages/auth/confirm-account.page";
+import LogoutPage, { loader as logoutLoader } from "./pages/auth/logout.page";
 
 const routes = createBrowserRouter([
     {
@@ -26,6 +27,11 @@ const routes = createBrowserRouter([
         children: [
             {
                 index: true,
+                element: <LoginPage />,
+                action: loginAction,
+            },
+            {
+                path: "/login",
                 element: <LoginPage />,
                 action: loginAction,
             },
@@ -93,6 +99,11 @@ const routes = createBrowserRouter([
             },
         ]
     },
+    {
+        path: "/logout",
+        element: <LogoutPage />,
+        loader: logoutLoader
+    }
 ])
 
 function Router() {

@@ -15,12 +15,13 @@ export async function action({ request }) {
 		const values = Object.fromEntries(fd);
 		const { email, password } = values;
 		const regexp = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+		
 		if (!regexp.test(email)) { errors.push('email no valido') }
 		if("".includes(email)) { errors.push('email es requerido') }
 		if ("".includes(password)) { errors.push('contraseña es requerida') }
+
 		const loginResponse = await login({ email, password });
 		if (loginResponse) return redirect("/home");
-		// TODO: redirect to /home
 		return;
 	} catch (e) {
 		errors.push(e.message);
@@ -30,9 +31,7 @@ export async function action({ request }) {
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
-	const errors = useActionData();
-	console.log({ errors });
-	
+	const errors = useActionData();	
 	const handlerShowPassword = ev => {
 		ev.preventDefault();
 		setShowPassword(!showPassword);

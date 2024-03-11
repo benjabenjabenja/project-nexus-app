@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import enviroment from '../../enviroment';
 import { generateUniqueId } from '../helpers/unique_id';
-import { get_user_by_id, get_users } from './users';
+import { get_user_by_id, get_users, update_user } from './users';
 const __url_auth = `${enviroment.api_url}/users`;
 
 export const login = async ({ email, password }) => {
@@ -33,12 +33,14 @@ export const forgot_password = async ({ email }) => {
 }
 export const logout = async ({ id }) => {
     try {
-        const user_by_id = await get_user_by_id(id);
+        const user_by_id = await get_user_by_id({id});
         console.log({ user_by_id });
+        const user_set = { ...user_by_id, isLoged: false };
+        const response = await update_user({ user: user_set });
+        return response;
     } catch (e) {
         throw new Error('ERROR - [on  logout]: ' + e.message);
     }
-    return
 }
 export const register = async function ({ user }) {
     try {
