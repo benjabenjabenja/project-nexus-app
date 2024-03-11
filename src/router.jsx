@@ -1,87 +1,102 @@
 /* eslint-disable react-refresh/only-export-components */
 import {
-    BrowserRouter,
-    Route,
-    /* RouterProvider, */
-    Routes,
+    RouterProvider,
+    createBrowserRouter,
 } from "react-router-dom";
-/* import Layout from "./compnents/layout";
 import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos";
-import Home, { loader as loaderProjects } from "./pages/home";
+import Layout from "./compnents/layout";
 import CreateProject from "./pages/projects/create-project";
 import { action as createProjectAction } from './pages/projects/create-project';
 import Project, { loader as projectLoader } from './compnents/projects/project';
 import EditProject from "./pages/projects/edit-project";
 import { action as editProjectAction } from "./compnents/projects/form-edit-project"
+
 import GestionTasks, { loader as loaderTasks } from "./pages/tasks/gestion-tasks";
-import AuthLayout, { loader as loaderRoutes} from "./layouts/auth.layout"; */
-import LoginPage from "./pages/auth/login.page";
+import Home, { loader as loaderProjects } from "./pages/home";
+import AuthLayout from "./layouts/auth.layout"; 
+import LoginPage, { action as loginAction } from "./pages/auth/login.page";
 import RegisterPage from "./pages/auth/register.page";
 import ForgotPasswordPage from "./pages/auth/forgot-password.page";
 import NewPasswordPage from "./pages/auth/new-password.page";
 import ConfirmAccountPage from "./pages/auth/confirm-account.page";
-import AuthLayout from "./layouts/auth.layout";
 
-/* const router = createBrowserRouter([
+const routes = createBrowserRouter([
     {
         path: "/",
-        element: <Layout />,
-        loader: loaderRoutes,
+        element: <AuthLayout />,
         children: [
             {
-                path: "/home",
-                element: <Home />,
-                loader: loaderProjects,
+                index: true,
+                element: <LoginPage />,
+                action: loginAction,
             },
             {
-                path: "/projects",
+                path: "/register",
+                element: <RegisterPage />
+            },
+            {
+                path: "/forgot-password",
+                element: <ForgotPasswordPage />
+            },
+            {
+                path: "/new-password",
+                element: <NewPasswordPage />
+            },
+            {
+                path: "/confirm/:id",
+                element: <ConfirmAccountPage />
+            },
+        ],
+    },
+    {
+        path: "/home",
+        element: <Layout />,
+        autentication: true,
+        children: [
+            {
+                index: true, 
+                element: <Home />,
+                loader: loaderProjects
+            },
+            {
+                path: "/home/projects",
                 element: <GestionProjectos />,
                 loader: loaderProjectsData,
                 children: [
                     {
-                        path: '/projects/create-project',
+                        path: '/home/projects/create-project',
                         element: <CreateProject />,
                         action: createProjectAction,
                     },
                     {
-                        path: '/projects/:id',
+                        path: '/home/projects/:id',
                         element: <Project />,
                         loader: projectLoader
                     },
                     {
-                        path: "/projects/:id/edit",
+                        path: "/home/projects/:id/edit",
                         element: <EditProject />,
                         loader: projectLoader,
                         action: editProjectAction
                     }
                 ]
             },
-            {
-                path: "/tasks",
-                element: <GestionTasks />,
-                loader: loaderTasks
-            },
-            {
-                path: "/control-panel",
-                element: <GestionProjectos />,
-            },
-        ],
+        ]
     },
-]); */
+    {
+        path: "/tasks",
+        element: <GestionTasks />,
+        loader: loaderTasks
+    },
+    {
+        path: "/control-panel",
+        element: <GestionProjectos />,
+        loader: loaderProjectsData
+    },
+])
 
 function Router() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<AuthLayout />}>
-                    <Route index element={<LoginPage />} />
-                    <Route path="register" element={<RegisterPage />} />
-                    <Route path="forgot-password" element={<ForgotPasswordPage/>} />
-                    <Route path="new-password" element={<NewPasswordPage />} />
-                    <Route path="confirm/:id" element={<ConfirmAccountPage />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+    
+    return (<RouterProvider router={routes} />);
 }
 export default Router;

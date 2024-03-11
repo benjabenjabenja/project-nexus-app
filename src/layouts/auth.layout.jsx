@@ -5,12 +5,6 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { isValidArray } from "../helpers/validators";
 import { generateUniqueId } from "../helpers/unique_id";
 import { Header } from "../compnents/header";
-/* import { get_routes } from "../services/routes"; */
-
-/* export async function loader() {
-    const routes = await get_routes();
-    return routes || [];
-} */
 
 const WrapperOutlet = ({ children }) =>(
     <main className="container mx-auto mt-4 md:mt-10 flex justify-center">
