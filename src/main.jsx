@@ -19,7 +19,7 @@ const actionsCreator = {
     GET_PROJECT_SUCCESS,
     GET_PROJECT_ERROR,
     GET_PROJECT_CLEAR
-}
+};
 
 const ConectedRouter = connect(mapState, actionsCreator)(Router);
 

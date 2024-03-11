@@ -4,12 +4,13 @@ import {
     createBrowserRouter
 } from "react-router-dom";
 import Layout, { loader as loaderRoutes} from "./compnents/layout.jsx";
-import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos.page.jsx";
+import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos";
 import Home, { loader as loaderProjects } from "./pages/home.jsx";
 import CreateProject from "./pages/projects/create-project.jsx";
 import { action as createProjectAction } from './pages/projects/create-project.jsx';
 import Project, { loader as projectLoader } from './compnents/projects/project.jsx';
 import EditProject from "./pages/projects/edit-project.jsx";
+import GestionTasks, { loader as loaderTasks } from "./pages/tasks/gestion-tasks.jsx";
 
 const router = createBrowserRouter([
     {
@@ -46,7 +47,8 @@ const router = createBrowserRouter([
             },
             {
                 path: "/tasks",
-                element: <GestionProjectos />,
+                element: <GestionTasks />,
+                loader: loaderTasks
             },
             {
                 path: "/control-panel",

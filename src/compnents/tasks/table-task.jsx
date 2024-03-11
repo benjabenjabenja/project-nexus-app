@@ -7,9 +7,9 @@ function TableTask({ tasks }) {
         <Table size="small" aria-label="purchases">                 
             <TableHead>
                 <TableRow>
-                    <TableCell>Project Name</TableCell>
+                    <TableCell>Task Name</TableCell>
                     <TableCell>Completed</TableCell>
-                    <TableCell>Due date</TableCell>
+                    <TableCell>Limit Date</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
