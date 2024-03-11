@@ -19,7 +19,6 @@ const Home = () => {
             {
                 isValidArray(projects) ?
                     <CollapsibleTable projects={projects} /> :
-
                     <p className="p-10 text-center m-auto">No hay proyectos disponibles.</p>
             }
         </>

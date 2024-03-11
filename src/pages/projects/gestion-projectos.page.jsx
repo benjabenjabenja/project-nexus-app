@@ -1,11 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import { Fab } from "@mui/material";
+import { Button, Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { get_projects } from "../../services/projects";
 import CollapsibleTable from "../../compnents/projects/project-list";
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 export async function loader() {
     const projects = await get_projects();
@@ -17,45 +19,80 @@ export async function loader() {
 const classes = {
     customFab: {
         backgroundColor: 'bg-slate-900',
+        margin: '0 auto',
         color: 'white'
     }
 }
 
 const GestionProjectos = () => {
     const data = useLoaderData();
-    const [showContainer, setShowContainer] = useState(false);
+    const [showOutlet, setShowOutlet] = useState(false);
+    const [actionClicked, setActionClicked] = useState('');
+    const [idClicked, setIdClicked] = useState('');
     const navigate = useNavigate();
-    console.log({ data });
+
+    useEffect(
+        () => {
+            if (actionClicked === "edit") {
+                console.log("edit", idClicked);
+                setShowOutlet(true);
+                navigate(`/projects/${idClicked}/edit`);
+            }
+        }, [actionClicked, idClicked]
+    );
 
     const handlerCreateProject = ev => {
         ev.preventDefault();
 
-        setShowContainer(!showContainer);
+        setShowOutlet(true);
         navigate("/projects/create-project");
+    }
+    const handlerBack = ev => {
+        ev.preventDefault();
+
+        setShowOutlet(false);
+        navigate(-1);
     }
 
     return (
         <>
-            <main className={`container ${showContainer ? 'hidden' : ''}`} >
-                <h1 className="text-2xl font-bold text-center">Gestion de Projectos</h1>
-                <p className="text-left py-5">Aqui podras gestionar tus projectos.</p>
+            <Button variant="text" onClick={handlerBack}>
+                <KeyboardArrowLeftIcon /> Back
+            </Button>
+            <main className='container'>
+                
+                <h1 className={`text-2xl font-bold text-center mb-4 ${showOutlet ? 'hidden' : ''}`}>Gestion de Projectos</h1>
+                <section className={`container flex justify-between ${showOutlet ? 'hidden' : ''}`}>
 
-                <div className="container">
+                    <h2 className="text-left text-xl py-5 my-auto">Aqui podras gestionar tus projectos.</h2>
+                    <Fab
+                        title="nav to /create-project"
+                        onClick={handlerCreateProject}
+                        classes={classes.customFab}
+                        aria-label="add"
+                        variant="extended"
+                        size="medium"
+                    >
+                        <AddIcon sx={{ mr: 1 }} /> Add Project
+                    </Fab>
+                </section>
+
+                <section className={`container ${showOutlet ? 'hidden' : ''}`} >
                     {
-                       data && <CollapsibleTable className="mb-3" withActions={true} projects={data?.projects} /> 
+                        data && <CollapsibleTable
+                            className="mb-3"
+                            projects={data?.projects}
+                            withActions={true}
+                            setActionClicked={setActionClicked}
+                            setIdClicked={setIdClicked}
+                        />
                     }
-                </div>
-                {/* Boton para crear un proyecto */}
+                </section>
+
+                <section className={`container ${!showOutlet ? 'hidden' : ''}`}>
+                    <Outlet />
+                </section>
             </main>
-            <div className={`container mt-2 ${showContainer ? 'hidden' : ''}`}>
-                <Fab title="nav to /create-project" onClick={handlerCreateProject} classes={classes.customFab} aria-label="add" variant="extended" size="medium">
-                    <AddIcon sx={{ mr: 1 }} />
-                    add project
-                </Fab>
-            </div>
-            <div className={`mt-3 ${!showContainer ? 'hidden' : ''}`}>
-                <Outlet />
-            </div>
         </>
     );
 };

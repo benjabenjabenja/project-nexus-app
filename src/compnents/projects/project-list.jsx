@@ -17,20 +17,22 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
-import { useNavigate } from "react-router-dom";
+import TableTask from "../tasks/table-task";
 
 function Row(props) {
-
-    const navigate = useNavigate();
-    const { project, withActions } = props;
+    const { project, withActions, setActionClicked, setIdClicked } = props;
     const [open, setOpen] = useState(false);
 
     const handlerDelete = ev => {
         ev.preventDefault();
+        setActionClicked('delete');
         console.log("deleting project ", project.id);
     }
 
-    const handlerEdit = () => navigate.navigate(`/projects/project/${project.id}`);
+    const handlerEdit = () => {
+        setActionClicked('edit');
+        setIdClicked(project.id);
+    };
 
     return (
         <>
@@ -51,6 +53,7 @@ function Row(props) {
                 <TableCell>{project.limitDate}</TableCell>
                 <TableCell>{project.description}</TableCell>
                 <TableCell>{project.status}</TableCell>
+                {/* actions edit/delete */}
                 <TableCell className={`${withActions ? 'block' : 'hidden'}`}>
                     {withActions && (
                         <>
@@ -90,34 +93,7 @@ function Row(props) {
                             >
                                 Tasks
                             </Typography>
-                            <Table size="small" aria-label="purchases">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Project Name</TableCell>
-                                        <TableCell>Completed</TableCell>
-                                        <TableCell>Due date</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {project.tasks.map((historyRow) => (
-                                        <TableRow
-                                            key={generateUniqueId()}
-                                        >
-                                            <TableCell>
-                                                {historyRow.taskName}
-                                            </TableCell>
-                                            <TableCell>
-                                                {historyRow.completed
-                                                    ? "Completed"
-                                                    : "Pending"}
-                                            </TableCell>
-                                            <TableCell>
-                                                {historyRow.limitDate}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                            <TableTask tasks={project.tasks} />
                         </Box>
                     </Collapse>
                 </TableCell>
@@ -126,7 +102,7 @@ function Row(props) {
     );
 }
 
-export default function CollapsibleTable({ projects, withActions }) {
+export default function CollapsibleTable({ projects, withActions, setActionClicked, setIdClicked }) {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -142,7 +118,13 @@ export default function CollapsibleTable({ projects, withActions }) {
                 </TableHead>
                 <TableBody>
                     {projects.map((row) => (
-                        <Row key={generateUniqueId()} withActions={withActions} project={row} />
+                        <Row
+                            key={generateUniqueId()}
+                            withActions={withActions}
+                            setActionClicked={setActionClicked}
+                            project={row}
+                            setIdClicked={setIdClicked}
+                        />
                     ))}
                 </TableBody>
             </Table>

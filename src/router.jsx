@@ -9,6 +9,7 @@ import Home, { loader as loaderProjects } from "./pages/home.jsx";
 import CreateProject from "./pages/projects/create-project.jsx";
 import { action as createProjectAction } from './pages/projects/create-project.jsx';
 import Project, { loader as projectLoader } from './compnents/projects/project.jsx';
+import EditProject from "./pages/projects/edit-project.jsx";
 
 const router = createBrowserRouter([
     {
@@ -37,8 +38,8 @@ const router = createBrowserRouter([
                         loader: projectLoader
                     },
                     {
-                        path: "/projects/project/:id",
-                        element: <Project />,
+                        path: "/projects/:id/edit",
+                        element: <EditProject />,
                         loader: projectLoader
                     }
                 ]
