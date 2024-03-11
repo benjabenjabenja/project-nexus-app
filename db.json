@@ -200,7 +200,25 @@
   ],
   "users": [
     {
-      "id": "a052"
+      "id": "a052",
+      "email": "asdf@asdf.com",
+      "name": "Juan",
+      "role": "ADMIN",
+      "password": "123123"
+    },
+    {
+      "id": "a052QW",
+      "email": "asdf2@asdf.com",
+      "name": "Carlos",
+      "role": "DEVELOPER",
+      "password": "123123"
+    },
+    {
+      "id": "a052WEQ",
+      "email": "asdf1@asdf.com",
+      "name": "Joe Mario",
+      "role": "MANAGER",
+      "password": "123123"
     }
   ]
 }
