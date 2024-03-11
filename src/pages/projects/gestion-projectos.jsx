@@ -64,7 +64,7 @@ const GestionProjectos = () => {
                 <h1 className={`text-2xl font-bold text-center mb-4 ${showOutlet ? 'hidden' : ''}`}>Gestion de Projectos</h1>
                 <section className={`container flex justify-between ${showOutlet ? 'hidden' : ''}`}>
 
-                    <h2 className="text-left text-xl py-5 my-auto">Aqui podras gestionar tus projectos.</h2>
+                    <h2 className="text-left text-xl py-5 my-auto">Aqui podras gestionar tus proyectos.</h2>
                     <Fab
                         title="nav to /create-project"
                         onClick={handlerCreateProject}

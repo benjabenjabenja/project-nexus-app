@@ -51,7 +51,6 @@ const AddUsers = () => {
 }
 
 const ProjectDetail = ({ project }) => {
-    console.log("detail", project)
     return (
         <main className="p-4 mx-4 w-full">
             <Grid container>

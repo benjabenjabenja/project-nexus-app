@@ -2,6 +2,8 @@
 import { Button, Container, Grid, TextField } from "@mui/material";
 import { Form, redirect, useActionData } from "react-router-dom";
 import { create_project } from "../../services/projects";
+import { isValidArray } from "../../helpers/validators";
+import { generateUniqueId } from "../../helpers/unique_id";
 
 export async function action({ request }) {
     const fd = await request.formData();
@@ -36,12 +38,23 @@ export async function action({ request }) {
 }
 
 function CreateProject() {
-    const errors_create_project = useActionData();
-    console.log({ errors_create_project });
+    const errorsForm = useActionData();
+    console.log({ errorsForm });
     return (
         <>
+            <Container className={`${!isValidArray(errorsForm) ? 'hidden' : ''}`}>
+                {
+                    isValidArray(errorsForm) && <div className="bg-red-700 text-white rounded">
+                        {
+                            errorsForm.map( error => <p key={generateUniqueId()} className="px-4 py-2 mb-2">{error}</p>)
+                        }
+                    </div>
+                }
+            </Container>
             <Container maxWidth="sm">
-                <h2 className="text-2xl text-center font-bold mb-6">Create Project</h2>
+                
+                <h2 className="text-2xl text-center font-bold m-auto">Create Project</h2>
+
                 <Form method="post">
                     <Grid container spacing={2}>
                         {/* Project Name */}
