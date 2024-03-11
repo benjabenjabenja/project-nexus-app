@@ -24,7 +24,6 @@ function GestionTasks() {
     const [showOutlet, setShowOutlet] = useState(false);
     const tasks = useLoaderData();
     const navigate = useNavigate();
-    console.log({ tasks });
 
     const handlerBack = ev => {
         ev.preventDefault();
