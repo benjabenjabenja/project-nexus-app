@@ -2,9 +2,9 @@
 
 import { Box, Fab, Grid, Typography } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import TableTask from "../tasks/table-task.jsx";
 import { isValidArray } from "../../helpers/validators";
 import TableUsers from "../users/table-users.jsx";
+import TableTask from "../tasks/table-task";
 
 const classes = {
     customFab: {
@@ -65,46 +65,50 @@ const ProjectDetail = ({ project }) => {
                     Project Description: <strong>{` ${project.description ?? 'Empty Description'}`} </strong>
                 </Grid>
             </Grid>
-            {
-                isValidArray(project.tasks) ? (
-                    <Box sx={{ margin: 1 }}>
-                        <Typography
-                            variant="h6"
-                            gutterBottom
-                            component="div"
-                        >
-                            Tasks
-                        </Typography>
-                        <TableTask tasks={project.tasks} />
-                    </Box>
-                ) :
-                (<Box sx={{ margin: 1 }}>
-                    <section className="flex items-center px-10 py-6 my-auto">
-                        <p className="font-semibold mr-2">No task in this project.</p>
-                        <AddTasks />
-                    </section>
-                </Box>)
-            }
-            {
-                isValidArray(project.users) ? (
-                    <Box sx={{ margin: 1 }}>
-                        <Typography
-                            variant="h6"
-                            gutterBottom
-                            component="div"
-                        >
-                            Members
-                        </Typography>
-                        <TableUsers tasks={project.users} />
-                    </Box>
-                ) : 
-                (<Box sx={{ margin: 1 }}>
-                    <section className="flex items-center px-10 py-6 my-auto">
-                        <p className="font-semibold mr-2">No members in this project.</p>
-                        <AddUsers />
-                    </section>
-                </Box>)
-            }
+            <section>
+                {
+                    isValidArray(project.tasks) ? (
+                        <Box sx={{ margin: 1 }}>
+                            <Typography
+                                variant="h6"
+                                gutterBottom
+                                component="div"
+                            >
+                                Tasks
+                            </Typography>
+                            <TableTask tasks={project.tasks} />
+                        </Box>
+                    ) :
+                    (<Box sx={{ margin: 1 }}>
+                        <section className="flex items-center px-10 py-6 my-auto">
+                            <p className="font-semibold mr-2">No task in this project.</p>
+                            <AddTasks />
+                        </section>
+                    </Box>)
+                }
+            </section>
+            <section>
+                {
+                    isValidArray(project.users) ? (
+                        <Box sx={{ margin: 1 }}>
+                            <Typography
+                                variant="h6"
+                                gutterBottom
+                                component="div"
+                            >
+                                Members
+                            </Typography>
+                            <TableUsers tasks={project.users} />
+                        </Box>
+                    ) : 
+                    (<Box sx={{ margin: 1 }}>
+                        <section className="flex items-center px-10 py-6 my-auto">
+                            <p className="font-semibold mr-2">No members in this project.</p>
+                            <AddUsers />
+                        </section>
+                    </Box>)
+                }
+            </section>
         </main>
     );
 }
