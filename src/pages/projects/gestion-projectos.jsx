@@ -45,7 +45,7 @@ const GestionProjectos = () => {
         ev.preventDefault();
 
         setShowOutlet(true);
-        navigate("/projects/create-project");
+        navigate("/home/projects/create-project");
     }
     const handlerBack = ev => {
         ev.preventDefault();

@@ -6,17 +6,17 @@
       "id": "3da0"
     },
     {
-      "url": "/projects",
+      "url": "/home/projects",
       "view-id": "projects",
       "id": "a851"
     },
     {
-      "url": "/tasks",
+      "url": "/home/projects/tasks",
       "view-id": "tasks",
       "id": "1a85"
     },
     {
-      "url": "/control-panel",
+      "url": "/home/control-panel",
       "view-id": "control panel",
       "id": "dead"
     }

@@ -4,13 +4,12 @@ import {
     createBrowserRouter,
 } from "react-router-dom";
 import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos";
-import Layout from "./compnents/layout";
+import Layout, { loader as loaderMenu } from "./compnents/layout";
 import CreateProject from "./pages/projects/create-project";
 import { action as createProjectAction } from './pages/projects/create-project';
 import Project, { loader as projectLoader } from './compnents/projects/project';
 import EditProject from "./pages/projects/edit-project";
 import { action as editProjectAction } from "./compnents/projects/form-edit-project"
-
 import GestionTasks, { loader as loaderTasks } from "./pages/tasks/gestion-tasks";
 import Home, { loader as loaderProjects } from "./pages/home";
 import AuthLayout from "./layouts/auth.layout"; 
@@ -51,7 +50,7 @@ const routes = createBrowserRouter([
     {
         path: "/home",
         element: <Layout />,
-        autentication: true,
+        loader: loaderMenu,
         children: [
             {
                 index: true, 
@@ -78,20 +77,20 @@ const routes = createBrowserRouter([
                         element: <EditProject />,
                         loader: projectLoader,
                         action: editProjectAction
-                    }
+                    },
+                    {
+                        path: "/home/projects/tasks",
+                        element: <GestionTasks />,
+                        loader: loaderTasks
+                    },
+                    {
+                        path: "/home/projects/control-panel",
+                        element: <GestionProjectos />,
+                        loader: loaderProjectsData
+                    },
                 ]
             },
         ]
-    },
-    {
-        path: "/tasks",
-        element: <GestionTasks />,
-        loader: loaderTasks
-    },
-    {
-        path: "/control-panel",
-        element: <GestionProjectos />,
-        loader: loaderProjectsData
     },
 ])
 
