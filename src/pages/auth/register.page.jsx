@@ -2,7 +2,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from "react";
 import WrapperContainerPages from "../../compnents/wrapper";
-import { Form, Link, useActionData } from "react-router-dom";
+import { Form, Link, redirect, useActionData } from "react-router-dom";
 import { isValidArray } from "../../helpers/validators";
 import AlertErrorForm from "../../compnents/alert-error-form";
 import { register } from "../../services/auth";
@@ -38,7 +38,7 @@ export async function action({ request }) {
                 isLoged: false
             }
         });
-        return response;
+        return redirect("/");
     } catch (e) {
         errors.push(e.message);
     }
@@ -55,7 +55,6 @@ const RegisterForm = () => {
     ]);
     const errors = useActionData();
 
-    console.log({errors})
     const handlerShowPassword = ev => {
 		ev.preventDefault();
 		setShowPassword(!showPassword);

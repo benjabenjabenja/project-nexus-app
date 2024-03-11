@@ -7,14 +7,14 @@ const __url_auth = `${enviroment.api_url}/users`;
 export const login = async ({ email, password }) => {
     try {
         const users = await get_users();
-        const find = users.find(user => user.email === email && password === user.password);
+        const find = users.find(({user}) => user.email === email && password === user.password);
         if (find) {
             const user_loged = {
                 ...find,
                 token: generateUniqueId() + generateUniqueId(),
                 isAutenticated: true
             }
-
+            console.log({user_loged});
             localStorage.setItem("userId", JSON.stringify(user_loged.id));
             return user_loged;
         }
@@ -49,7 +49,7 @@ export const register = async function ({ user }) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ user })
+            body: JSON.stringify(user)
         });
         return await response.json();
     } catch (e) {

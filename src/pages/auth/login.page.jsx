@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Form, Link, redirect, useActionData } from "react-router-dom";
 import WrapperContainerPages from "../../compnents/wrapper";
 import { isValidArray } from "../../helpers/validators";
-import { generateUniqueId } from "../../helpers/unique_id";
 import { login } from "../../services/auth";
+import AlertErrorForm from "../../compnents/alert-error-form";
 
 export async function action({ request }) {
 	const errors = [];
@@ -21,8 +21,8 @@ export async function action({ request }) {
 		if ("".includes(password)) { errors.push('contraseña es requerida') }
 
 		const loginResponse = await login({ email, password });
+		console.log({ loginResponse });
 		if (loginResponse) return redirect("/home");
-		return;
 	} catch (e) {
 		errors.push(e.message);
 	}
@@ -39,12 +39,7 @@ const LoginForm = () => {
 	return (
 		<>
 			{
-				isValidArray(errors) &&
-				<div className="container mb-4 px-3 py-2 bg-red-700 rounded-md">
-					{
-						errors.map(error => <p className="py-1 text-slate-50" key={generateUniqueId()}>{error}</p>)
-					}
-				</div>
+				isValidArray(errors) && <AlertErrorForm errors={errors} />
 			}
 			<Form method="post">
 				<div className="flex items-center mb-2">

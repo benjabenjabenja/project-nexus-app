@@ -5,7 +5,7 @@ import {
     GET_PROJECTS_CLEAR,
     GET_PROJECTS_ERROR,
     GET_PROJECTS_SUCCESS
-} from '../project.actions';
+} from '../actions/project.actions';
 
 const initialState = {
     pending: false,

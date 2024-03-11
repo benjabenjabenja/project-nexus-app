@@ -179,8 +179,7 @@
         "password": "123123",
         "isLoged": false
       },
-      "id": "a052",
-      "isLoged": false
+      "id": "a052"
     },
     {
       "id": "a052QW",
@@ -202,6 +201,39 @@
         "password": "1234",
         "isLoged": false,
         "role": "MANAGER"
+      }
+    },
+    {
+      "id": "3cd3",
+      "user": {
+        "name": "Benjamín González ",
+        "email": "jgonzalez.benjamin@gmail.com",
+        "password": "123123",
+        "tasks": [],
+        "role": "ADMIN",
+        "isLoged": false
+      }
+    },
+    {
+      "id": "75a1",
+      "user": {
+        "name": "Benjamín González ",
+        "email": "jgonzalez.benjamin@gmail.com",
+        "password": "123123",
+        "tasks": [],
+        "role": "ADMIN",
+        "isLoged": false
+      }
+    },
+    {
+      "id": "2456",
+      "user": {
+        "name": "Benjamín González ",
+        "email": "jgonzalez.benjamin@gmail.com",
+        "password": "123123",
+        "tasks": [],
+        "role": "ADMIN",
+        "isLoged": false
       }
     }
   ]
