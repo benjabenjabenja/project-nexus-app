@@ -21,7 +21,6 @@ export async function action({ request }) {
 		if ("".includes(password)) { errors.push('contraseña es requerida') }
 
 		const loginResponse = await login({ email, password });
-		console.log({ loginResponse });
 		if (loginResponse) return redirect("/home");
 	} catch (e) {
 		errors.push(e.message);
@@ -42,6 +41,7 @@ const LoginForm = () => {
 				isValidArray(errors) && <AlertErrorForm errors={errors} />
 			}
 			<Form method="post">
+				{/* input email */}
 				<div className="flex items-center mb-2">
 					<label className="text-left w-1/6" htmlFor="email"><strong> Email </strong> </label>
 					<input
@@ -51,6 +51,7 @@ const LoginForm = () => {
 						id="email"
 					/>
 				</div>
+				{/* input password */}
 				<div className="flex items-center">
 					<label className="text-left w-1/6" htmlFor="password"><strong> Password </strong> </label>
 					<input
@@ -67,6 +68,7 @@ const LoginForm = () => {
 					> {showPassword ? "ocultar" : "mostrar"}
 					</button>
 				</div>
+				{/* button login */}
 				<button
 					className="uppercase font-black my-2 px-4 py-3 rounded-md text-center sm:full md:w-2/3 hover:bg-slate-950 hover:text-slate-100 transition-colors"
 					type="submit"

@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import enviroment from "../../enviroment";
 import { Link, Outlet, useLoaderData, useLocation } from 'react-router-dom';
-import { Header } from './header'
+import { Header } from '../compnents/header'
 import { isValidArray } from "../helpers/validators";
 import { generateUniqueId } from "../helpers/unique_id";
 
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
     min-height: 100vh;
 `;
 
-function Layout() {
+function HomeLayout() {
     const menuItems = useLoaderData();
     const location = useLocation();
     return (
@@ -62,4 +62,4 @@ function Layout() {
     )
 }
 
-export default Layout;
+export default HomeLayout;

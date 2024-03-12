@@ -20,7 +20,7 @@ export const get_user_by_id = async ({id}) => {
     }
 }
 
-export const create_user = async ({ user }) => {
+export const create_user = async (user) => {
     try {
         const options = {
             method: 'POST',
@@ -36,7 +36,7 @@ export const create_user = async ({ user }) => {
     }
 }
 
-export const update_user = async ({ user }) => {
+export const update_user = async (user) => {
     try {
         const options = {
             method: "PUT",

@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
-import { Form, Link, useActionData } from "react-router-dom";
+import { Form, Link, redirect, useActionData } from "react-router-dom";
 import WrapperContainerPages from "../../compnents/wrapper";
+import AlertErrorForm from '../../compnents/alert-error-form';
 import { isValidArray } from "../../helpers/validators";
 import { forgot_password } from "../../services/auth";
-import AlertErrorForm from '../../compnents/alert-error-form';
 
 export async function action({ request }) {
 	const errors = [];
@@ -14,10 +14,9 @@ export async function action({ request }) {
 		const regexp = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
 		if (!regexp.test(email)) { errors.push('email no valido') }
 		if("".includes(email)) { errors.push('email es requerido') }
-		const forgotPasswordResponse = await forgot_password({ email });
-        console.log({ forgotPasswordResponse });
+		await forgot_password({ email });
 		// TODO: redirect to /home
-        return;
+		return redirect("/login");
 	} catch (e) {
 		errors.push(e.message);
 	}
@@ -65,7 +64,7 @@ function ForgotPasswordPage() {
 					> registrate a nuestra web! </Link>
 					<Link
 						className="uppercase text-md text-slate-400 hover:text-slate-950 rounded-md ml-auto mr-0 w-full mb-2 lg:w-1/2"
-						to="/forgot-password"
+						to="/login"
 					> tienes una cuenta? Ingresá aqui </Link>
 
 				</nav>

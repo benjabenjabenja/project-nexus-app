@@ -28,16 +28,16 @@ export async function action({ request }) {
         if (password !== repeat_password)
             errors.push("las contraseñas deben coincidir");
         if ("".includes(role)) errors.push("el rol es requerido");
-        const response = await register({
-            user: {
-                name,
-                email,
-                password,
-                tasks: [],
-                role,
-                isLoged: false
-            }
-        });
+
+        const user = {
+            name,
+            email,
+            password,
+            tasks: [],
+            role,
+            isLoged: false
+        }
+        const response = await register(user);
         return redirect("/");
     } catch (e) {
         errors.push(e.message);
