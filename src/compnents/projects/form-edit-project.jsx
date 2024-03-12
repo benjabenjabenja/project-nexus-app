@@ -61,6 +61,7 @@ function FormEditProject({ project }) {
                             name="limitDate"
                             id="limit-date"
                             value={limitDate}
+                            onChange={ ev => setLimitDate(ev.target.value)}
                         />
                     </div>
                 </Grid>

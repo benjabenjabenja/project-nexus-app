@@ -34,7 +34,6 @@ const GestionProjectos = () => {
     useEffect(
         () => {
             if (actionClicked === "edit") {
-                console.log("edit", idClicked);
                 setShowOutlet(true);
                 navigate(`/home/projects/${idClicked}/edit`);
             }
@@ -79,7 +78,7 @@ const GestionProjectos = () => {
 
                 <section className={`container ${showOutlet ? 'hidden' : ''}`} >
                     {
-                        data && <CollapsibleTable
+                        data?.projects && <CollapsibleTable
                             className="mb-3"
                             projects={data?.projects}
                             withActions={true}
