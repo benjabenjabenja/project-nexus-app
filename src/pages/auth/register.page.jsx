@@ -163,10 +163,11 @@ const RegisterForm = () => {
                     </label>
                     <div className="flex items-center">
                         <select
+                            onChange={e => setRole(e.target.value)}
                             className="block w-full p-2 rounded-md"
                             type="text"
                             name="role"
-                            id="role"   
+                            id="role"
                             >
                                 <option value="" selected>-- SELECCIONAR ROL</option>
                                 {

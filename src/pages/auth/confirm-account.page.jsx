@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
-import { useState } from "react";
-import { Form, Link, useActionData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form, Link, useActionData, useParams } from "react-router-dom";
 import { isValidArray } from "../../helpers/validators";
 import AlertErrorForm from "../../compnents/alert-error-form";
 import WrapperContainerPages from "../../compnents/wrapper-container-pages";
@@ -19,6 +20,18 @@ export async function action({ request }) {
 
 const FormConfirmarPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const params = useParams();
+    const { id } = params;
+    useEffect(
+        () => {
+            const confirm_account = async () => {
+                // methodos para confirmar account
+                console.log({ id });
+            }
+            confirm_account();
+        },
+        []
+    );
     const handlerShowPassword = ev => {
         ev.preventDefault();
 

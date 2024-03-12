@@ -190,6 +190,24 @@
         "token": "arq-1710246284347676arq-1710246284347283"
       },
       "id": "a052"
+    },
+    {
+      "id": "9aac",
+      "name": "qw",
+      "email": "qwe@qwe.com",
+      "password": "qwe",
+      "tasks": [],
+      "role": "DEVELOPER",
+      "isLoged": false
+    },
+    {
+      "id": "d17e",
+      "name": "Benjamín González ",
+      "email": "jgonzalez.benjamin@gmail.com",
+      "password": "123",
+      "tasks": [],
+      "role": "MANAGER",
+      "isLoged": false
     }
   ]
 }
