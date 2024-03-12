@@ -1,18 +1,21 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import styled from "styled-components";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { isValidArray } from "../helpers/validators";
 import { generateUniqueId } from "../helpers/unique_id";
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Header } from "../compnents/header";
+import { Button } from "@mui/material";
 
-const WrapperOutlet = ({ children }) =>(
+const WrapperOutlet = ({ children }) => {
+    return (
     <main className="container mx-auto mt-4 md:mt-10 flex justify-center">
         <div className="w-full lg:w-2/3">
             {children}
         </div>
     </main>
-);
+)};
 
 const Wrapper = styled.div`
     background-color: #edede9;
@@ -27,7 +30,11 @@ function AuthLayout() {
 
     const menuItems = [];//useLoaderData();
     const location = useLocation();
-
+    const navigate = useNavigate();
+    const handlerBack = ev => {
+        ev.preventDefault();
+        navigate(-1);
+    }
     return (
         <Wrapper>
             <Header className="shadow-md mb-4">
@@ -47,6 +54,9 @@ function AuthLayout() {
                 </nav>
             </Header>
             <WrapperOutlet>
+                <Button variant="text" onClick={handlerBack}>
+                    <KeyboardArrowLeftIcon /> Back
+                </Button>
                 <Outlet />
             </WrapperOutlet>
         </Wrapper>

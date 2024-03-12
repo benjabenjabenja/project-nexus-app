@@ -1,9 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { Form, redirect, useActionData } from "react-router-dom";
 import { create_project } from "../../services/projects";
 import { isValidArray } from "../../helpers/validators";
-import { generateUniqueId } from "../../helpers/unique_id";
+import AlertErrorForm from "../../compnents/alert-error-form";
 
 export async function action({ request }) {
     const fd = await request.formData();
@@ -15,7 +15,6 @@ export async function action({ request }) {
     }
     // TODO - verificar campo a campo
     const errors = [];
-
     const {
         projectName,
         description,
@@ -34,81 +33,77 @@ export async function action({ request }) {
         limitDate,
     });
 
-    return redirect(`/projects/${createProjectResponse.id}`);
+    return redirect(`/home/projects/${createProjectResponse.id}`);
+}
+
+const FormCreateProject = () => {
+    return (
+        <Form method="post">
+            <Grid container spacing={2}>
+                {/* Project Name */}
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Project Name"
+                        variant="outlined"
+                        name="projectName"
+                    />
+                </Grid>
+                {/* Limit Date */}
+                <Grid item xs={12}>
+                    <div className="container flex flex-column">
+                        <label
+                            className="my-auto mr-auto w-1/4"
+                            htmlFor="limit-date"
+                        >
+                            Limit Date{" "}
+                        </label>
+                        <TextField
+                            className="my-auto block w-3/4"
+                            type="date"
+                            name="limitDate"
+                            id="limit-date"
+                        />
+                    </div>
+                </Grid>
+                {/* Description */}
+                <Grid item xs={12}>
+                    <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Description"
+                        variant="outlined"
+                        name="description"
+                        multiline
+                        rows={4}
+                    />
+                </Grid>
+                {/* Button createProject */}
+                <Grid item xs={12}>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                    >
+                        Create Project
+                    </Button>
+                </Grid>
+            </Grid>
+        </Form>
+    );
 }
 
 function CreateProject() {
     const errorsForm = useActionData();
-    console.log({ errorsForm });
     return (
         <>
-            <Container className={`${!isValidArray(errorsForm) ? 'hidden' : ''}`}>
-                {
-                    isValidArray(errorsForm) && <div className="bg-red-700 text-white rounded">
-                        {
-                            errorsForm.map( error => <p key={generateUniqueId()} className="px-4 py-2 mb-2">{error}</p>)
-                        }
-                    </div>
-                }
-            </Container>
-            <Container maxWidth="sm">
-                
-                <h2 className="text-2xl text-center font-bold m-auto">Create Project</h2>
-
-                <Form method="post">
-                    <Grid container spacing={2}>
-                        {/* Project Name */}
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                id="outlined-basic"
-                                label="Project Name"
-                                variant="outlined"
-                                name="projectName"
-                            />
-                        </Grid>
-                        {/* Limit Date */}
-                        <Grid item xs={12}>
-                            <div className="container flex flex-column">
-                                <label
-                                    className="my-auto mr-auto w-1/4"
-                                    htmlFor="limit-date"
-                                >
-                                    Limit Date{" "}
-                                </label>
-                                <TextField
-                                    className="my-auto block w-3/4"
-                                    type="date"
-                                    name="limitDate"
-                                    id="limit-date"
-                                />
-                            </div>
-                        </Grid>
-                        {/* Description */}
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                id="outlined-basic"
-                                label="Description"
-                                variant="outlined"
-                                name="description"
-                                multiline
-                                rows={4}
-                            />
-                        </Grid>
-                        {/* Button createProject */}
-                        <Grid item xs={12}>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                            >
-                                Create Project
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Form>
-            </Container>
+           
+            {
+                isValidArray(errorsForm) && <AlertErrorForm errors={errorsForm} />
+            }
+            <h2 className="text-2xl text-center font-bold m-auto">Create Project</h2>
+            <FormCreateProject />
         </>
     );
 }

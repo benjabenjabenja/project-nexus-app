@@ -10,7 +10,7 @@ import {
     GET_PROJECT_SUCCESS,
     GET_PROJECT_ERROR,
     GET_PROJECT_CLEAR
-} from "./store/projects/project.slice";
+} from "./store/project.slice";
 
 const mapState = state => state;
 

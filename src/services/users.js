@@ -20,14 +20,14 @@ export const get_user_by_id = async ({id}) => {
     }
 }
 
-export const create_user = async ({ user }) => {
+export const create_user = async (user) => {
     try {
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ user })
+            body: JSON.stringify(user)
         }
         const response = await fetch(__url_base, options);
         return await response.json();
@@ -36,7 +36,7 @@ export const create_user = async ({ user }) => {
     }
 }
 
-export const update_user = async ({ user }) => {
+export const update_user = async (user) => {
     try {
         const options = {
             method: "PUT",

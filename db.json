@@ -2,7 +2,7 @@
   "routes": [
     {
       "url": "/home",
-      "view-id": "workplace",
+      "view-id": "home",
       "id": "3da0"
     },
     {
@@ -147,6 +147,15 @@
       ],
       "createdAt": "10/01/2023",
       "id": "4146"
+    },
+    {
+      "id": "arq-1710202363665387",
+      "projectName": "asfdasdf",
+      "description": "123123123asdfasdfasdfsdf",
+      "limitDate": "2024-03-13",
+      "tasks": [],
+      "users": [],
+      "createdAt": "2024-03-12T00:12:43.665Z"
     }
   ],
   "tasks": [
@@ -177,32 +186,10 @@
         "name": "Juan",
         "role": "ADMIN",
         "password": "123123",
-        "isLoged": false
+        "isLoged": true,
+        "token": "arq-1710246284347676arq-1710246284347283"
       },
-      "id": "a052",
-      "isLoged": false
-    },
-    {
-      "id": "a052QW",
-      "user": {
-        "email": "asdf2@asdf.com",
-        "repeat_email": "asdf2@asdf.com",
-        "name": "Carlos",
-        "role": "DEVELOPER",
-        "password": "123123",
-        "isLogged": false
-      }
-    },
-    {
-      "id": "4926",
-      "user": {
-        "name": "Benjamín González ",
-        "email": "jgonzalez.benjamin@gmail.com",
-        "repeat_email": "jgonzalez.benjamin@gmail.com",
-        "password": "1234",
-        "isLoged": false,
-        "role": "MANAGER"
-      }
+      "id": "a052"
     }
   ]
 }

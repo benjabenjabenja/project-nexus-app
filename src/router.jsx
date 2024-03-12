@@ -3,20 +3,19 @@ import {
     RouterProvider,
     createBrowserRouter,
 } from "react-router-dom";
+import AuthLayout from "./layouts/auth.layout"; 
 import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos";
-import Layout, { loader as loaderMenu } from "./compnents/layout";
-import CreateProject from "./pages/projects/create-project";
-import { action as createProjectAction } from './pages/projects/create-project';
+import HomeLayout, { loader as loaderMenu } from "./layouts/home.layout";
+import CreateProject, { action as createProjectAction } from './pages/projects/create-project';
 import Project, { loader as projectLoader } from './compnents/projects/project';
-import EditProject from "./pages/projects/edit-project";
-import { action as editProjectAction } from "./compnents/projects/form-edit-project"
+import EditProject from "./pages/projects/edit-project"
+import { action as editProjectAction } from './compnents/projects/form-edit-project';
 import GestionTasks, { loader as loaderTasks } from "./pages/tasks/gestion-tasks";
 import Home, { loader as loaderProjects } from "./pages/home";
-import AuthLayout from "./layouts/auth.layout"; 
 import LoginPage, { action as loginAction } from "./pages/auth/login.page";
 import RegisterPage, { action as registerAction } from "./pages/auth/register.page";
-import ForgotPasswordPage from "./pages/auth/forgot-password.page";
-import NewPasswordPage from "./pages/auth/new-password.page";
+import ForgotPasswordPage, { action as forgotPasswordAction } from "./pages/auth/forgot-password.page";
+import NewPasswordPage, { action as newPasswordAction } from "./pages/auth/new-password.page";
 import ConfirmAccountPage from "./pages/auth/confirm-account.page";
 import LogoutPage, { loader as logoutLoader } from "./pages/auth/logout.page";
 
@@ -42,25 +41,27 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/forgot-password",
-                element: <ForgotPasswordPage />
+                element: <ForgotPasswordPage />,
+                action: forgotPasswordAction
             },
             {
                 path: "/new-password",
-                element: <NewPasswordPage />
+                element: <NewPasswordPage />,
+                action: newPasswordAction
             },
             {
                 path: "/confirm/:id",
                 element: <ConfirmAccountPage />
             },
-        ],
+        ]
     },
-    {
+    {// se deberian controlar el token de alguna forma
         path: "/home",
-        element: <Layout />,
+        element: <HomeLayout />,
         loader: loaderMenu,
         children: [
             {
-                index: true, 
+                index: true,
                 element: <Home />,
                 loader: loaderProjects
             },
@@ -104,10 +105,10 @@ const routes = createBrowserRouter([
         element: <LogoutPage />,
         loader: logoutLoader
     }
-])
+]);
 
 function Router() {
-    
     return (<RouterProvider router={routes} />);
 }
+
 export default Router;

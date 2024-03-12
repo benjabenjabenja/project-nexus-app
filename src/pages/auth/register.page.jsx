@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from "react";
-import WrapperContainerPages from "../../compnents/wrapper";
-import { Form, Link, useActionData } from "react-router-dom";
+import WrapperContainerPages from "../../compnents/wrapper-container-pages";
+import { Form, Link, redirect, useActionData } from "react-router-dom";
 import { isValidArray } from "../../helpers/validators";
 import AlertErrorForm from "../../compnents/alert-error-form";
 import { register } from "../../services/auth";
@@ -28,21 +28,21 @@ export async function action({ request }) {
         if (password !== repeat_password)
             errors.push("las contraseñas deben coincidir");
         if ("".includes(role)) errors.push("el rol es requerido");
-        const response = await register({
-            user: {
-                name,
-                email,
-                password,
-                tasks: [],
-                role,
-                isLoged: false
-            }
-        });
-        return response;
+
+        const user = {
+            name,
+            email,
+            password,
+            tasks: [],
+            role,
+            isLoged: false
+        }
+        const response = await register(user);
+        return redirect("/");
     } catch (e) {
         errors.push(e.message);
     }
-    return [errors];
+    return errors;
 }
 
 const RegisterForm = () => {
@@ -51,11 +51,17 @@ const RegisterForm = () => {
     const [roles, setRoles] = useState([
         { value: "ADMIN", label: "admin" },
         { value: "DEVELOPER", label: "developer" },
-        { value: "MANAGER", label: "manager" },
+        { value: "MANAGER", label: "manager" },                      
     ]);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [repeatEmail, setrepeatEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
+    const [role, setRole] = useState('');
+
     const errors = useActionData();
 
-    console.log({errors})
     const handlerShowPassword = ev => {
 		ev.preventDefault();
 		setShowPassword(!showPassword);
@@ -70,105 +76,115 @@ const RegisterForm = () => {
                 isValidArray(errors) && <AlertErrorForm errors={errors} />
             }
             <Form method="post">
-            {/* input nombre */}
-			<div className="flex flex-col items-between gap-2 my-2">
-				<label className="block text-left" htmlFor="name"><strong> Nombre </strong> </label>
-				<input
-					className="p-2 rounded-md"
-					type="text"
-					name="name"
-					id="name"
-				/>
-            </div>
-            {/* input email */}
-            <div className="flex flex-col items-between gap-2 my-2">
-				<label className="block text-left" htmlFor="email"><strong> Email </strong> </label>
-				<input
-					className="p-2 rounded-md"
-					type="email"
-					name="email"
-					id="email"
-				/>
-            </div>
-            {/* input repetir email */}
-            <div className="flex flex-col items-between gap-2 my-2">
-				<label className="block text-left" htmlFor="repeat_email"><strong> Repetir Email </strong> </label>
-				<input
-					className="p-2 rounded-md"
-					type="email"
-					name="repeat_email"
-					id="repeat_email"
-				/>
-            </div>
-            {/* input password */}
-			<div className="flex flex-col items-between gap-2 w-full my-2">
-                <label className="text-left w-full" htmlFor="password"><strong> Password </strong> </label>
-                <div className="flex items-center">
+                {/* input nombre */}
+                <div className="flex flex-col items-between gap-2 my-2">
+                    <label className="block text-left" htmlFor="name"><strong> Nombre </strong> </label>
                     <input
-                        className="block w-3/4 p-2 rounded-md"
-                        type={showPassword ?  "text" : "password"}
-                        name="password"
-                        id="password"
-                    />
-                    <button
-                        className="w-1/5 uppercase xs:text-sm sm:text-sm font-black ml-2 px-4 py-1 text-center text-slate-600"
-                        type="button"
-                        title={showPassword ? "ocultar" : "mostrar"}
-                        onClick={handlerShowPassword}
-                    > {showPassword ? "ocultar" : "mostrar"}
-                    </button>
-                </div>
-            </div>
-            {/* input repetir passwrod */}
-			<div className="flex flex-col items-between gap-2 w-full my-2">
-                <label className="text-left w-full" htmlFor="repeat_password">
-                    <strong>Repetir Password </strong>
-                </label>
-                <div className="flex items-center">
-                    <input
-                        className="block w-3/4 p-2 rounded-md"
-                        type={showRepeatPassword ? "text" : "password"}
-                        name="repeat_password"
-                        id="repeat_password"
-                    />
-                    <button
-                        className="w-1/5 uppercase xs:text-sm sm:text-sm font-black ml-2 px-4 py-1 text-center text-slate-600"
-                        type="button"
-                        title={showRepeatPassword ? "ocultar" : "mostrar"}
-                        onClick={handlerShowRepeatPassword}
-                    > {showRepeatPassword ? "ocultar" : "mostrar"}
-                    </button>
-                </div>
-            </div>
-            {/* input role */}
-			<div className="flex flex-col items-between gap-2 w-full my-2">
-                <label className="text-left w-full" htmlFor="role">
-                    <strong>Seleccionar Rol</strong>
-                </label>
-                <div className="flex items-center">
-                    <select
-                        className="block w-full p-2 rounded-md"
+                        className="p-2 rounded-md"
                         type="text"
-                        name="role"
-                        id="role"   
-                        >
-                            <option value="" selected>-- SELECCIONAR ROL</option>
-                            {
-                                roles.map((rol, i) => (
-                                    <option key={i} value={rol.value}>{rol.label}</option>
-                                ))
-                            }
-                    </select>
+                        name="name"
+                        id="name"
+                        value={name}
+                        onChange={e => setName(e.target.value)} 
+                    />
                 </div>
-            </div>
-            {/* button registro */}
-            <button
-				className="uppercase font-black my-2 px-4 py-3 rounded-md text-center sm:full md:w-2/3 hover:bg-slate-950 hover:text-slate-100 transition-colors"
-				type="submit"
-			>
-				registrar
-			</button>
-		</Form>
+                {/* input email */}
+                <div className="flex flex-col items-between gap-2 my-2">
+                    <label className="block text-left" htmlFor="email"><strong> Email </strong> </label>
+                    <input
+                        className="p-2 rounded-md"
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                </div>
+                {/* input repetir email */}
+                <div className="flex flex-col items-between gap-2 my-2">
+                    <label className="block text-left" htmlFor="repeat_email"><strong> Repetir Email </strong> </label>
+                    <input
+                        className="p-2 rounded-md"
+                        type="email"
+                        name="repeat_email"
+                        id="repeat_email"
+                        value={repeatEmail}
+                        onChange={e => setrepeatEmail(e.target.value)}
+                    />
+                </div>
+                {/* input password */}
+                <div className="flex flex-col items-between gap-2 w-full my-2">
+                    <label className="text-left w-full" htmlFor="password"><strong> Password </strong> </label>
+                    <div className="flex items-center">
+                        <input
+                            className="block w-3/4 p-2 rounded-md"
+                            type={showPassword ?  "text" : "password"}
+                            name="password"
+                            id="password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                        <button
+                            className="w-1/5 uppercase xs:text-sm sm:text-sm font-black ml-2 px-4 py-1 text-center text-slate-600"
+                            type="button"
+                            title={showPassword ? "ocultar" : "mostrar"}
+                            onClick={handlerShowPassword}
+                        > {showPassword ? "ocultar" : "mostrar"}
+                        </button>
+                    </div>
+                </div>
+                {/* input repetir passwrod */}
+                <div className="flex flex-col items-between gap-2 w-full my-2">
+                    <label className="text-left w-full" htmlFor="repeat_password">
+                        <strong>Repetir Password </strong>
+                    </label>
+                    <div className="flex items-center">
+                        <input
+                            className="block w-3/4 p-2 rounded-md"
+                            type={showRepeatPassword ? "text" : "password"}
+                            name="repeat_password"
+                            id="repeat_password"
+                            value={repeatPassword}
+                            onChange={ e => setRepeatPassword(e.target.value) }
+                        />
+                        <button
+                            className="w-1/5 uppercase xs:text-sm sm:text-sm font-black ml-2 px-4 py-1 text-center text-slate-600"
+                            type="button"
+                            title={showRepeatPassword ? "ocultar" : "mostrar"}
+                            onClick={handlerShowRepeatPassword}
+                        > {showRepeatPassword ? "ocultar" : "mostrar"}
+                        </button>
+                    </div>
+                </div>
+                {/* input role */}
+                <div className="flex flex-col items-between gap-2 w-full my-2">
+                    <label className="text-left w-full" htmlFor="role">
+                        <strong>Seleccionar Rol</strong>
+                    </label>
+                    <div className="flex items-center">
+                        <select
+                            className="block w-full p-2 rounded-md"
+                            type="text"
+                            name="role"
+                            id="role"   
+                            >
+                                <option value="" selected>-- SELECCIONAR ROL</option>
+                                {
+                                    roles.map((rol, i) => (
+                                        <option key={i} value={rol.value}>{rol.label}</option>
+                                    ))
+                                }
+                        </select>
+                    </div>
+                </div>
+                {/* button registro */}
+                <button
+                    className="uppercase font-black my-2 px-4 py-3 rounded-md text-center sm:full md:w-2/3 hover:bg-slate-950 hover:text-slate-100 transition-colors"
+                    type="submit"
+                >
+                    registrar
+                </button>
+            </Form>
         </>
     )
 }

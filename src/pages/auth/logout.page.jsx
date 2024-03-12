@@ -6,13 +6,10 @@ export async function loader() {
     try {
         const storage = localStorage.getItem('userId');
         if (!storage) return "";
-        const responseLogout = await logout({ id: "a052" });
-        console.log({ responseLogout });
-        if (responseLogout) {
-            localStorage.removeItem("userId");
-            return redirect("/");
-        }
-        return [];
+        const res = await logout({ id: "a052" });
+        console.log({ res });
+        res && localStorage.removeItem("userId");
+        return redirect("/");
     } catch (e) {
         throw new Error(e.message);
     }

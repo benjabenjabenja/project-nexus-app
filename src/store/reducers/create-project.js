@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createReducer } from "@reduxjs/toolkit";
-import { SET_CREATE_PROJECT, SET_CREATE_PROJECT_CLEAR, SET_CREATE_PROJECT_ERROR, SET_CREATE_PROJECT_SUCCESS } from "../project.actions";
+import { SET_CREATE_PROJECT, SET_CREATE_PROJECT_CLEAR, SET_CREATE_PROJECT_ERROR, SET_CREATE_PROJECT_SUCCESS } from "../actions/project.actions";
 
 const initialState = {
     pending: false,

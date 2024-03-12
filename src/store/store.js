@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import setCreateProjectReducer from "./projects/reducers/create-project";
-import getProjectsReducer from './projects/reducers/get-projects';
+import setCreateProjectReducer from "./reducers/create-project";
+import getProjectsReducer from './reducers/get-projects';
 
 const rootReducers = combineReducers({
     getProjects: getProjectsReducer,
