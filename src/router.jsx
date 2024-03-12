@@ -85,18 +85,18 @@ const routes = createBrowserRouter([
                         element: <EditProject />,
                         loader: projectLoader,
                         action: editProjectAction
-                    },
-                    {
-                        path: "/home/projects/tasks",
-                        element: <GestionTasks />,
-                        loader: loaderTasks
-                    },
-                    {
-                        path: "/home/projects/control-panel",
-                        element: <GestionProjectos />,
-                        loader: loaderProjectsData
-                    },
+                    }
                 ]
+            },
+            {
+                path: "/home/projects/tasks",
+                element: <GestionTasks />,
+                loader: loaderTasks
+            },
+            {
+                path: "/home/projects/control-panel",
+                element: <GestionProjectos />,
+                loader: loaderProjectsData
             },
         ]
     },

@@ -15,9 +15,9 @@ export async function action({ request }) {
         const { projectName, limitDate, description } = values;
         if ([projectName, limitDate, description].includes("")) errors.push("todos los campos son requeridos");
         console.log({ values });
-        const response = await update_project({ ...values, limit_date: values.limitDate });
-        response && redirect("/home/projects");
-        return errors || [];
+        /* const response = await update_project({ ...values, limit_date: values.limitDate });
+        response &&  */
+        return redirect("/home/projects");
     } catch (e) {
         throw new Error(e.message);
     }
