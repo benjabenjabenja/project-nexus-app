@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Form, Link, redirect, useActionData } from "react-router-dom";
-import WrapperContainerPages from "../../compnents/wrapper";
+import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 import AlertErrorForm from '../../compnents/alert-error-form';
 import { isValidArray } from "../../helpers/validators";
 import { forgot_password } from "../../services/auth";

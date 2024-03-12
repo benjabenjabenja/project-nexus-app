@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Form, Link, useActionData } from "react-router-dom";
 import { isValidArray } from "../../helpers/validators";
 import AlertErrorForm from "../../compnents/alert-error-form";
-import WrapperContainerPages from "../../compnents/wrapper";
+import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 
 export async function action({ request }) {
     const errors = [];

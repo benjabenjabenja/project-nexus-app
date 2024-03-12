@@ -8,7 +8,8 @@ import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects
 import HomeLayout, { loader as loaderMenu } from "./layouts/home.layout";
 import CreateProject, { action as createProjectAction } from './pages/projects/create-project';
 import Project, { loader as projectLoader } from './compnents/projects/project';
-import EditProject, { action as editProjectAction } from "./compnents/projects/form-edit-project"
+import EditProject from "./pages/projects/edit-project"
+import { action as editProjectAction } from './compnents/projects/form-edit-project';
 import GestionTasks, { loader as loaderTasks } from "./pages/tasks/gestion-tasks";
 import Home, { loader as loaderProjects } from "./pages/home";
 import LoginPage, { action as loginAction } from "./pages/auth/login.page";

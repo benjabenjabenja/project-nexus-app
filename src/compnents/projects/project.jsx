@@ -10,7 +10,7 @@ import ProjectDetail from "./project-detail";
 export async function loader({ params }) {
     let res = [];
     if (params.id) {
-       res = await get_project_by_id(params);
+        res = await get_project_by_id(params);
     }
     return res;
 }

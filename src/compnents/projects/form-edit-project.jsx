@@ -24,7 +24,7 @@ export async function action({ request }) {
 }
 
 function FormEditProject({ project }) {
-    const [limitDate, setLimitDate] = useState(project.limit_date);
+    const [limitDate, setLimitDate] = useState(project?.limit_date || '');
     useEffect(
         () => {
             if (project && project.limit_date) {
@@ -35,61 +35,52 @@ function FormEditProject({ project }) {
     );
     return (
         <Form method="post">
-            <Grid container spaciong={2}>
-                {/* Edit project name */}
-                <Grid item xs={12} sm={12} md={3}>
-                    <div className="my-2 mr-2">
-                    <label htmlFor="outlined-basic-projectName">Project Name</label>
-                        <TextField
-                            fullWidth
-                            id="outlined-basic-projectName"
-                            name="projectName"
-                            variant="outlined"
-                            value={project.projectName}
-                        />
-                    </div>
-                </Grid>
-                {/* Edit project limit date */}
-                <Grid item xs={12} sm={12} md={4}>
-                    <div className="my-2">
-                        <label htmlFor="limit-date">
-                            Limit Date
-                        </label>
-                        <TextField
-                            fullWidth
-                            type="date"
-                            name="limitDate"
-                            id="limit-date"
-                            value={limitDate}
-                            onChange={ ev => setLimitDate(ev.target.value)}
-                        />
-                    </div>
-                </Grid>
-                {/* Edit project description */}
-                <Grid item xs={12} sm={12} md={7}>
-                    <div className="my-2">
-                        <label htmlFor="outlined-basic-description">Description</label>
-                        <TextField
-                            fullWidth
-                            id="outlined-basic-description"
-                            variant="outlined"
-                            multiline
-                            name="description"
-                            value={project.description}
-                        />
-                    </div>
-                </Grid>
-                {/* button edit */}
-                <Grid item xs={12}>
-                    <Button
-                        type="submit"
-                        color="primary"
-                        variant="contained"
-                    >
-                        Edit Project {`[ ${project.id} ]`}
-                    </Button>
-                </Grid>
-            </Grid>
+            {/* Edit project name */}
+            <div className="flex items-center mb-2">
+                <label className="text-left w-1/6 font-black" htmlFor="outlined-basic-projectName">Project Name</label>
+                <TextField
+                    fullWidth
+                    id="outlined-basic-projectName"
+                    name="projectName"
+                    variant="outlined"
+                    value={project?.projectName}
+                />
+            </div>
+            {/* Edit project limit date */}
+            <div className="flex items-center mb-2">
+                <label className="text-left w-1/6 font-black" htmlFor="limit-date">
+                    Limit Date
+                </label>
+                <TextField
+                    fullWidth
+                    type="date"
+                    name="limitDate"
+                    id="limit-date"
+                    value={limitDate}
+                    onChange={ ev => setLimitDate(ev.target.value)}
+                />
+            </div>
+            {/* Edit project description */}
+            <div className="flex items-center mb-2">
+                <label className="text-left w-1/6 font-black" htmlFor="outlined-basic-description">Description</label>
+                <TextField
+                    fullWidth
+                    id="outlined-basic-description"
+                    variant="outlined"
+                    multiline
+                    name="description"
+                    value={project?.description}
+                />
+            </div>
+            {/* button edit */}
+            <Button
+                type="submit"
+                color="primary"
+                variant="contained"
+                className="my-4"
+            >
+                Edit Project {`[ ${project?.id} ]`}
+            </Button>
         </Form>
     );
 }

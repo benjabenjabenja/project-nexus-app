@@ -4,7 +4,7 @@ import AlertErrorForm from "../../compnents/alert-error-form";
 import { isValidArray } from "../../helpers/validators";
 // import { get_user_by_id } from "../../services/users";
 import { useState } from "react";
-import WrapperContainerPages from "../../compnents/wrapper";
+import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 
 export async function loader() {
     return [];

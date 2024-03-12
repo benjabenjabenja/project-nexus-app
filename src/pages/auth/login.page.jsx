@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Form, Link, redirect, useActionData } from "react-router-dom";
-import WrapperContainerPages from "../../compnents/wrapper";
+import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 import { isValidArray } from "../../helpers/validators";
 import { login } from "../../services/auth";
 import AlertErrorForm from "../../compnents/alert-error-form";

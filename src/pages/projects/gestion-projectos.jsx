@@ -1,13 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
-import { Button, Fab } from "@mui/material";
+import { Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { get_projects } from "../../services/projects";
 import CollapsibleTable from "../../compnents/projects/project-list";
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 export async function loader() {
     const projects = await get_projects();
@@ -46,18 +45,9 @@ const GestionProjectos = () => {
         setShowOutlet(true);
         navigate("/home/projects/create-project");
     }
-    const handlerBack = ev => {
-        ev.preventDefault();
-
-        setShowOutlet(false);
-        navigate(-1);
-    }
 
     return (
         <>
-            <Button variant="text" onClick={handlerBack}>
-                <KeyboardArrowLeftIcon /> Back
-            </Button>
             <main className='container'>
                 
                 <h1 className={`text-2xl font-bold text-center mb-4 ${showOutlet ? 'hidden' : ''}`}>Gestion de Projectos</h1>
