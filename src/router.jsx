@@ -54,13 +54,13 @@ const routes = createBrowserRouter([
             },
         ],
     },
-    {
+    {// se deberian controlar el token de alguna forma
         path: "/home",
         element: <Layout />,
         loader: loaderMenu,
         children: [
             {
-                index: true, 
+                index: true,
                 element: <Home />,
                 loader: loaderProjects
             },
@@ -104,10 +104,9 @@ const routes = createBrowserRouter([
         element: <LogoutPage />,
         loader: logoutLoader
     }
-])
+]);
 
 function Router() {
-    
     return (<RouterProvider router={routes} />);
 }
 export default Router;

@@ -36,7 +36,7 @@ const GestionProjectos = () => {
             if (actionClicked === "edit") {
                 console.log("edit", idClicked);
                 setShowOutlet(true);
-                navigate(`/projects/${idClicked}/edit`);
+                navigate(`/home/projects/${idClicked}/edit`);
             }
         }, [actionClicked, idClicked]
     );

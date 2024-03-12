@@ -14,7 +14,7 @@ export const login = async ({ email, password }) => {
                 token: generateUniqueId() + generateUniqueId(),
                 isAutenticated: true
             }
-            console.log({user_loged});
+            
             localStorage.setItem("userId", JSON.stringify(user_loged.id));
             return user_loged;
         }

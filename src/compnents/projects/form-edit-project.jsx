@@ -1,19 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
+import { update_project } from "../../services/projects";
 
 export async function action({ request }) {
-
-    const fd = await request.formData();
-    const asdf = request.params;
-    console.log({request})
-    const values = Object.fromEntries(fd);
-
-    console.log({ values });
-    return [];
+    const errors = [];
+    try {
+        const fd = await request.formData();
+        const values = Object.fromEntries(fd);
+        const { projectName, limitDate, description } = values;
+        if ([projectName, limitDate, description].includes("")) errors.push("todos los campos son requeridos");
+        console.log({ values });
+        const response = await update_project({ ...values, limit_date: values.limitDate });
+        response && redirect("/home/projects");
+        return errors || [];
+    } catch (e) {
+        throw new Error(e.message);
+    }
 }
 
 function FormEditProject({ project }) {
