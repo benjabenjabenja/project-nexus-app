@@ -26,8 +26,26 @@
       "projectName": "Project 1",
       "limitDate": "11/12/2021",
       "users": [
-        "John Doe",
-        "Jane Smith"
+        {
+          "id": "d17e",
+          "name": "Benjamín González ",
+          "email": "jgonzalez.benjamin@gmail.com",
+          "password": "123",
+          "tasks": [],
+          "role": "MANAGER",
+          "isLoged": true,
+          "token": "arq-1710251750439270arq-1710251750439442"
+        },
+        {
+          "id": "1233",
+          "name": "Benjamín González ",
+          "email": "jgonzalez.benjamin@gmail.com",
+          "password": "123",
+          "tasks": [],
+          "role": "MANAGER",
+          "isLoged": true,
+          "token": "arq-1710251750439270arq-1710251750439442"
+        }
       ],
       "description": "This is the project description",
       "status": "In progress",
@@ -180,15 +198,12 @@
   ],
   "users": [
     {
-      "user": {
-        "email": "asdf@asdf.com",
-        "repeat_email": "asdf@asdf.com",
-        "name": "Juan",
-        "role": "ADMIN",
-        "password": "123123",
-        "isLoged": true,
-        "token": "arq-1710246284347676arq-1710246284347283"
-      },
+      "email": "asdf@asdf.com",
+      "name": "Juan",
+      "role": "ADMIN",
+      "password": "123123",
+      "isLoged": false,
+      "token": "",
       "id": "a052"
     },
     {
@@ -207,7 +222,8 @@
       "password": "123",
       "tasks": [],
       "role": "MANAGER",
-      "isLoged": false
+      "isLoged": true,
+      "token": "arq-1710251750439270arq-1710251750439442"
     }
   ]
 }

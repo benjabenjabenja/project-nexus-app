@@ -3,7 +3,7 @@
 import TableTask from "./table-task";
 
 function EditTasks({ tasks, setTasks }) {
-    return (<TableTask tasks={tasks}/>);
+    return (<TableTask tasks={tasks} withActions={true} />);
 }
 
 export default EditTasks;

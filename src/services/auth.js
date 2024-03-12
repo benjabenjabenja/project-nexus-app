@@ -7,11 +7,10 @@ const __url_auth = `${enviroment.api_url}/users`;
 export const login = async ({ email, password }) => {
     try {
         const users = await get_users();
-        const find = users.find(({ user }) => user.email === email && password === user.password);
-        console.log({ find });
+        const find = users.find((user) => user.email === email && password === user.password);
         if (find) {
-            find.user.token = generateUniqueId() + generateUniqueId();
-            find.user.isLoged = true;
+            find.token = generateUniqueId() + generateUniqueId();
+            find.isLoged = true;
             const set_user_response = await update_user(find);
             localStorage.setItem("userId", JSON.stringify(set_user_response.id));
             return set_user_response ? set_user_response : null;
