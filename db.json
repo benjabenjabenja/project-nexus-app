@@ -186,8 +186,8 @@
         "name": "Juan",
         "role": "ADMIN",
         "password": "123123",
-        "isLoged": false,
-        "token": ""
+        "isLoged": true,
+        "token": "arq-1710245678129917arq-1710245678129727"
       },
       "id": "a052"
     }

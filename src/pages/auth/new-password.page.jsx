@@ -35,7 +35,7 @@ function NewPasswordPage() {
     const handlerShowNewPassword = ev => {
         ev.preventDefault();
 
-        setShowNewPassword(!showPassword);
+        setShowNewPassword(!showNewPassword);
     }
     
     return (
@@ -44,7 +44,7 @@ function NewPasswordPage() {
             <Form method="post">
                 {/* input new_password */}
                 <div className="flex items-center">
-					<label className="text-left w-1/6" htmlFor="password"><strong> Password </strong> </label>
+					<label className="text-left w-1/6" htmlFor="password"><strong>Vieja Contraseña </strong> </label>
 					<input
 						className="block w-2/4 p-2 rounded-md"
 						type={showPassword ?  "text" : "password"}
@@ -56,12 +56,12 @@ function NewPasswordPage() {
 						type="button"
 						title={showNewPassword ? "ocultar" : "mostrar"}
 						onClick={handlerShowPassword}
-					> {showNewPassword ? "ocultar" : "mostrar"}
+					> {showPassword ? "ocultar" : "mostrar"}
 					</button>
                 </div>
                 {/* inpout repetir new_password */}
                 <div className="flex items-center">
-					<label className="text-left w-1/6" htmlFor="password"><strong> Password </strong> </label>
+					<label className="text-left w-1/6" htmlFor="password"><strong>Nueva Contraseña </strong> </label>
 					<input
 						className="block w-2/4 p-2 rounded-md"
 						type={showNewPassword ?  "text" : "password"}
