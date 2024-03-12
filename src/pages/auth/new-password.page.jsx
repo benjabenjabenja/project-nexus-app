@@ -1,9 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
-import { Form, useActionData } from "react-router-dom";
+import { Form, Link, useActionData } from "react-router-dom";
 import AlertErrorForm from "../../compnents/alert-error-form";
 import { isValidArray } from "../../helpers/validators";
 // import { get_user_by_id } from "../../services/users";
 import { useState } from "react";
+import WrapperContainerPages from "../../compnents/wrapper";
 
 export async function loader() {
     return [];
@@ -22,7 +23,7 @@ export async function action({ request }) {
     return errors;
 }
 
-function NewPasswordPage() {
+const FormNewPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const errors = useActionData();
@@ -37,7 +38,6 @@ function NewPasswordPage() {
 
         setShowNewPassword(!showNewPassword);
     }
-    
     return (
         <>
             { isValidArray(errors) && <AlertErrorForm errors={errors} /> }
@@ -84,6 +84,25 @@ function NewPasswordPage() {
 					cambiar contraseña
 				</button>
 			</Form>
+        </>
+    )
+}
+
+function NewPasswordPage() {    
+    return (
+        <>
+            <h1 className="text-6xl font-black px-2 py-10 text-slate-700">
+				cambia la contraseña y recupera <span className="text-slate-950"> proyectos, tareas y administralos.</span>
+			</h1>
+            <WrapperContainerPages>
+                <FormNewPassword />
+				<nav className=" flex flex-col lg:flex-row lg:flex lg:justify-between lg:items-center">
+					<Link
+						className="uppercase text-md text-slate-400 hover:text-slate-950 rounded-md ml-auto mr-0 w-full mb-2 lg:w-1/2"
+						to="/login"
+					> Ingresá aqui </Link>
+				</nav>
+            </WrapperContainerPages>
         </>
     );
 }
