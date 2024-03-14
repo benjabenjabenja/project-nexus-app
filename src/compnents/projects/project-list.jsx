@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -19,10 +20,8 @@ import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
 import TableTask from "../tasks/table-task";
 
-function Row(props) {
-    const { project, withActions, setActionClicked, setIdClicked } = props;
+function Row({ project, withActions, setActionClicked, setIdClicked }) {
     const [open, setOpen] = useState(false);
-
     const handlerDelete = ev => {
         ev.preventDefault();
         setActionClicked('delete');
@@ -49,14 +48,13 @@ function Row(props) {
                         </IconButton>
                     ) : "" }
                 </TableCell>
-                <TableCell component="th" scope="row">{project.projectName}</TableCell>
-                <TableCell>{project.limitDate}</TableCell>
-                <TableCell>{project.description}</TableCell>
-                <TableCell>{project.status}</TableCell>
+                <TableCell component="th" scope="row">{project?.projectName}</TableCell>
+                <TableCell>{project?.limitDate}</TableCell>
+                <TableCell>{project?.description}</TableCell>
+                <TableCell>{project?.status}</TableCell>
                 {/* actions edit/delete */}
-                <TableCell className={`${withActions ? 'block' : 'hidden'}`}>
                     {withActions && (
-                        <>
+                        <TableCell className={`${withActions ? 'block' : 'hidden'}`}>
                             <IconButton
                                 aria-label="expand row"
                                 size="small"
@@ -75,9 +73,9 @@ function Row(props) {
                             >
                                 <DeleteOutlineOutlinedIcon />   
                             </IconButton>
-                        </>
-                    )}
-                </TableCell>
+                        </TableCell>
+                    )
+                }
             </TableRow>
             <TableRow>
                 <TableCell
@@ -113,7 +111,7 @@ export default function CollapsibleTable({ projects, withActions, setActionClick
                         <TableCell>Limit Date</TableCell>
                         <TableCell>Description</TableCell>
                         <TableCell>Status</TableCell>
-                        <TableCell className={`${withActions ? 'block':'hidden'}`}>Actions</TableCell>
+                        { withActions && <TableCell>Actions</TableCell>}
                     </TableRow>
                 </TableHead>
                 <TableBody>

@@ -183,6 +183,15 @@
       "tasks": [],
       "users": [],
       "createdAt": "2024-03-12T14:30:55.343Z"
+    },
+    {
+      "id": "arq-171025642638383",
+      "projectName": "asdfasdf",
+      "description": "123123",
+      "limitDate": "2024-03-11",
+      "tasks": [],
+      "users": [],
+      "createdAt": "2024-03-12T15:13:46.383Z"
     }
   ],
   "tasks": [
@@ -209,15 +218,12 @@
     {
       "email": "asdf@asdf.com",
       "name": "Juan",
-      "role": "ADMIN",
       "password": "123123",
       "isLoged": false,
       "token": "",
-      "id": "a052",
-      "user": {
-        "isLoged": false,
-        "token": ""
-      }
+      "tasks": [],
+      "role": "ADMIN",
+      "id": "a052"
     },
     {
       "id": "9aac",
@@ -235,8 +241,28 @@
       "password": "123",
       "tasks": [],
       "role": "MANAGER",
-      "isLoged": true,
-      "token": "arq-1710254173827802arq-171025417382753"
+      "isLoged": false,
+      "token": ""
+    },
+    {
+      "id": "b57f",
+      "name": "Benjamín González ",
+      "email": "jgonzalez.benjamin@gmail.com",
+      "password": "123123",
+      "tasks": [],
+      "role": "DEVELOPER",
+      "isLoged": false,
+      "token": ""
+    },
+    {
+      "id": "1e88",
+      "name": "",
+      "email": "",
+      "password": "",
+      "tasks": [],
+      "role": "",
+      "isLoged": false,
+      "token": ""
     }
   ]
 }

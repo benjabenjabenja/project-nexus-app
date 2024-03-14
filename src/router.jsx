@@ -18,6 +18,8 @@ import ForgotPasswordPage, { action as forgotPasswordAction } from "./pages/auth
 import NewPasswordPage, { action as newPasswordAction } from "./pages/auth/new-password.page";
 import ConfirmAccountPage from "./pages/auth/confirm-account.page";
 import LogoutPage, { loader as logoutLoader } from "./pages/auth/logout.page";
+import { AuthProvider } from "./context/AuthProvider";
+import RouteProtected from "./layouts/route-protected";
 
 const routes = createBrowserRouter([
     {
@@ -53,11 +55,15 @@ const routes = createBrowserRouter([
                 path: "/confirm/:id",
                 element: <ConfirmAccountPage />
             },
-        ]
+        ],
     },
     {// se deberian controlar el token de alguna forma
         path: "/home",
-        element: <HomeLayout />,
+        element: (() => (
+            <RouteProtected>
+                <HomeLayout />
+            </RouteProtected>
+        ))(),
         loader: loaderMenu,
         children: [
             {
@@ -108,7 +114,11 @@ const routes = createBrowserRouter([
 ]);
 
 function Router() {
-    return (<RouterProvider router={routes} />);
+    return (
+        <AuthProvider>
+            <RouterProvider router={routes} />
+        </AuthProvider>
+    );
 }
 
 export default Router;
