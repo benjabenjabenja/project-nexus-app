@@ -49,7 +49,7 @@ function TableTask(props) {
                         <TableRow key={generateUniqueId()}>
                             <TableCell>{task?.taskName}</TableCell>
                             <TableCell>
-                                {task?.completed ? "Completed" : "Pending"}
+                                {task?.complete ? "Complete" : "Pending"}
                             </TableCell>
                             <TableCell>{task?.limitDate}</TableCell>
                             {

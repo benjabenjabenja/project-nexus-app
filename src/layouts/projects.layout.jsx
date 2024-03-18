@@ -39,6 +39,7 @@ function ProjectsLayout() {
 
     return (
         <Wrapper className="container bg-slate-300 md:min-h-screen">
+            
             <Header className="shadow-md mb-4">
                 <img height={'200px'} width={'auto'} src="/logo-nexus-project.png" alt="" />
                 <nav className="min-w-full bg-slate-300 py-5 px-5 flex flex-auto gap-2">
@@ -67,6 +68,7 @@ function ProjectsLayout() {
                     to="/logout">Logout</Link>    
                 </nav>
             </Header>
+
             <main className="bg-slate-50 rounded-md shadow-md px-5 py-10 mx-3 min-h-screen">
                 <div className={`w-full mb-2 ${location.pathname === "/projects" ? 'hidden' : ''}`}>
 

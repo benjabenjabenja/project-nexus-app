@@ -16,12 +16,10 @@ const initialState = {
 
 const getProjectsReducer = createReducer(initialState, (builder) => {
 
-    builder.addCase(SET_GET_PROJECTS, (state, action) => {
-        console.log({state, action})
+    builder.addCase(SET_GET_PROJECTS, (state) => {
         return {
             ...state,
             pending: true,
-            data: action.payload
         };
     });
     builder.addCase(SET_GET_PROJECTS_SUCCESS, (state, action) => {
@@ -48,4 +46,4 @@ const getProjectsReducer = createReducer(initialState, (builder) => {
     
 });
 
-export default { getProjectsReducer };
+export default getProjectsReducer;

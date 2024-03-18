@@ -8,8 +8,9 @@ import { useEffect, useState } from "react";
 import { get_projects } from "../../services/projects";
 import CollapsibleTable from "../../compnents/projects/project-list";
 import { isValidArray } from "../../helpers/validators";
-import useProjects from "../../hooks/useProjects.hooks";
+import useProjects from "./hooks/useProjects.hooks";
 import WrapperContainerPages from "../../compnents/wrapper-container-pages";
+import { useSelector } from "react-redux";
 
 export async function loader() {
     const projects = await get_projects();
@@ -27,13 +28,14 @@ const classes = {
 }
 
 const GestionProjectos = () => {
+    const store = useSelector(state => state.projects);
     const data = useLoaderData();
     const [actionClicked, setActionClicked] = useState('');
     const [idClicked, setIdClicked] = useState('');
     const navigate = useNavigate();
 
     const { projects, getProjects } = useProjects() || { projects: [] };
-
+    console.log({}) 
     useEffect(
         () => {
             if (actionClicked === "edit") {

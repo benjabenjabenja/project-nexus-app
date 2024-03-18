@@ -7,7 +7,7 @@ import { isValidArray } from '../helpers/validators';
 import { get_projects } from "../services/projects";
 import useAuth from "../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
-import SET_GET_PROJECTS from "../store/project.slice";
+import { SET_GET_PROJECTS, SET_GET_PROJECTS_SUCCESS } from "../store/actions/project.actions";
 
 const ProjectContext = createContext();
 // maneja los projectos
@@ -21,8 +21,8 @@ const ProjectProvider = ({ children }) => {
     const getProjects = async () => {
 
         const projectsResponse = await get_projects();
-        dispatch(SET_GET_PROJECTS({projectsResponse}));
-        console.log({ auth, store, projectsResponse, SET_GET_PROJECTS });
+        dispatch(SET_GET_PROJECTS_SUCCESS(projectsResponse));
+        console.log({ store, projectsResponse });
         if (!isValidArray(projectsResponse)) {
             return;
         }
@@ -37,7 +37,8 @@ const ProjectProvider = ({ children }) => {
 
     useEffect(
         () => { 
-            projects.length <= 0 && getProjects();
+            
+            projects.length <= 0 && getProjects()
         } , []
     );
 

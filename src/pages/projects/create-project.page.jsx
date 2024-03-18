@@ -28,13 +28,16 @@ export async function action({ request }) {
     if (description === "") errors.push('Description is required');
     if (limitDate === "") errors.push('Limit Date is required');
 
-    if(errors.length > 0){ return errors; }
+    if (errors.length > 0) {
+        return errors;
+    }
 
     const createProjectResponse = await create_project({
         projectName,
         description,
         limitDate,
     });
+
     // createProjectResponse && await get_projects();
     return [errors, createProjectResponse]
 }
