@@ -2,22 +2,27 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Form, redirect } from "react-router-dom";
-import { update_project } from "../../services/projects";
+import { Form } from "react-router-dom";
 
 export async function action({ request }) {
     const errors = [];
     try {
         const fd = await request.formData();
         const values = Object.fromEntries(fd);
+
         const { projectName, limitDate, description } = values;
-        if ([projectName, limitDate, description].includes("")) errors.push("todos los campos son requeridos");
-        console.log({ values });
-        /* const response = await update_project({ ...values, limit_date: values.limitDate });
-        response &&  */
-        return redirect("/home/projects");
+
+        if ([projectName, limitDate, description].includes("")) {
+            errors.push("todos los campos son requeridos");
+            return errors;
+        }
+        if ([projectName].includes("")) { errors.push("el nombre es requerido"); }
+        if ([limitDate].includes("")) errors.push("la fecha limite es requerida");
+        if ([description].includes("")) errors.push("la descripcion es requerida");
+
+        return [errors || [], values || []];
     } catch (e) {
         throw new Error(e.message);
     }
@@ -25,6 +30,7 @@ export async function action({ request }) {
 
 function FormEditProject({ project }) {
     const [limitDate, setLimitDate] = useState(project?.limit_date || '');
+
     useEffect(
         () => {
             if (project && project.limit_date) {

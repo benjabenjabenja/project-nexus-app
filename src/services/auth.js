@@ -7,8 +7,7 @@ const __url_auth = `${enviroment.api_url}/users`;
 export const login = async ({ email, password }) => {
     try {
         const users = await get_users();
-        const find = users.find((user) => user.email === email && password === user.password);
-
+        const find = users.find((user) => user.email === email && password.toLowerCase() === user.password.toLowerCase());
         if (find) {
             find.token = generateUniqueId() + generateUniqueId();
             find.isLoged = true;

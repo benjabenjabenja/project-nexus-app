@@ -32,8 +32,9 @@ export async function action({ request }) {
         description,
         limitDate,
     });
+     if(!isValidArray(errors)) return redirect(`/projects/${createProjectResponse.id}`);
 
-    return redirect(`/home/projects/${createProjectResponse.id}`);
+    return errors
 }
 
 const FormCreateProject = () => {

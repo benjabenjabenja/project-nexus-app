@@ -4,14 +4,14 @@ import {
     createBrowserRouter,
 } from "react-router-dom";
 import AuthLayout from "./layouts/auth.layout"; 
-import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos";
-import HomeLayout, { loader as loaderMenu } from "./layouts/home.layout";
-import CreateProject, { action as createProjectAction } from './pages/projects/create-project';
+import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos.page";
+import ProjectsLayout, { loader as loaderMenu } from "./layouts/projects.layout";
+import CreateProject, { action as createProjectAction } from './pages/projects/create-project.page';
 import Project, { loader as projectLoader } from './compnents/projects/project';
-import EditProject from "./pages/projects/edit-project"
+import { action as addTaskAction } from './compnents/projects/project-detail';
+import EditProject from "./pages/projects/edit-project.page"
 import { action as editProjectAction } from './compnents/projects/form-edit-project';
-import GestionTasks, { loader as loaderTasks } from "./pages/tasks/gestion-tasks";
-import Home, { loader as loaderProjects } from "./pages/home";
+import GestionTasks, { loader as loaderTasks } from "./pages/tasks/gestion-tasks.page";
 import LoginPage, { action as loginAction } from "./pages/auth/login.page";
 import RegisterPage, { action as registerAction } from "./pages/auth/register.page";
 import ForgotPasswordPage, { action as forgotPasswordAction } from "./pages/auth/forgot-password.page";
@@ -58,49 +58,43 @@ const routes = createBrowserRouter([
         ],
     },
     {// se deberian controlar el token de alguna forma
-        path: "/home",
+        path: "/projects",
         element: (() => (
             <RouteProtected>
-                <HomeLayout />
+                <ProjectsLayout />
             </RouteProtected>
         ))(),
         loader: loaderMenu,
         children: [
             {
                 index: true,
-                element: <Home />,
-                loader: loaderProjects
-            },
-            {
-                path: "/home/projects",
                 element: <GestionProjectos />,
-                loader: loaderProjectsData,
-                children: [
-                    {
-                        path: '/home/projects/create-project',
-                        element: <CreateProject />,
-                        action: createProjectAction,
-                    },
-                    {
-                        path: '/home/projects/:id',
-                        element: <Project />,
-                        loader: projectLoader
-                    },
-                    {
-                        path: "/home/projects/:id/edit",
-                        element: <EditProject />,
-                        loader: projectLoader,
-                        action: editProjectAction
-                    }
-                ]
+                loader: loaderProjectsData
             },
             {
-                path: "/home/projects/tasks",
+                path: '/projects/create-project',
+                element: <CreateProject />,
+                action: createProjectAction,
+            },
+            {
+                path: '/projects/:id',
+                element: <Project />,
+                loader: projectLoader,
+                action: addTaskAction
+            },
+            {
+                path: "/projects/:id/edit",
+                element: <EditProject />,
+                loader: projectLoader,
+                action: editProjectAction
+            },
+            {
+                path: "/projects/tasks",
                 element: <GestionTasks />,
                 loader: loaderTasks
             },
             {
-                path: "/home/projects/control-panel",
+                path: "/projects/control-panel",
                 element: <GestionProjectos />,
                 loader: loaderProjectsData
             },

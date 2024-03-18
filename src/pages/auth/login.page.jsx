@@ -45,7 +45,7 @@ const LoginForm = () => {
 		setShowAlert(isValidArray(errors));
 		!showAlert && setAuth({ user: success });
 		
-		isValidObject(success) && navigate("/home");
+		isValidObject(success) && navigate("/projects");
 		
 	}, [errors, success]);
 

@@ -1,268 +1,43 @@
 {
   "routes": [
     {
-      "url": "/home",
-      "view-id": "home",
+      "url": "/projects",
+      "view-id": "projects",
       "id": "3da0"
     },
     {
-      "url": "/home/projects",
-      "view-id": "projects",
-      "id": "a851"
-    },
-    {
-      "url": "/home/projects/tasks",
+      "url": "/projects/tasks",
       "view-id": "tasks",
       "id": "1a85"
     },
     {
-      "url": "/home/projects/control-panel",
+      "url": "/projects/control-panel",
       "view-id": "control panel",
       "id": "deadsa"
     }
   ],
   "projects": [
     {
-      "projectName": "Project 1",
-      "limitDate": "11/12/2021",
-      "users": [
-        {
-          "id": "d17e",
-          "name": "Benjamín González ",
-          "email": "jgonzalez.benjamin@gmail.com",
-          "password": "123",
-          "tasks": [],
-          "role": "MANAGER",
-          "isLoged": true,
-          "token": "arq-1710251750439270arq-1710251750439442"
-        },
-        {
-          "id": "1233",
-          "name": "Benjamín González ",
-          "email": "jgonzalez.benjamin@gmail.com",
-          "password": "123",
-          "tasks": [],
-          "role": "MANAGER",
-          "isLoged": true,
-          "token": "arq-1710251750439270arq-1710251750439442"
-        }
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [
-        {
-          "taskName": "Design the interface",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the application",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the applicatio2n",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        }
-      ],
-      "createdAt": "10/01/2023",
-      "id": "df58"
-    },
-    {
-      "projectName": "Project 2",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [],
-      "createdAt": "10/01/2023",
-      "id": "5b0e"
-    },
-    {
-      "projectName": "Project 3",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [
-        {
-          "taskName": "Design the interface",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the application",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the applicatio2n",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        }
-      ],
-      "createdAt": "10/01/2023",
-      "id": "a203"
-    },
-    {
-      "projectName": "Project 5",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [],
-      "createdAt": "10/01/2023",
-      "id": "eb0e"
-    },
-    {
-      "projectName": "Project 6",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [],
-      "createdAt": "10/01/2023",
-      "id": "10ba"
-    },
-    {
-      "projectName": "Project 7",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [
-        {
-          "taskName": "Design the interface",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the application",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the applicatio2n",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        }
-      ],
-      "createdAt": "10/01/2023",
-      "id": "4146"
-    },
-    {
-      "id": "arq-1710202363665387",
-      "projectName": "asfdasdf",
-      "description": "123123123asdfasdfasdfsdf",
-      "limitDate": "2024-03-13",
-      "tasks": [],
-      "users": [],
-      "createdAt": "2024-03-12T00:12:43.665Z"
-    },
-    {
-      "id": "arq-1710253855342522",
-      "projectName": "qwerqwer",
-      "description": "qwerqwer",
-      "limitDate": "2024-03-13",
-      "tasks": [],
-      "users": [],
-      "createdAt": "2024-03-12T14:30:55.343Z"
-    },
-    {
-      "id": "arq-171025642638383",
+      "id": "arq-171051920602095",
       "projectName": "asdfasdf",
-      "description": "123123",
-      "limitDate": "2024-03-11",
+      "description": "asdfasdfasdf",
+      "limitDate": "2024-03-25",
       "tasks": [],
       "users": [],
-      "createdAt": "2024-03-12T15:13:46.383Z"
+      "createdAt": "2024-03-15T16:13:26.020Z"
     }
   ],
-  "tasks": [
-    {
-      "taskName": "Design the interface",
-      "completed": true,
-      "limitDate": "17/09/2021",
-      "id": "98ea"
-    },
-    {
-      "taskName": "Code the application",
-      "completed": true,
-      "limitDate": "17/09/2021",
-      "id": "5687"
-    },
-    {
-      "taskName": "Code the applicatio2n",
-      "completed": true,
-      "limitDate": "17/09/2021",
-      "id": "21b7"
-    }
-  ],
+  "tasks": [],
   "users": [
     {
       "email": "asdf@asdf.com",
       "name": "Juan",
-      "password": "123123",
-      "isLoged": false,
-      "token": "",
-      "tasks": [],
+      "password": "123",
+      "isLoged": true,
+      "token": "arq-1710762478098345arq-171076247809842",
+      "projects": [],
       "role": "ADMIN",
       "id": "a052"
-    },
-    {
-      "id": "9aac",
-      "name": "qw",
-      "email": "qwe@qwe.com",
-      "password": "qwe",
-      "tasks": [],
-      "role": "DEVELOPER",
-      "isLoged": false
-    },
-    {
-      "id": "d17e",
-      "name": "Benjamín González ",
-      "email": "jgonzalez.benjamin@gmail.com",
-      "password": "123",
-      "tasks": [],
-      "role": "MANAGER",
-      "isLoged": false,
-      "token": ""
-    },
-    {
-      "id": "b57f",
-      "name": "Benjamín González ",
-      "email": "jgonzalez.benjamin@gmail.com",
-      "password": "123123",
-      "tasks": [],
-      "role": "DEVELOPER",
-      "isLoged": false,
-      "token": ""
-    },
-    {
-      "id": "1e88",
-      "name": "",
-      "email": "",
-      "password": "",
-      "tasks": [],
-      "role": "",
-      "isLoged": false,
-      "token": ""
     }
   ]
 }

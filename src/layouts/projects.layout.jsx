@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import styled from "styled-components";
 import enviroment from "../../enviroment";
@@ -7,7 +8,7 @@ import { isValidArray } from "../helpers/validators";
 import { generateUniqueId } from "../helpers/unique_id";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Button } from "@mui/material";
-import { ProjectProvider } from "../context/ProjectContext";
+import { ProjectProvider } from "../context/ProjectProvider";
 
 export async function loader() {
     const url = enviroment.api_url;
@@ -25,8 +26,7 @@ const Wrapper = styled.div`
     min-height: 100vh;
 `;
 
-function HomeLayout() {
-
+function ProjectsLayout() {
     const menuItems = useLoaderData();
     const location = useLocation();
     const navigate = useNavigate();
@@ -66,16 +66,16 @@ function HomeLayout() {
                     to="/logout">Logout</Link>    
                 </nav>
             </Header>
-            <ProjectProvider>
-                <main className="bg-slate-50 rounded-md shadow-md px-5 py-10 mx-3 min-h-screen">
-                    <Button variant="text" onClick={handlerBack}>
-                        <KeyboardArrowLeftIcon /> Back
-                    </Button>
+            <main className="bg-slate-50 rounded-md shadow-md px-5 py-10 mx-3 min-h-screen">
+                <Button variant="text" onClick={handlerBack}>
+                    <KeyboardArrowLeftIcon /> Back
+                </Button>
+                <ProjectProvider>
                     <Outlet />
-                </main>
-            </ProjectProvider>
+                </ProjectProvider>
+            </main>
         </Wrapper>
     )
 }
 
-export default HomeLayout;
+export default ProjectsLayout;

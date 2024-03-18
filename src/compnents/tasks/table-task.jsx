@@ -45,13 +45,13 @@ function TableTask(props) {
             </TableHead>
             <TableBody>
                 {
-                    tasks.map((task) => (
+                    tasks && tasks?.map((task) => (
                         <TableRow key={generateUniqueId()}>
-                            <TableCell>{task.taskName}</TableCell>
+                            <TableCell>{task?.taskName}</TableCell>
                             <TableCell>
-                                {task.completed ? "Completed" : "Pending"}
+                                {task?.completed ? "Completed" : "Pending"}
                             </TableCell>
-                            <TableCell>{task.limitDate}</TableCell>
+                            <TableCell>{task?.limitDate}</TableCell>
                             {
                                 withActions && (
                                     <TableCell className={`${withActions ? 'block' : 'hidden'}`}>
