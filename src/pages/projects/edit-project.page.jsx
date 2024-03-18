@@ -18,13 +18,13 @@ function EditProject() {
     const project = useLoaderData();
     const params = useParams();
     const { id } = params;
-
     useEffect(
         () => {
             const updateProject = async () => {
                 try {
-                    const response = await update_project({ id, data: success });
-                    // if(response) return navigate("/projects");
+                    console.log({errors, success})
+                    // const response = await update_project({ id, data: success });
+                    // navigate("/projects");
                 } catch (e) {
                     throw new Error(e.message);
                 }
@@ -53,7 +53,7 @@ function EditProject() {
             
             <h1 className="text-2xl font-bold text-center mb-8 mt-3">Editing Project [ <span>{`${project.id}`} </span>]</h1>
     
-            <section className="container m-auto">
+            <section className="container w-2/3 m-auto">
                 {
                     isValidArray(errors) && <AlertErrorForm errors={errors || []} />
                 }
@@ -62,7 +62,7 @@ function EditProject() {
 
             <br />
 
-            <section className="container m-auto">
+            <section className="container w-2/3 m-auto">
                 <EditTasks tasks={tasks} setTasks={setTasks} />
             </section>
             

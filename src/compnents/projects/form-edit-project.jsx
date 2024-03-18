@@ -15,25 +15,26 @@ export async function action({ request }) {
         const { projectName, limitDate, description } = values;
 
         if ([projectName, limitDate, description].includes("")) {
-            errors.push("todos los campos son requeridos");
-            return errors;
-        }
-        if ([projectName].includes("")) { errors.push("el nombre es requerido"); }
-        if ([limitDate].includes("")) errors.push("la fecha limite es requerida");
-        if ([description].includes("")) errors.push("la descripcion es requerida");
 
-        return [errors || [], values || []];
+            if ([projectName].includes("")) { errors.push("el nombre es requerido"); }
+            if ([limitDate].includes("")) errors.push("la fecha limite es requerida");
+            if ([description].includes("")) errors.push("la descripcion es requerida");
+            
+            return [errors, []];
+        }
+        
+        return [[], values || []];
     } catch (e) {
         throw new Error(e.message);
     }
 }
 
 function FormEditProject({ project }) {
-    const [limitDate, setLimitDate] = useState(project?.limit_date || '');
+    const [limitDate, setLimitDate] = useState(project?.limitDate || '');
 
     useEffect(
         () => {
-            if (project && project.limit_date) {
+            if (project && project?.limit_date) {
                 const date = limitDate.split('/').reverse().join('-');
                 setLimitDate(date);
             }

@@ -3,17 +3,10 @@
 /* eslint-disable react/prop-types */
 import { Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import { useEffect } from 'react';
-import useProjects from '../hooks/useProjects.hooks';
 
 function RouteProtected({ children }) {
     
-    const { auth } = useAuth(); 
-    useEffect(
-        () => {
-            console.log({ auth });
-        },[auth]
-    )
+    const { auth } = useAuth();
     return (
         <>
             {

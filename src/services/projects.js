@@ -1,7 +1,7 @@
 import enviroment from "../../enviroment";
 import { generateUniqueId } from "../helpers/unique_id";
 
-const __url_project = `${enviroment.api_url}/projects`;
+const __url_project = `${enviroment.mockapi_url}/projects`;
 
 export const get_projects = async function() {
     const url = `${__url_project}`;

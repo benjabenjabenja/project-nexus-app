@@ -9,6 +9,6 @@ const ProjectsSlice = createSlice({
 
 const { actions, reducer } = ProjectsSlice;
 
-export const { GET_PROJECT, GET_PROJECT_SUCCESS, GET_PROJECT_ERROR, GET_PROJECT_CLEAR } = actions;
+export const { SET_GET_PROJECT, SET_GET_PROJECT_SUCCESS, SET_GET_PROJECT_ERROR, SET_GET_PROJECT_CLEAR } = actions;
 
 export default reducer;

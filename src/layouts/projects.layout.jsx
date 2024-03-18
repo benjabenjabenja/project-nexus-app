@@ -27,15 +27,16 @@ const Wrapper = styled.div`
 `;
 
 function ProjectsLayout() {
+    
     const menuItems = useLoaderData();
     const location = useLocation();
     const navigate = useNavigate();
-
+    
     const handlerBack = ev => {
         ev.preventDefault();
         navigate(-1);
     }
-    
+
     return (
         <Wrapper className="container bg-slate-300 md:min-h-screen">
             <Header className="shadow-md mb-4">
@@ -54,7 +55,7 @@ function ProjectsLayout() {
                                 rounded-3xl
                                 hover:text-shadow-offset-y-2
                                 transition__links
-                                ${location.pathname === item.url ? 'bg-slate-500' : ''}`
+                                ${location.pathname.includes(item.url) ? 'bg-slate-500' : ''}`
                             }
                         >
                             { item["view-id"].toUpperCase() }
@@ -67,9 +68,12 @@ function ProjectsLayout() {
                 </nav>
             </Header>
             <main className="bg-slate-50 rounded-md shadow-md px-5 py-10 mx-3 min-h-screen">
-                <Button variant="text" onClick={handlerBack}>
-                    <KeyboardArrowLeftIcon /> Back
-                </Button>
+                <div className={`w-full mb-2 ${location.pathname === "/projects" ? 'hidden' : ''}`}>
+
+                    <Button variant="text" onClick={handlerBack}>
+                        <KeyboardArrowLeftIcon /> Back
+                    </Button>
+                </div>
                 <ProjectProvider>
                     <Outlet />
                 </ProjectProvider>

@@ -18,8 +18,26 @@
   ],
   "projects": [
     {
-      "id": "arq-171051920602095",
-      "projectName": "asdfasdf",
+      "id": "arq-171051920602094",
+      "projectName": "asdfasdf2",
+      "description": "asdfasdfasdf",
+      "limitDate": "2024-03-25",
+      "tasks": [],
+      "users": [],
+      "createdAt": "2024-03-15T16:13:26.020Z"
+    },
+    {
+      "id": "arq-1710519206020958",
+      "projectName": "asdfasdf2",
+      "description": "asdfasdfasdf",
+      "limitDate": "2024-03-25",
+      "tasks": [],
+      "users": [],
+      "createdAt": "2024-03-15T16:13:26.020Z"
+    },
+    {
+      "id": "arq-1710519206020956",
+      "projectName": "asdfasdf3",
       "description": "asdfasdfasdf",
       "limitDate": "2024-03-25",
       "tasks": [],
@@ -34,8 +52,12 @@
       "name": "Juan",
       "password": "123",
       "isLoged": true,
-      "token": "arq-1710762478098345arq-171076247809842",
-      "projects": [],
+      "token": "arq-1710787854166464arq-1710787854166755",
+      "projects": [
+        {
+          "id": "arq-1710519206020958"
+        }
+      ],
       "role": "ADMIN",
       "id": "a052"
     }

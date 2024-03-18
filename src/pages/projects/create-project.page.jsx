@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
 import { Button, Grid, TextField } from "@mui/material";
-import { Form, redirect, useActionData } from "react-router-dom";
+import { Form, useActionData, useNavigate } from "react-router-dom";
 import { create_project } from "../../services/projects";
 import { isValidArray } from "../../helpers/validators";
 import AlertErrorForm from "../../compnents/alert-error-form";
+import WrapperContainerPages from "../../compnents/wrapper-container-pages";
+import { useEffect } from "react";
 
 export async function action({ request }) {
     const fd = await request.formData();
@@ -32,9 +35,8 @@ export async function action({ request }) {
         description,
         limitDate,
     });
-     if(!isValidArray(errors)) return redirect(`/projects/${createProjectResponse.id}`);
-
-    return errors
+    // createProjectResponse && await get_projects();
+    return [errors, createProjectResponse]
 }
 
 const FormCreateProject = () => {
@@ -96,16 +98,23 @@ const FormCreateProject = () => {
 }
 
 function CreateProject() {
-    const errorsForm = useActionData();
+    const [errorsForm, success] = useActionData() || [];
+
+    const navigate = useNavigate();
+    useEffect(
+        () => {
+            errorsForm?.length <= 0 && success && navigate(`/projects/${success.id}`);
+        }, [errorsForm, success]
+    )
     return (
-        <>
+        <WrapperContainerPages>
            
+            <h1 className="text-2xl text-center font-bold m-auto">Create Project</h1>
             {
                 isValidArray(errorsForm) && <AlertErrorForm errors={errorsForm} />
             }
-            <h2 className="text-2xl text-center font-bold m-auto">Create Project</h2>
             <FormCreateProject />
-        </>
+        </WrapperContainerPages>
     );
 }
 

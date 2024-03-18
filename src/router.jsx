@@ -19,7 +19,7 @@ import NewPasswordPage, { action as newPasswordAction } from "./pages/auth/new-p
 import ConfirmAccountPage from "./pages/auth/confirm-account.page";
 import LogoutPage, { loader as logoutLoader } from "./pages/auth/logout.page";
 import { AuthProvider } from "./context/AuthProvider";
-import RouteProtected from "./layouts/route-protected";
+import RouteProtected from "./layouts/route-protected.layout";
 
 const routes = createBrowserRouter([
     {
@@ -89,15 +89,10 @@ const routes = createBrowserRouter([
                 action: editProjectAction
             },
             {
-                path: "/projects/tasks",
+                path: "/projects/:projectId/tasks",
                 element: <GestionTasks />,
                 loader: loaderTasks
-            },
-            {
-                path: "/projects/control-panel",
-                element: <GestionProjectos />,
-                loader: loaderProjectsData
-            },
+            }
         ]
     },
     {

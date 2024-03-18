@@ -6,19 +6,19 @@ import { Provider, connect } from "react-redux";
 import "./index.css";
 import store from "./store/store";
 import {
-    GET_PROJECT,
-    GET_PROJECT_SUCCESS,
-    GET_PROJECT_ERROR,
-    GET_PROJECT_CLEAR
-} from "./store/project.slice";
+    SET_GET_PROJECTS,
+    SET_GET_PROJECTS_SUCCESS,
+    SET_GET_PROJECTS_ERROR,
+    SET_GET_PROJECTS_CLEAR
+} from "./store/actions/project.actions";
 
 const mapState = state => state;
 
 const actionsCreator = {
-    GET_PROJECT,
-    GET_PROJECT_SUCCESS,
-    GET_PROJECT_ERROR,
-    GET_PROJECT_CLEAR
+    SET_GET_PROJECTS,
+    SET_GET_PROJECTS_SUCCESS,
+    SET_GET_PROJECTS_ERROR,
+    SET_GET_PROJECTS_CLEAR
 };
 
 const ConectedRouter = connect(mapState, actionsCreator)(Router);

@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { createReducer } from '@reduxjs/toolkit';
 import {
-    GET_PROJECTS,
-    GET_PROJECTS_CLEAR,
-    GET_PROJECTS_ERROR,
-    GET_PROJECTS_SUCCESS
+    SET_GET_PROJECTS,
+    SET_GET_PROJECTS_CLEAR,
+    SET_GET_PROJECTS_ERROR,
+    SET_GET_PROJECTS_SUCCESS
 } from '../actions/project.actions';
 
 const initialState = {
@@ -15,13 +15,16 @@ const initialState = {
 }
 
 const getProjectsReducer = createReducer(initialState, (builder) => {
-    builder.addCase(GET_PROJECTS, (state) => {
+
+    builder.addCase(SET_GET_PROJECTS, (state, action) => {
+        console.log({state, action})
         return {
             ...state,
-            pending: true 
+            pending: true,
+            data: action.payload
         };
     });
-    builder.addCase(GET_PROJECTS_SUCCESS, (state, action) => {
+    builder.addCase(SET_GET_PROJECTS_SUCCESS, (state, action) => {
         return {
             ...state,
             data: action.payload,
@@ -30,7 +33,7 @@ const getProjectsReducer = createReducer(initialState, (builder) => {
             success: true
         };
     });
-    builder.addCase(GET_PROJECTS_ERROR, (state, action) => {
+    builder.addCase(SET_GET_PROJECTS_ERROR, (state, action) => {
         return {
             ...state,
             error: action.payload,
@@ -39,9 +42,10 @@ const getProjectsReducer = createReducer(initialState, (builder) => {
             success: false
         };
     });
-    builder.addCase(GET_PROJECTS_CLEAR, (state) => {
+    builder.addCase(SET_GET_PROJECTS_CLEAR, (state) => {
         return initialState
     });
+    
 });
 
 export default { getProjectsReducer };

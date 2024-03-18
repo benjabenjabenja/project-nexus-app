@@ -23,8 +23,7 @@ export async function action({ request }) {
         if("".includes(limitDate) && "".includes(taskName)) errors.push("los campos son requeridos")
         if ("".includes(limitDate)) errors.push("la fecha limite es requerida");
         if ("".includes(taskName)) errors.push("el nombre de la tarea es requerido");
-        // validaciones
-        console.log({ values });
+    
         // envio de datos
         if (Object.values(values)) {
             return [values, []];
@@ -33,7 +32,7 @@ export async function action({ request }) {
         throw new Error(e.message);
     }
 
-    return [null, errors];
+    return [[], errors];
 }
 
 const FormAddTasks = ({ errors }) => {
@@ -86,7 +85,12 @@ const classes = {
 }
 
 const AddTasks = ({ addTask, setAddTask, errors }) => {
-    const handdlerAddTasks = (ev) => { ev.preventDefault(); setAddTask(true); }
+
+    const handdlerAddTasks = (ev) => {
+        ev.preventDefault();
+        setAddTask(true);
+    }
+
     return (
         <>
             {
@@ -108,7 +112,7 @@ const AddTasks = ({ addTask, setAddTask, errors }) => {
         </>
     );
 }
-const AddUsers = () => {
+const AddUsersButton = () => {
     
     const handdlerAddUsers = ev => {
         ev.preventDefault();
@@ -160,6 +164,16 @@ const ProjectDetail = ({ project }) => {
                     Project Description: <strong>{` ${project.description ?? 'Empty Description'}`} </strong>
                 </Grid>
             </Grid>
+            <section className="flex items-center py-6 my-auto">
+                {
+                    tasks?.length === 0 && !addTask && <p className="font-semibold mr-2">No task in this project.</p>
+                }
+                <AddTasks
+                    addTask={addTask}
+                    setAddTask={setAddTask}
+                    errors={errors}
+                />
+            </section>
             <section>
                 {
                     isValidArray(project.tasks) && 
@@ -175,20 +189,16 @@ const ProjectDetail = ({ project }) => {
                     </Box>
             
                 }
-                <section className="flex items-center px-10 py-6 my-auto">
-                    {
-                        tasks.length === 0 && !addTask && <p className="font-semibold mr-2">No task in this project.</p>
-                    }
-                    <AddTasks
-                        addTask={addTask}
-                        setAddTask={setAddTask}
-                        errors={errors}
-                    />
-                </section>
             </section>
             <section>
+                <Box sx={{ margin: 1 }}>
+                    <section className="flex items-center px-10 py-6 my-auto">
+                        <p className="font-semibold mr-2">No members in this project.</p>
+                        <AddUsersButton />
+                    </section>
+                </Box>
                 {
-                    isValidArray(project.users) ? (
+                    isValidArray(project?.users) &&
                         <Box sx={{ margin: 1 }}>
                             <Typography
                                 variant="h6"
@@ -198,14 +208,7 @@ const ProjectDetail = ({ project }) => {
                                 Members
                             </Typography>
                             <TableUsers tasks={project.users} />
-                        </Box>
-                    ) : 
-                    (<Box sx={{ margin: 1 }}>
-                        <section className="flex items-center px-10 py-6 my-auto">
-                            <p className="font-semibold mr-2">No members in this project.</p>
-                            <AddUsers />
-                        </section>
-                    </Box>)
+                        </Box> 
                 }
             </section>
         </main>
