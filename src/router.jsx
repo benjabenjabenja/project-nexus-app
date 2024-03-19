@@ -4,10 +4,10 @@ import {
     createBrowserRouter,
 } from "react-router-dom";
 import AuthLayout from "./layouts/auth.layout"; 
-import GestionProjectos, { loader as loaderProjectsData } from "./pages/projects/gestion-projectos.page";
+import IndexProjects from "./pages/projects/index-projects.page";
 import ProjectsLayout, { loader as loaderMenu } from "./layouts/projects.layout";
 import CreateProject, { action as createProjectAction } from './pages/projects/create-project.page';
-import Project, { loader as projectLoader } from './compnents/projects/project';
+import Project from './pages/projects/project.page';
 import { action as addTaskAction } from './compnents/projects/project-detail';
 import EditProject from "./pages/projects/edit-project.page"
 import { action as editProjectAction } from './compnents/projects/form-edit-project';
@@ -68,8 +68,7 @@ const routes = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <GestionProjectos />,
-                loader: loaderProjectsData
+                element: <IndexProjects />
             },
             {
                 path: '/projects/create-project',
@@ -77,15 +76,13 @@ const routes = createBrowserRouter([
                 action: createProjectAction,
             },
             {
-                path: '/projects/:id',
+                path: '/projects/:projectId',
                 element: <Project />,
-                loader: projectLoader,
                 action: addTaskAction
             },
             {
-                path: "/projects/:id/edit",
+                path: "/projects/:projectId/edit",
                 element: <EditProject />,
-                loader: projectLoader,
                 action: editProjectAction
             },
             {

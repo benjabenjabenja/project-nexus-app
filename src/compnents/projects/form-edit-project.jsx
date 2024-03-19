@@ -5,6 +5,7 @@
 import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
+import { isValidObject } from "../../helpers/validators";
 
 export async function action({ request }) {
     const errors = [];
@@ -30,7 +31,10 @@ export async function action({ request }) {
 }
 
 function FormEditProject({ project }) {
-    const [limitDate, setLimitDate] = useState(project?.limitDate || '');
+
+    const [limitDate, setLimitDate] = useState(project?.limitDate);
+    const [projectName, setProjectName] = useState(project?.projectName);
+    const [description, setDescription] = useState(project?.description);
 
     useEffect(
         () => {
@@ -38,8 +42,14 @@ function FormEditProject({ project }) {
                 const date = limitDate.split('/').reverse().join('-');
                 setLimitDate(date);
             }
-        }, []
+            if (isValidObject(project)) {
+                setLimitDate(project?.limitDate)
+                setProjectName(project?.projectName)
+                setDescription(project?.description)
+            }
+        }, [project]
     );
+
     return (
         <Form method="post">
             {/* Edit project name */}
@@ -50,7 +60,8 @@ function FormEditProject({ project }) {
                     id="outlined-basic-projectName"
                     name="projectName"
                     variant="outlined"
-                    value={project?.projectName}
+                    value={projectName}
+                    onChange={e => setProjectName(e.target.value)}
                 />
             </div>
             {/* Edit project limit date */}
@@ -76,7 +87,8 @@ function FormEditProject({ project }) {
                     variant="outlined"
                     multiline
                     name="description"
-                    value={project?.description}
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
                 />
             </div>
             {/* button edit */}

@@ -49,10 +49,12 @@ export const update_project = async function ({ id, data }) {
         const url = `${__url_project}/${id}`;
         const response = await fetch(url, {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify({ id, ...data }),
+            headers: {
+                "Content-Type": "application/json",
+            }
         });
         return await response.json();
-
     } catch (e) {
         throw new Error('ERROR - [update - project]: ' + e.message);
     }

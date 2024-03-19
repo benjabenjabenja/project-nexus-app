@@ -1,52 +1,56 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-refresh/only-export-components */
-import { useActionData, useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useActionData, useNavigate, useParams } from "react-router-dom";
 import FormEditProject from "../../compnents/projects/form-edit-project";
 import { isValidArray } from "../../helpers/validators";
 import AlertErrorForm from "../../compnents/alert-error-form";
 import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 import { useEffect, useState } from "react";
-import { get_project_by_id, update_project } from "../../services/projects";
 import EditTasks from '../../compnents/tasks/edit-tasks';
+import useProjects from "./hooks/useProjects";
 
 function EditProject() {
     const [tasks, setTasks] = useState([]);
     const [errors, success] = useActionData() || [];
-    
-    const navigate = useNavigate();
-    const project = useLoaderData();
+    const { project, updateProject, getProjectById } = useProjects();
+
     const params = useParams();
-    const { id } = params;
+    const navigate = useNavigate();
+    const { projectId: id } = params;
+
     useEffect(
         () => {
-            const updateProject = async () => {
-                try {
-                    console.log({errors, success})
-                    // const response = await update_project({ id, data: success });
-                    // navigate("/projects");
-                } catch (e) {
-                    throw new Error(e.message);
-                }
+            if (success && errors.length === 0) {     
+                (async function () {
+                    try {
+                        const body = {
+                            ...project,
+                            ...success
+                        }
+                        console.log({ body });
+                        await updateProject({ id, ...body });
+                        navigate("/projects");
+                    } catch (e) {
+                        throw new Error(e.message);
+                    }
+
+                })();
             }
-            updateProject();
         }, [errors, success]
     );
-    
+    // carga las tareas de mi projecto buscado por id
     useEffect(
         () => {
-            (async function() { 
-                try {
-                    const response = await get_project_by_id({ id });
-                    if (response) {
-                        // cargar projecto a la store
-                        setTasks(response.tasks);
-                    }
-                } catch (e) {
-                    throw new Error(e.message)
-                }
-            })();
-        }, []);
+            setTasks(project.tasks);
+        }, [project]
+    );
+    // carga una vez tenga el id 
+    useEffect(
+        () => {
+            id && getProjectById({ id });
+        }, []
+    );
     
     return (
         <WrapperContainerPages>

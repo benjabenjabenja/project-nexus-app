@@ -26,6 +26,7 @@ const ProjectProvider = ({ children }) => {
         if (!isValidArray(projectsResponse)) {
             return;
         }
+
         setProjects(() => auth.role === "ADMIN" ? [...projectsResponse] : [...projectsResponse.filter(
             v => v?.user?.id === auth?.id
         )]);

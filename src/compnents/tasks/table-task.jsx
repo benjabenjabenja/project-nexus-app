@@ -35,9 +35,9 @@ function TableTask(props) {
         <Table size="small" aria-label="purchases">                 
             <TableHead>
                 <TableRow>
-                    <TableCell>Task Name</TableCell>
-                    <TableCell>Completed</TableCell>
-                    <TableCell>Limit Date</TableCell>
+                    <TableCell> <strong>Task Name </strong></TableCell>
+                    <TableCell> <strong>Status </strong></TableCell>
+                    <TableCell> <strong>Limit Date </strong></TableCell>
                     {
                         withActions && <TableCell>Actions</TableCell>
                     }

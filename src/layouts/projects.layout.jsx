@@ -43,29 +43,15 @@ function ProjectsLayout() {
             <Header className="shadow-md mb-4">
                 <img height={'200px'} width={'auto'} src="/logo-nexus-project.png" alt="" />
                 <nav className="min-w-full bg-slate-300 py-5 px-5 flex flex-auto gap-2">
-                {
-                    isValidArray(menuItems) && menuItems?.map((item) => (
-                        <Link
-                            to={item.url}
-                            key={generateUniqueId()}
-                            className={`
-                                px-3 py-2
-                                text-white
-                                border border-transparent
-                                hover:border-slate-500
-                                rounded-3xl
-                                hover:text-shadow-offset-y-2
-                                transition__links
-                                ${location.pathname.includes(item.url) ? 'bg-slate-500' : ''}`
-                            }
-                        >
-                            { item["view-id"].toUpperCase() }
-                        </Link>
-                    ))
-                }
-                <Link
-                    className="uppercase px-3 py-2 border text-white border-transparent hover:border-slate-500 hover:bg-slate-500 mr-0 ml-auto rounded-3xl transition__links"
-                    to="/logout">Logout</Link>    
+                    <Link
+                        to={"/projects"}
+                        className={`px-3 py-2 text-white border border-transparent hover:border-slate-500 rounded-3xl hover:text-shadow-offset-y-2 transition__links
+                            ${location.pathname === "/projects" ? 'bg-slate-500' : ''}`
+                        }
+                        >{ "Projects".toUpperCase() }</Link>
+                    <Link
+                        className="uppercase px-3 py-2 border text-white border-transparent hover:border-slate-500 hover:bg-slate-500 mr-0 ml-auto rounded-3xl transition__links"
+                        to="/logout">Logout</Link>    
                 </nav>
             </Header>
 

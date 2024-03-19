@@ -8,16 +8,8 @@ import { useEffect, useState } from "react";
 import { get_projects } from "../../services/projects";
 import CollapsibleTable from "../../compnents/projects/project-list";
 import { isValidArray } from "../../helpers/validators";
-import useProjects from "./hooks/useProjects.hooks";
+import useProjects from "./hooks/useProjects";
 import WrapperContainerPages from "../../compnents/wrapper-container-pages";
-import { useSelector } from "react-redux";
-
-export async function loader() {
-    const projects = await get_projects();
-    return { 
-        projects: projects ?? []
-    };
-}
 
 const classes = {
     customFab: {
@@ -27,30 +19,24 @@ const classes = {
     }
 }
 
-const GestionProjectos = () => {
-    const store = useSelector(state => state.projects);
-    const data = useLoaderData();
+const IndexProjects = () => {
     const [actionClicked, setActionClicked] = useState('');
     const [idClicked, setIdClicked] = useState('');
     const navigate = useNavigate();
-
-    const { projects, getProjects } = useProjects() || { projects: [] };
-    console.log({}) 
+    const { projects, getProjects } = useProjects();
+    
     useEffect(
         () => {
-            if (actionClicked === "edit") {
-                
-                navigate(`/projects/${idClicked}/edit`);
-            }
+            actionClicked === "ver" && navigate(`/projects/${idClicked}`);
+            actionClicked === "edit" && navigate(`/projects/${idClicked}/edit`);
         }, [actionClicked, idClicked]
     );
-
+    // cargo la data a la store 
     useEffect(
         () => {
-            const r = async () => {
+            (async () => {
                 await getProjects();
-            }
-            r()
+            })();
         }, []
     );
 
@@ -82,9 +68,9 @@ const GestionProjectos = () => {
                 {/* tabla de projectos */}
                 <section className="container">
                     {
-                        isValidArray(data?.projects) ? <CollapsibleTable
+                        isValidArray(projects) ? <CollapsibleTable
                             className="mb-3"
-                            projects={data?.projects}
+                            projects={projects}
                             withActions={true}
                             setActionClicked={setActionClicked}
                             setIdClicked={setIdClicked}
@@ -99,4 +85,4 @@ const GestionProjectos = () => {
     );
 };
 
-export default GestionProjectos;
+export default IndexProjects;

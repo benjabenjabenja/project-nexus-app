@@ -16,6 +16,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
 import TableTask from "../tasks/table-task";
@@ -32,6 +33,11 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
         setActionClicked('edit');
         setIdClicked(project.id);
     };
+
+    const handlerVerProyecto = () => {
+        setActionClicked('ver');
+        setIdClicked(project.id);
+    }
 
     return (
         <>
@@ -72,6 +78,14 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
                                 title={'delete project'}
                             >
                                 <DeleteOutlineOutlinedIcon />   
+                            </IconButton>
+                            <IconButton
+                                aria-label="expand row"
+                                size="small"
+                                onClick={handlerVerProyecto}
+                                title={'project detail'}
+                            >
+                                <VisibilityOutlinedIcon />   
                             </IconButton>
                         </TableCell>
                     )
