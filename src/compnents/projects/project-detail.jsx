@@ -19,10 +19,10 @@ export async function action({ request }) {
         const fd = await request.formData();
         const values = Object.fromEntries(fd);
 
-        const { limitDate, taskName } = values;
-        if("".includes(limitDate) && "".includes(taskName)) errors.push("los campos son requeridos")
+        const { limitDate, taskDescription } = values;
+        if("".includes(limitDate) && "".includes(taskDescription)) errors.push("los campos son requeridos")
         if ("".includes(limitDate)) errors.push("la fecha limite es requerida");
-        if ("".includes(taskName)) errors.push("el nombre de la tarea es requerido");
+        if ("".includes(taskDescription)) errors.push("el nombre de la tarea es requerido");
     
         // envio de datos
         if (Object.values(values)) {
@@ -37,7 +37,7 @@ export async function action({ request }) {
         throw new Error(e.message);
     }
 
-    return [[], errors];
+    return [null, errors];
 }
 // button fab classes
 const classes = {
@@ -48,27 +48,32 @@ const classes = {
 }
 
 const FormAddTasks = ({ errors, setAddTask }) => {
+    const [taskDescription, settaskDescription] = useState('');
+    const [limitDate, setLimitDate] = useState('');
+    
     return (
         <>
-            {
-                isValidArray(errors) && <AlertErrorForm errors={errors} />
-            }
-            <Form method="post" className="w-1/2 flex flex-col justify-between bg-slate-50 p-6">
+            <Form method="post" className="w-2/3 flex flex-col justify-between bg-slate-50 p-6">
+                {
+                    isValidArray(errors) && <AlertErrorForm errors={errors} />
+                }
                 {/* input task name */}
                 <div className="mb-2">
                     <label
-                        className="text-left w-full font-black"
-                        htmlFor="outlined-basic-taskName"> Task Name </label>
+                        className="block text-left w-full font-black"
+                        htmlFor="outlined-basic-taskDescription"> Task Description </label>
                     <TextField
                         fullWidth
-                        id="outlined-basic-taskName"
-                        name="taskName"
+                        id="outlined-basic-taskDescription"
+                        name="taskDescription"
                         variant="outlined"
+                        value={taskDescription}
+                        onChange={ev => settaskDescription(ev.target.value)}
                     />
                 </div>
                 {/* input date limit */}
                 <div className="mb-2">
-                    <label className="text-left w-1/6 font-black" htmlFor="limit-date">
+                    <label className="block text-left w-full font-black" htmlFor="limit-date">
                         Limit Date
                     </label>
                     <TextField
@@ -76,6 +81,8 @@ const FormAddTasks = ({ errors, setAddTask }) => {
                         type="date"
                         name="limitDate"
                         id="limit-date"
+                        value={limitDate}
+                        onChange={ev => setLimitDate(ev.target.value)}
                     />
                 </div>
                 {<div className="w-full flex items-center justify-between mr-0 ml-auto">
@@ -105,7 +112,7 @@ const FormAddTasks = ({ errors, setAddTask }) => {
                 </div>}
             </Form>
         </>
-    )
+    );
 }
 
 const AddTasksButton = ({ addTask, setAddTask }) => {
@@ -153,39 +160,34 @@ const AddUsersButton = () => {
     );
 }
 
+// page principal
 const ProjectDetail = ({ project, updateProjectTasks }) => {
     const [addTask, setAddTask] = useState(false);
-    const [tasks, setTasks] = useState(project?.tasks);
+    const [tasks, setTasks] = useState(project?.tasks ?? []);
     const [newTask, errors] = useActionData() || []; 
 
     useEffect(
         () => {
-            // console.log({errors})
-        }, [errors]
-    );
-
-    useEffect(
-        () => {
-            const addTaskFn = async () => {
+            addTask && isValidObject(newTask) && (async () => {
                 if (newTask) {
-                    console.log({ newTask })
-                    const modified = [...tasks, newTask]
-                    setTasks(modified);
+                    const modified = [...tasks, newTask];
+                    const response = await updateProjectTasks({ id: project.id, tasks: newTask });
+                    isValidObject(response) && setTasks(modified);
                 }
-            }
-            addTaskFn();
-        }, [addTask,newTask]
+            })();
+
+        }, [newTask]
     );
 
     useEffect(
         () => {
-            isValidObject(newTask) && updateProjectTasks({id: project.id, tasks});
-        },[tasks]
+            isValidObject(project) && setTasks(project?.tasks)
+        },[project]
     );
 
     return (
-        <main className="p-4 mx-4 w-2/3">
-            <Grid className="" container>
+        <main className="p-4 mx-4 w-full">
+            <Grid className="w-full" container>
                 <Grid className="py-3 text-start" item xs={12} sm={12} md={4} lg={4}>
                     Project Name: <strong>{` ${project?.projectName}`} </strong>
                 </Grid>
@@ -196,7 +198,8 @@ const ProjectDetail = ({ project, updateProjectTasks }) => {
                     Project Description: <strong>{` ${project.description ?? 'Empty Description'}`} </strong>
                 </Grid>
             </Grid>
-            <section className="flex items-center py-6 my-auto">
+            {/*  Tasks */}
+            <section className="flex items-center py-6 my-auto w-2/3">
                 {
                     addTask && <FormAddTasks errors={errors} setAddTask={setAddTask} />
                 }
@@ -205,10 +208,12 @@ const ProjectDetail = ({ project, updateProjectTasks }) => {
                     setAddTask={setAddTask}
                 />
             </section>
-            <section className="w-full ml-0 mr-auto my-auto">
+            {/*  */}
+            <section className="w-2/3 ml-0 mr-auto my-auto">
                 <Typography
+                    className="text-left"
                     margin={2}
-                    variant="h6"
+                    variant="h5"
                     gutterBottom
                     component="div"
                 > Tasks </Typography>
@@ -217,17 +222,19 @@ const ProjectDetail = ({ project, updateProjectTasks }) => {
                         {
                             tasks?.length === 0 && !addTask && <p className="font-semibold mr-2">No task in this project.</p>
                         }
+                        
                         <TableTask tasks={project.tasks} errors={errors} />
                     </>
                 }
             </section>
-            <section>
-                <Box sx={{ margin: 1 }}>
-                    <section className="flex items-center px-10 py-6 my-auto">
-                        <p className="font-semibold mr-2">No members in this project.</p>
-                        <AddUsersButton />
-                    </section>
-                </Box>
+            <section className="w-2/3 ml-0 mr-auto my-auto">
+                <div className="flex items-center my-2 mx-auto">
+                    {
+                        !isValidArray(project?.users) && <p className="font-semibold mr-4">No members in this project.</p>
+                    }
+
+                    <AddUsersButton />
+                </div>
                 {
                     isValidArray(project?.users) &&
                         <Box sx={{ margin: 1 }}>

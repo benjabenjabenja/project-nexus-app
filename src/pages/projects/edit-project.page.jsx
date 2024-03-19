@@ -17,6 +17,7 @@ function EditProject() {
 
     const params = useParams();
     const navigate = useNavigate();
+
     const { projectId: id } = params;
 
     useEffect(
@@ -29,8 +30,8 @@ function EditProject() {
                             ...success
                         }
                         console.log({ body });
-                        await updateProject({ id, ...body });
-                        navigate("/projects");
+                        //await updateProject({ id, ...body });
+                        // navigate("/projects");
                     } catch (e) {
                         throw new Error(e.message);
                     }
@@ -61,7 +62,9 @@ function EditProject() {
                 {
                     isValidArray(errors) && <AlertErrorForm errors={errors || []} />
                 }
-                <FormEditProject className="m-auto" project={project} />
+                {
+                    project && <FormEditProject className="m-auto" project={project} />
+                }
             </section>
 
             <br />

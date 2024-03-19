@@ -5,7 +5,6 @@
 import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
-import { isValidObject } from "../../helpers/validators";
 
 export async function action({ request }) {
     const errors = [];
@@ -31,25 +30,23 @@ export async function action({ request }) {
 }
 
 function FormEditProject({ project }) {
-
-    const [limitDate, setLimitDate] = useState(project?.limitDate);
-    const [projectName, setProjectName] = useState(project?.projectName);
-    const [description, setDescription] = useState(project?.description);
-
+    const [limitDate, setLimitDate] = useState('');
+    const [projectName, setProjectName] = useState('');
+    const [description, setDescription] = useState('');
+    console.log({ project })
     useEffect(
         () => {
-            if (project && project?.limit_date) {
-                const date = limitDate.split('/').reverse().join('-');
-                setLimitDate(date);
-            }
-            if (isValidObject(project)) {
+            if (project) {
                 setLimitDate(project?.limitDate)
                 setProjectName(project?.projectName)
                 setDescription(project?.description)
             }
-        }, [project]
+            if (project && project?.limit_date) {
+                const date = limitDate.split('/').reverse().join('-');
+                setLimitDate(date);
+            }
+        }, []
     );
-
     return (
         <Form method="post">
             {/* Edit project name */}

@@ -32,14 +32,14 @@ function TableTask(props) {
         setIdClicked(tasks[0].id);
     };
     return (
-        <Table size="small" aria-label="purchases">                 
+        <Table size="small" className="mx-auto my-6" aria-label="purchases">                 
             <TableHead>
                 <TableRow>
-                    <TableCell> <strong>Task Name </strong></TableCell>
+                    <TableCell> <strong>Task Description </strong></TableCell>
                     <TableCell> <strong>Status </strong></TableCell>
                     <TableCell> <strong>Limit Date </strong></TableCell>
                     {
-                        withActions && <TableCell>Actions</TableCell>
+                        withActions && <TableCell><strong>Actions </strong></TableCell>
                     }
                 </TableRow>
             </TableHead>
@@ -47,14 +47,14 @@ function TableTask(props) {
                 {
                     tasks && tasks?.map((task) => (
                         <TableRow key={generateUniqueId()}>
-                            <TableCell>{task?.taskName}</TableCell>
+                            <TableCell>{task?.taskDescription}</TableCell>
                             <TableCell>
                                 {task?.complete ? "Complete" : "Pending"}
                             </TableCell>
                             <TableCell>{task?.limitDate}</TableCell>
                             {
-                                withActions && (
-                                    <TableCell className={`${withActions ? 'block' : 'hidden'}`}>
+                                withActions && 
+                                    <TableCell>
                                         {
                                             withActions && (
                                                 <>
@@ -80,7 +80,7 @@ function TableTask(props) {
                                             )
                                         }
                                     </TableCell>
-                                )
+                                
                             }
                         </TableRow>
                     ))

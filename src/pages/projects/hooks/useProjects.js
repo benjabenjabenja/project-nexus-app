@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useAuth from "../../../hooks/useAuth";
 import { get_project_by_id, get_projects, update_project } from "../../../services/projects";
@@ -64,18 +64,6 @@ const useProjects = () => {
         });
         await updateProject({ id: project.id, tasks });
     }
-
-    useEffect(
-        () => {
-            (async function () {
-                try {
-                    // const res = await updateProject({ id: project.id, ...project});
-                } catch (e) {
-                    throw new Error(e.message);
-                }
-            })()
-        }, [project]
-    )
 
     return {
         getProjects,
