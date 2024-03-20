@@ -22,7 +22,6 @@ const ProjectProvider = ({ children }) => {
 
         const projectsResponse = await get_projects();
         dispatch(SET_GET_PROJECTS_SUCCESS(projectsResponse));
-        console.log({ store, projectsResponse });
         if (!isValidArray(projectsResponse)) {
             return;
         }
@@ -30,10 +29,6 @@ const ProjectProvider = ({ children }) => {
         setProjects(() => auth.role === "ADMIN" ? [...projectsResponse] : [...projectsResponse.filter(
             v => v?.user?.id === auth?.id
         )]);
-    }
-
-    const update = async ({id, ...values}) => {
-        const res = await get_projects({id, data: values});
     }
 
     useEffect(

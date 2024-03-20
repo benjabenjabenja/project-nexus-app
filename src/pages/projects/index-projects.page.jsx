@@ -10,6 +10,7 @@ import CollapsibleTable from "../../compnents/projects/project-list";
 import { isValidArray } from "../../helpers/validators";
 import useProjects from "./hooks/useProjects";
 import WrapperContainerPages from "../../compnents/wrapper-container-pages";
+import useAuth from "../../hooks/useAuth";
 
 const classes = {
     customFab: {
@@ -22,15 +23,16 @@ const classes = {
 const IndexProjects = () => {
     const [actionClicked, setActionClicked] = useState('');
     const [idClicked, setIdClicked] = useState('');
-    const navigate = useNavigate();
     const { projects, getProjects } = useProjects();
-    
+    const navigate = useNavigate();
+    const { auth } = useAuth();
     useEffect(
         () => {
             actionClicked === "ver" && navigate(`/projects/${idClicked}`);
             actionClicked === "edit" && navigate(`/projects/${idClicked}/edit`);
         }, [actionClicked, idClicked]
     );
+    
     // cargo la data a la store 
     useEffect(
         () => {
@@ -71,7 +73,7 @@ const IndexProjects = () => {
                         isValidArray(projects) ? <CollapsibleTable
                             className="mb-3"
                             projects={projects}
-                            withActions={true}
+                            withActions={auth?.role === "ADMIN"}
                             setActionClicked={setActionClicked}
                             setIdClicked={setIdClicked}
                         /> :

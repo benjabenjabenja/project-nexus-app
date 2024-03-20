@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -23,6 +24,7 @@ import TableTask from "../tasks/table-task";
 
 function Row({ project, withActions, setActionClicked, setIdClicked }) {
     const [open, setOpen] = useState(false);
+    
     const handlerDelete = ev => {
         ev.preventDefault();
         setActionClicked('delete');
@@ -38,6 +40,9 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
         setActionClicked('ver');
         setIdClicked(project.id);
     }
+    const isComplete = useMemo(
+        () => project.tasks.some(t => !t.complete), [project]
+    );
 
     return (
         <>
@@ -57,10 +62,10 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
                 <TableCell component="th" scope="row">{project?.projectName}</TableCell>
                 <TableCell>{project?.limitDate}</TableCell>
                 <TableCell>{project?.description}</TableCell>
-                <TableCell>{project?.status}</TableCell>
+                <TableCell>{!isComplete ? 'completed' : 'pending'}</TableCell>
                 {/* actions edit/delete */}
                     {withActions && (
-                        <TableCell className={`${withActions ? 'block' : 'hidden'}`}>
+                        <TableCell>
                             <IconButton
                                 aria-label="expand row"
                                 size="small"

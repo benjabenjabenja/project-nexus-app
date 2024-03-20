@@ -3,15 +3,17 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useActionData, useNavigate, useParams } from "react-router-dom";
 import FormEditProject from "../../compnents/projects/form-edit-project";
-import { isValidArray } from "../../helpers/validators";
+import { isValidArray, isValidObject } from "../../helpers/validators";
 import AlertErrorForm from "../../compnents/alert-error-form";
 import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 import { useEffect, useState } from "react";
-import EditTasks from '../../compnents/tasks/edit-tasks';
 import useProjects from "./hooks/useProjects";
+import TableTask from "../../compnents/tasks/table-task";
+import FormAddTasks from "../../compnents/tasks/form-add-task";
 
 function EditProject() {
     const [tasks, setTasks] = useState([]);
+    const [task, setTask] = useState({});
     const [errors, success] = useActionData() || [];
     const { project, updateProject, getProjectById } = useProjects();
 
@@ -22,20 +24,34 @@ function EditProject() {
 
     useEffect(
         () => {
+            
             if (success && errors.length === 0) {     
                 (async function () {
                     try {
-                        const body = {
+                        // only projects
+                        let body = {
                             ...project,
-                            ...success
+                            limitDate: success?.limitDate ?? project?.limitDate,
+                            description: success?.description ?? project?.description,
+                            projectName: success?.projectName ?? project?.projectName
                         }
-                        console.log({ body });
-                        //await updateProject({ id, ...body });
-                        // navigate("/projects");
+                        // only task 
+                        if (isValidObject(task)) {
+                            const i = tasks.findIndex(t => t.id === task?.id);
+                            let filtered = [...tasks];
+                            filtered[i] = {
+                                ...task,
+                                limitDate: success?.limitDateTask,
+                                taskDescription: success?.taskDescription
+                            };
+                            body.tasks = filtered;
+                        }
+                        const res = await updateProject({ id, ...body });
+                        isValidObject(res) && setTask({});
+                        navigate("/projects");
                     } catch (e) {
                         throw new Error(e.message);
                     }
-
                 })();
             }
         }, [errors, success]
@@ -70,9 +86,19 @@ function EditProject() {
             <br />
 
             <section className="container w-2/3 m-auto">
-                <EditTasks tasks={tasks} setTasks={setTasks} />
+                
+                <TableTask
+                    tasks={tasks}
+                    withActions={true}
+                    setTasks={setTasks}
+                    setTask={setTask}
+                />
             </section>
-            
+            <section className="container w-2/3 m-auto">
+                {
+                    isValidObject(task) && <FormAddTasks errors={errors} task={task} setTask={setTask} />
+                }
+            </section>
         </WrapperContainerPages>
     );
 }

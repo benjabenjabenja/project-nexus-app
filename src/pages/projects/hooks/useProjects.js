@@ -19,7 +19,6 @@ const useProjects = () => {
     const getProjectById = async ({ id }) => {
         try {
             const response = await get_project_by_id({ id });
-            response && console.log({ projecById: response });
             if (response) {
                 setProject(response);
             }
@@ -42,6 +41,7 @@ const useProjects = () => {
             v => v?.user?.id === auth?.id
         )]);
     }
+
     // update projec individual
     const updateProject = async ({ id, ...values }) => {
         const res = await update_project({ id, data: values });
@@ -70,6 +70,7 @@ const useProjects = () => {
         setProjects,
         projects,
         project,
+        setProject,
         updateProject,
         getProjectById,
         updateProjectTasks,

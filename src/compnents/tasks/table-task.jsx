@@ -1,92 +1,100 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { IconButton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import {
+    Checkbox,
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+} from "@mui/material";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { generateUniqueId } from "../../helpers/unique_id";
-import { useEffect, useState } from "react";
+import { isValidArray } from "../../helpers/validators";
 
-function TableTask(props) {
-    const { tasks, withActions } = props;
-    const [actionClicked, setActionClicked] = useState('');
-    const [idClicked, setIdClicked] = useState('');
-    const [taskEdited, setTaskEdited] = useState({});
+function TableTask({
+    tasks,
+    withActions,
+    setTasks,
+    setTask,
+}) {
+    const handleCheck = (e, task) => {
+        
+        const { checked } = e.target;
+        let t = [...tasks];
 
-    useEffect(
-        () => { 
-            const edit_tasks = ({ id }) => {
-                // TODO: llamar al update_task.
-            }
-            edit_tasks({ id: idClicked  });
-        }, [actionClicked, idClicked]
-    );
-
-    const handlerDelete = ev => {
-        ev.preventDefault();
-        setIdClicked(tasks[0].id);
-        setActionClicked('delete');
+        let find = t.find(v => v.id === task.id);
+        find.complete = checked;
+        
+        const i = t.findIndex((v) => v.id === find.id);
+        t[i] = find;
+        
+        setTasks(t);
     }
 
-    const handlerEdit = () => {
-        setActionClicked('edit');
-        setIdClicked(tasks[0].id);
+    const handleEdit = (task) => {
+        setTask(task);
     };
+    
     return (
-        <Table size="small" className="mx-auto my-6" aria-label="purchases">                 
-            <TableHead>
-                <TableRow>
-                    <TableCell> <strong>Task Description </strong></TableCell>
-                    <TableCell> <strong>Status </strong></TableCell>
-                    <TableCell> <strong>Limit Date </strong></TableCell>
-                    {
-                        withActions && <TableCell><strong>Actions </strong></TableCell>
-                    }
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {
-                    tasks && tasks?.map((task) => (
-                        <TableRow key={generateUniqueId()}>
-                            <TableCell>{task?.taskDescription}</TableCell>
+        <>
+            <Table size="small" className="mx-auto my-6" aria-label="purchases">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>
+                            <strong>Task Description </strong>
+                        </TableCell>
+                        <TableCell>
+                            <strong>Status </strong>
+                        </TableCell>
+                        <TableCell>
+                            <strong>Limit Date </strong>
+                        </TableCell>
+                        {withActions && (
                             <TableCell>
-                                {task?.complete ? "Complete" : "Pending"}
+                                <strong>Actions </strong>
                             </TableCell>
-                            <TableCell>{task?.limitDate}</TableCell>
-                            {
-                                withActions && 
+                        )}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {isValidArray(tasks) &&
+                        tasks?.map((task) => (
+                            <TableRow key={generateUniqueId() + task.id}>
+                                <TableCell>{task?.taskDescription}</TableCell>
+                                <TableCell>
+                                    {task?.complete ? "complete" : "pending"}
+                                </TableCell>
+                                <TableCell>{task?.limitDate}</TableCell>
+                                {withActions && (
                                     <TableCell>
-                                        {
-                                            withActions && (
-                                                <>
-                                                    <IconButton
-                                                        aria-label="expand row"
-                                                        size="small"
-                                                        onClick={handlerEdit}
-                                                        color='primary'
-                                                        title={'edit project'}
-                                                    >
-                                                        <EditOutlinedIcon />
-                                                    </IconButton>
-                                                    <IconButton
-                                                        aria-label="expand row"
-                                                        size="small"
-                                                        onClick={handlerDelete}
-                                                        color='error'
-                                                        title={'delete project'}
-                                                    >
-                                                        <DeleteOutlineOutlinedIcon />   
-                                                    </IconButton>
-                                                </>
-                                            )
-                                        }
+                                        {/* edit button */}
+                                        <IconButton
+                                            aria-label="expand row"
+                                            size="small"
+                                            onClick={() => {
+                                                handleEdit(task);
+                                            }}
+                                            color="primary"
+                                            title={"edit project"}
+                                        >
+                                            <EditOutlinedIcon />
+                                        </IconButton>
+
+                                        {/* ckeck input */}
+                                        <Checkbox
+                                            checked={task.complete}
+                                            onChange={ e => handleCheck(e,task) }
+                                        />
                                     </TableCell>
-                                
-                            }
-                        </TableRow>
-                    ))
-                }
-            </TableBody>
-        </Table>
+                                )}
+                            </TableRow>
+                        ))}
+                </TableBody>
+            </Table>
+        </>
     );
 }
 

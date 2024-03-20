@@ -1,15 +1,17 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 
-import { Box, Fab, Grid, TextField, Typography } from "@mui/material";
+import { Box, Fab, Grid, Typography } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { isValidArray, isValidObject } from "../../helpers/validators";
 import TableUsers from "../users/table-users.jsx";
 import TableTask from "../tasks/table-task";
 import { useEffect, useState } from "react";
-import { Form, useActionData } from "react-router-dom";
-import AlertErrorForm from "../alert-error-form.jsx";
+import { useActionData } from "react-router-dom";
+import { generateUniqueId } from "../../helpers/unique_id.js";
+import FormAddTasks from "../tasks/form-add-task.jsx";
 
 // add task action form
 export async function action({ request }) {
@@ -29,7 +31,7 @@ export async function action({ request }) {
             const task = {
                 ...values,
                 complete: false,
-
+                id: generateUniqueId()
             }
             return [task, []];
         }
@@ -45,74 +47,6 @@ const classes = {
         backgroundColor: 'bg-slate-900',
         color: 'white'
     }
-}
-
-const FormAddTasks = ({ errors, setAddTask }) => {
-    const [taskDescription, settaskDescription] = useState('');
-    const [limitDate, setLimitDate] = useState('');
-    
-    return (
-        <>
-            <Form method="post" className="w-2/3 flex flex-col justify-between bg-slate-50 p-6">
-                {
-                    isValidArray(errors) && <AlertErrorForm errors={errors} />
-                }
-                {/* input task name */}
-                <div className="mb-2">
-                    <label
-                        className="block text-left w-full font-black"
-                        htmlFor="outlined-basic-taskDescription"> Task Description </label>
-                    <TextField
-                        fullWidth
-                        id="outlined-basic-taskDescription"
-                        name="taskDescription"
-                        variant="outlined"
-                        value={taskDescription}
-                        onChange={ev => settaskDescription(ev.target.value)}
-                    />
-                </div>
-                {/* input date limit */}
-                <div className="mb-2">
-                    <label className="block text-left w-full font-black" htmlFor="limit-date">
-                        Limit Date
-                    </label>
-                    <TextField
-                        fullWidth
-                        type="date"
-                        name="limitDate"
-                        id="limit-date"
-                        value={limitDate}
-                        onChange={ev => setLimitDate(ev.target.value)}
-                    />
-                </div>
-                {<div className="w-full flex items-center justify-between mr-0 ml-auto">
-                    <Fab
-                        title="add tasks"
-                        classes={classes.customFab}
-                        aria-label="add"
-                        variant="extended"
-                        size="small"
-                        color="primary"
-                        type="submit"
-                    >
-                        <AddCircleOutlineOutlinedIcon sx={{ mr: 1 }} /> Add Tasks
-                    </Fab>
-                    <Fab
-                        title="add tasks"
-                        classes={classes.customFab}
-                        aria-label="add"
-                        variant="extended"
-                        size="small"
-                        color="error"
-                        onClick={() => setAddTask(false)}
-                        type="submit"
-                    >
-                        Cancel
-                    </Fab>
-                </div>}
-            </Form>
-        </>
-    );
 }
 
 const AddTasksButton = ({ addTask, setAddTask }) => {
@@ -170,8 +104,13 @@ const ProjectDetail = ({ project, updateProjectTasks }) => {
         () => {
             addTask && isValidObject(newTask) && (async () => {
                 if (newTask) {
-                    const modified = [...tasks, newTask];
-                    const response = await updateProjectTasks({ id: project.id, tasks: newTask });
+                    const nt = {
+                        ...newTask,
+                        limitDate: newTask?.limitDateTask,
+                        taskDescription: newTask?.taskDescription
+                    }
+                    const modified = [...tasks, nt ];
+                    const response = await updateProjectTasks({ id: project.id, tasks: nt });
                     isValidObject(response) && setTasks(modified);
                 }
             })();

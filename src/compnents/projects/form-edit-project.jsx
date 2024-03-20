@@ -30,22 +30,23 @@ export async function action({ request }) {
 }
 
 function FormEditProject({ project }) {
-    const [limitDate, setLimitDate] = useState('');
-    const [projectName, setProjectName] = useState('');
-    const [description, setDescription] = useState('');
-    console.log({ project })
+    
+    const [limitDate, setLimitDate] = useState(project?.limitDate || '');
+    const [projectName, setProjectName] = useState(project?.projectName || '');
+    const [description, setDescription] = useState(project?.description || '');
+
     useEffect(
         () => {
+            if (project && project?.limit_date) {
+                const date = limitDate.split("T")[0].split('/').reverse().join('-');
+                setLimitDate(date);
+            }
             if (project) {
                 setLimitDate(project?.limitDate)
                 setProjectName(project?.projectName)
                 setDescription(project?.description)
             }
-            if (project && project?.limit_date) {
-                const date = limitDate.split('/').reverse().join('-');
-                setLimitDate(date);
-            }
-        }, []
+        }, [project]
     );
     return (
         <Form method="post">
@@ -57,7 +58,7 @@ function FormEditProject({ project }) {
                     id="outlined-basic-projectName"
                     name="projectName"
                     variant="outlined"
-                    value={projectName}
+                    value={projectName || ''}
                     onChange={e => setProjectName(e.target.value)}
                 />
             </div>
@@ -71,7 +72,7 @@ function FormEditProject({ project }) {
                     type="date"
                     name="limitDate"
                     id="limit-date"
-                    value={limitDate}
+                    value={limitDate || ''}
                     onChange={ ev => setLimitDate(ev.target.value)}
                 />
             </div>
@@ -84,7 +85,7 @@ function FormEditProject({ project }) {
                     variant="outlined"
                     multiline
                     name="description"
-                    value={description}
+                    value={description || ''}
                     onChange={e => setDescription(e.target.value)}
                 />
             </div>
