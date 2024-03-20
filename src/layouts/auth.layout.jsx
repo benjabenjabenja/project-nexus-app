@@ -9,6 +9,7 @@ import { Header } from "../compnents/header";
 import { Button } from "@mui/material";
 
 const WrapperOutlet = ({ children }) => {
+
     return (
     <main className="container mx-auto mt-4 md:mt-10 flex justify-center">
         <div className="w-full lg:w-2/3">
@@ -20,6 +21,7 @@ const WrapperOutlet = ({ children }) => {
 const Wrapper = styled.div`
     background-color: #edede9;
     display: flex;
+    flex: 1;
     flex-direction: column;
     min-width: 100%;
     min-height: 100vh;
@@ -31,9 +33,12 @@ function AuthLayout() {
     const menuItems = [];//useLoaderData();
     const location = useLocation();
     const navigate = useNavigate();
+
+    const hidden = (value) => value === "/" || value == "/login" ? "hidden" : "";
+
     const handlerBack = ev => {
         ev.preventDefault();
-        navigate(-1);
+        navigate("/");
     }
     return (
         <Wrapper>
@@ -53,10 +58,12 @@ function AuthLayout() {
 				}
                 </nav>
             </Header>
-            <WrapperOutlet>
-                <Button variant="text" onClick={handlerBack}>
+            <div className={`container ${hidden(location.pathname)}`}>
+                <Button  variant="text" onClick={handlerBack}>
                     <KeyboardArrowLeftIcon /> Back
                 </Button>
+            </div>
+            <WrapperOutlet>
                 <Outlet />
             </WrapperOutlet>
         </Wrapper>

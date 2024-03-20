@@ -7,18 +7,21 @@ const __url_auth = `${enviroment.api_url}/users`;
 export const login = async ({ email, password }) => {
     try {
         const users = await get_users();
-        const find = users.find(({ user }) => user.email === email && password === user.password);
-        console.log({ find });
+        const find = users.find((user) => user.email === email && password.toLowerCase() === user.password.toLowerCase());
         if (find) {
-            find.user.token = generateUniqueId() + generateUniqueId();
-            find.user.isLoged = true;
+            find.token = generateUniqueId() + generateUniqueId();
+            find.isLoged = true;
+
             const set_user_response = await update_user(find);
+
             localStorage.setItem("userId", JSON.stringify(set_user_response.id));
+            localStorage.setItem("user", JSON.stringify(set_user_response));
+
             return set_user_response ? set_user_response : null;
         }
         throw new Error('ERROR - [on login]: usuario o contraseña incorrectos');
     } catch (e) {
-        throw new Error("ERROR - [on login]: ",e.message);
+        throw new Error(e.message);
     }
 };
 export const logout = async ({ id }) => {
@@ -26,11 +29,8 @@ export const logout = async ({ id }) => {
         const user_by_id = await get_user_by_id({ id });
         const user_set = {
             ...user_by_id,
-            user: {
-                ...user_by_id.user,
-                isLoged: false,
-                token: ""
-            }
+            isLoged: false,
+            token: ""
         };
         const response = await update_user(user_set);
         return response;

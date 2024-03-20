@@ -1,10 +1,10 @@
 import { createAction } from "@reduxjs/toolkit";
 
 // GET
-export const GET_PROJECTS = createAction('@GET_PROJECTS');
-export const GET_PROJECTS_SUCCESS = createAction('@GET_PROJECTS/SUCCESS');
-export const GET_PROJECTS_ERROR = createAction('@GET_PROJECTS/ERROR');
-export const GET_PROJECTS_CLEAR = createAction('@GET_PROJECTS/CLEAR');
+export const SET_GET_PROJECTS = createAction('@SET_GET_PROJECTS');
+export const SET_GET_PROJECTS_SUCCESS = createAction('@SET_GET_PROJECTS/SUCCESS');
+export const SET_GET_PROJECTS_ERROR = createAction('@SET_GET_PROJECTS/ERROR');
+export const SET_GET_PROJECTS_CLEAR = createAction('@SET_GET_PROJECTS/CLEAR');
 
 // CREATE
 export const SET_CREATE_PROJECT = createAction('@SET_CREATE_PROJECT');

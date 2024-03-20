@@ -3,17 +3,14 @@
 /* eslint-disable no-unused-vars */
 import { Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { get_projects } from "../../services/projects";
 import CollapsibleTable from "../../compnents/projects/project-list";
-
-export async function loader() {
-    const projects = await get_projects();
-    return { 
-        projects: projects ?? []
-    };
-}
+import { isValidArray } from "../../helpers/validators";
+import useProjects from "./hooks/useProjects";
+import WrapperContainerPages from "../../compnents/wrapper-container-pages";
+import useAuth from "../../hooks/useAuth";
 
 const classes = {
     customFab: {
@@ -23,35 +20,40 @@ const classes = {
     }
 }
 
-const GestionProjectos = () => {
-    const data = useLoaderData();
-    const [showOutlet, setShowOutlet] = useState(false);
+const IndexProjects = () => {
     const [actionClicked, setActionClicked] = useState('');
     const [idClicked, setIdClicked] = useState('');
+    const { projects, getProjects } = useProjects();
     const navigate = useNavigate();
-
+    const { auth } = useAuth();
     useEffect(
         () => {
-            if (actionClicked === "edit") {
-                setShowOutlet(true);
-                navigate(`/home/projects/${idClicked}/edit`);
-            }
+            actionClicked === "ver" && navigate(`/projects/${idClicked}`);
+            actionClicked === "edit" && navigate(`/projects/${idClicked}/edit`);
         }, [actionClicked, idClicked]
+    );
+    
+    // cargo la data a la store 
+    useEffect(
+        () => {
+            (async () => {
+                await getProjects();
+            })();
+        }, []
     );
 
     const handlerCreateProject = ev => {
         ev.preventDefault();
 
-        setShowOutlet(true);
-        navigate("/home/projects/create-project");
+        navigate("/projects/create-project");
     }
 
     return (
         <>
-            <main className='container'>
+            <WrapperContainerPages>
                 
-                <h1 className={`text-2xl font-bold text-center mb-4 ${showOutlet ? 'hidden' : ''}`}>Gestion de Projectos</h1>
-                <section className={`container flex justify-between ${showOutlet ? 'hidden' : ''}`}>
+                <h1 className="text-2xl font-bold text-center mb-4"> Gestion de Projectos </h1>
+                <section className="container flex justify-between">
 
                     <h2 className="text-left text-xl py-5 my-auto">Aqui podras gestionar tus proyectos.</h2>
                     <Fab
@@ -65,25 +67,24 @@ const GestionProjectos = () => {
                         <AddIcon sx={{ mr: 1 }} /> Add Project
                     </Fab>
                 </section>
-
-                <section className={`container ${showOutlet ? 'hidden' : ''}`} >
+                {/* tabla de projectos */}
+                <section className="container">
                     {
-                        data?.projects && <CollapsibleTable
+                        isValidArray(projects) ? <CollapsibleTable
                             className="mb-3"
-                            projects={data?.projects}
-                            withActions={true}
+                            projects={projects}
+                            withActions={auth?.role === "ADMIN"}
                             setActionClicked={setActionClicked}
                             setIdClicked={setIdClicked}
-                        />
+                        /> :
+                            <main className="p-5 mx-0 my-auto text-center font-black text-3xl">
+                                No tienes projectos, crea uno!
+                            </main>
                     }
                 </section>
-
-                <section className={`container ${!showOutlet ? 'hidden' : ''}`}>
-                    <Outlet />
-                </section>
-            </main>
+                </WrapperContainerPages>
         </>
     );
 };
 
-export default GestionProjectos;
+export default IndexProjects;

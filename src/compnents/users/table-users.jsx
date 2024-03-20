@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
 function TableUsers({ users }) {
-    console.log({users})
     return (
         <table className="table">
             <thead>

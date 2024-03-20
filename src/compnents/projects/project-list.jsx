@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -15,14 +17,14 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
 import TableTask from "../tasks/table-task";
 
-function Row(props) {
-    const { project, withActions, setActionClicked, setIdClicked } = props;
+function Row({ project, withActions, setActionClicked, setIdClicked }) {
     const [open, setOpen] = useState(false);
-
+    
     const handlerDelete = ev => {
         ev.preventDefault();
         setActionClicked('delete');
@@ -33,6 +35,14 @@ function Row(props) {
         setActionClicked('edit');
         setIdClicked(project.id);
     };
+
+    const handlerVerProyecto = () => {
+        setActionClicked('ver');
+        setIdClicked(project.id);
+    }
+    const isComplete = useMemo(
+        () => project.tasks.some(t => !t.complete), [project]
+    );
 
     return (
         <>
@@ -49,14 +59,13 @@ function Row(props) {
                         </IconButton>
                     ) : "" }
                 </TableCell>
-                <TableCell component="th" scope="row">{project.projectName}</TableCell>
-                <TableCell>{project.limitDate}</TableCell>
-                <TableCell>{project.description}</TableCell>
-                <TableCell>{project.status}</TableCell>
+                <TableCell component="th" scope="row">{project?.projectName}</TableCell>
+                <TableCell>{project?.limitDate}</TableCell>
+                <TableCell>{project?.description}</TableCell>
+                <TableCell>{!isComplete ? 'completed' : 'pending'}</TableCell>
                 {/* actions edit/delete */}
-                <TableCell className={`${withActions ? 'block' : 'hidden'}`}>
                     {withActions && (
-                        <>
+                        <TableCell>
                             <IconButton
                                 aria-label="expand row"
                                 size="small"
@@ -75,9 +84,17 @@ function Row(props) {
                             >
                                 <DeleteOutlineOutlinedIcon />   
                             </IconButton>
-                        </>
-                    )}
-                </TableCell>
+                            <IconButton
+                                aria-label="expand row"
+                                size="small"
+                                onClick={handlerVerProyecto}
+                                title={'project detail'}
+                            >
+                                <VisibilityOutlinedIcon />   
+                            </IconButton>
+                        </TableCell>
+                    )
+                }
             </TableRow>
             <TableRow>
                 <TableCell
@@ -113,7 +130,7 @@ export default function CollapsibleTable({ projects, withActions, setActionClick
                         <TableCell>Limit Date</TableCell>
                         <TableCell>Description</TableCell>
                         <TableCell>Status</TableCell>
-                        <TableCell className={`${withActions ? 'block':'hidden'}`}>Actions</TableCell>
+                        { withActions && <TableCell>Actions</TableCell>}
                     </TableRow>
                 </TableHead>
                 <TableBody>

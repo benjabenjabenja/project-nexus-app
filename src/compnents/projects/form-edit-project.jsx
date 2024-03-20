@@ -2,36 +2,51 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Form, redirect } from "react-router-dom";
-import { update_project } from "../../services/projects";
+import { Form } from "react-router-dom";
 
 export async function action({ request }) {
     const errors = [];
     try {
         const fd = await request.formData();
         const values = Object.fromEntries(fd);
+
         const { projectName, limitDate, description } = values;
-        if ([projectName, limitDate, description].includes("")) errors.push("todos los campos son requeridos");
-        console.log({ values });
-        const response = await update_project({ ...values, limit_date: values.limitDate });
-        response && redirect("/home/projects");
-        return errors || [];
+
+        if ([projectName, limitDate, description].includes("")) {
+
+            if ([projectName].includes("")) { errors.push("el nombre es requerido"); }
+            if ([limitDate].includes("")) errors.push("la fecha limite es requerida");
+            if ([description].includes("")) errors.push("la descripcion es requerida");
+            
+            return [errors, []];
+        }
+        
+        return [[], values || []];
     } catch (e) {
         throw new Error(e.message);
     }
 }
 
 function FormEditProject({ project }) {
-    const [limitDate, setLimitDate] = useState(project?.limit_date || '');
+    
+    const [limitDate, setLimitDate] = useState(project?.limitDate || '');
+    const [projectName, setProjectName] = useState(project?.projectName || '');
+    const [description, setDescription] = useState(project?.description || '');
+
     useEffect(
         () => {
-            if (project && project.limit_date) {
-                const date = limitDate.split('/').reverse().join('-');
+            if (project && project?.limit_date) {
+                const date = limitDate.split("T")[0].split('/').reverse().join('-');
                 setLimitDate(date);
             }
-        }, []
+            if (project) {
+                setLimitDate(project?.limitDate)
+                setProjectName(project?.projectName)
+                setDescription(project?.description)
+            }
+        }, [project]
     );
     return (
         <Form method="post">
@@ -43,7 +58,8 @@ function FormEditProject({ project }) {
                     id="outlined-basic-projectName"
                     name="projectName"
                     variant="outlined"
-                    value={project?.projectName}
+                    value={projectName || ''}
+                    onChange={e => setProjectName(e.target.value)}
                 />
             </div>
             {/* Edit project limit date */}
@@ -56,7 +72,7 @@ function FormEditProject({ project }) {
                     type="date"
                     name="limitDate"
                     id="limit-date"
-                    value={limitDate}
+                    value={limitDate || ''}
                     onChange={ ev => setLimitDate(ev.target.value)}
                 />
             </div>
@@ -69,7 +85,8 @@ function FormEditProject({ project }) {
                     variant="outlined"
                     multiline
                     name="description"
-                    value={project?.description}
+                    value={description || ''}
+                    onChange={e => setDescription(e.target.value)}
                 />
             </div>
             {/* button edit */}

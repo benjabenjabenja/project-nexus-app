@@ -1,194 +1,64 @@
 {
   "routes": [
     {
-      "url": "/home",
-      "view-id": "home",
+      "url": "/projects",
+      "view-id": "projects",
       "id": "3da0"
     },
     {
-      "url": "/home/projects",
-      "view-id": "projects",
-      "id": "a851"
-    },
-    {
-      "url": "/home/projects/tasks",
+      "url": "/projects/tasks",
       "view-id": "tasks",
       "id": "1a85"
     },
     {
-      "url": "/home/projects/control-panel",
+      "url": "/projects/control-panel",
       "view-id": "control panel",
       "id": "deadsa"
     }
   ],
   "projects": [
     {
-      "projectName": "Project 1",
-      "limitDate": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [
-        {
-          "taskName": "Design the interface",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the application",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the applicatio2n",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        }
-      ],
-      "createdAt": "10/01/2023",
-      "id": "df58"
-    },
-    {
-      "projectName": "Project 2",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [],
-      "createdAt": "10/01/2023",
-      "id": "5b0e"
-    },
-    {
-      "projectName": "Project 3",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [
-        {
-          "taskName": "Design the interface",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the application",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the applicatio2n",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        }
-      ],
-      "createdAt": "10/01/2023",
-      "id": "a203"
-    },
-    {
-      "projectName": "Project 5",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [],
-      "createdAt": "10/01/2023",
-      "id": "eb0e"
-    },
-    {
-      "projectName": "Project 6",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [],
-      "createdAt": "10/01/2023",
-      "id": "10ba"
-    },
-    {
-      "projectName": "Project 7",
-      "limit_date": "11/12/2021",
-      "users": [
-        "John Doe",
-        "Jane Smith"
-      ],
-      "description": "This is the project description",
-      "status": "In progress",
-      "tasks": [
-        {
-          "taskName": "Design the interface",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the application",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        },
-        {
-          "taskName": "Code the applicatio2n",
-          "completed": true,
-          "limitDate": "17/09/2021"
-        }
-      ],
-      "createdAt": "10/01/2023",
-      "id": "4146"
-    },
-    {
-      "id": "arq-1710202363665387",
-      "projectName": "asfdasdf",
-      "description": "123123123asdfasdfasdfsdf",
-      "limitDate": "2024-03-13",
+      "id": "arq-171051920602094",
+      "projectName": "asdfasdf2",
+      "description": "asdfasdfasdf",
+      "limitDate": "2024-03-25",
       "tasks": [],
       "users": [],
-      "createdAt": "2024-03-12T00:12:43.665Z"
-    }
-  ],
-  "tasks": [
-    {
-      "taskName": "Design the interface",
-      "completed": true,
-      "limitDate": "17/09/2021",
-      "id": "98ea"
+      "createdAt": "2024-03-15T16:13:26.020Z"
     },
     {
-      "taskName": "Code the application",
-      "completed": true,
-      "limitDate": "17/09/2021",
-      "id": "5687"
+      "id": "arq-1710519206020958",
+      "projectName": "asdfasdf2",
+      "description": "asdfasdfasdf",
+      "limitDate": "2024-03-25",
+      "tasks": [],
+      "users": [],
+      "createdAt": "2024-03-15T16:13:26.020Z"
     },
     {
-      "taskName": "Code the applicatio2n",
-      "completed": true,
-      "limitDate": "17/09/2021",
-      "id": "21b7"
+      "id": "arq-1710519206020956",
+      "projectName": "asdfasdf3",
+      "description": "asdfasdfasdf",
+      "limitDate": "2024-03-25",
+      "tasks": [],
+      "users": [],
+      "createdAt": "2024-03-15T16:13:26.020Z"
     }
   ],
+  "tasks": [],
   "users": [
     {
-      "user": {
-        "email": "asdf@asdf.com",
-        "repeat_email": "asdf@asdf.com",
-        "name": "Juan",
-        "role": "ADMIN",
-        "password": "123123",
-        "isLoged": true,
-        "token": "arq-1710246284347676arq-1710246284347283"
-      },
+      "email": "asdf@asdf.com",
+      "name": "Juan",
+      "password": "123",
+      "isLoged": true,
+      "token": "arq-17109324599251070arq-17109324599259850",
+      "projects": [
+        {
+          "id": "arq-1710519206020958"
+        }
+      ],
+      "role": "ADMIN",
       "id": "a052"
     }
   ]

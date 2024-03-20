@@ -1,10 +1,10 @@
 import enviroment from "../../enviroment";
 import { generateUniqueId } from "../helpers/unique_id";
 
-const __url_project = `${enviroment.api_url}/projects`
+const __url_project = `${enviroment.mockapi_url}/projects`;
 
 export const get_projects = async function() {
-    const url = `${__url_project}?_page=1&_limit=5`;
+    const url = `${__url_project}`;
     const response = await fetch(url, { method: 'GET' });
     return await response.json();
 }
@@ -49,10 +49,12 @@ export const update_project = async function ({ id, data }) {
         const url = `${__url_project}/${id}`;
         const response = await fetch(url, {
             method: 'PUT',
-            body: JSON.stringify(data),
+            body: JSON.stringify({ id, ...data }),
+            headers: {
+                "Content-Type": "application/json",
+            }
         });
         return await response.json();
-
     } catch (e) {
         throw new Error('ERROR - [update - project]: ' + e.message);
     }

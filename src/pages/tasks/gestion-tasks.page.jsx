@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from "react";
-import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
-import { Button, Fab } from "@mui/material";
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { Outlet, useLoaderData } from "react-router-dom";
+import { Fab } from "@mui/material";
+
 import AddIcon from '@mui/icons-material/Add';
 import { get_tasks } from "../../services/tasks";
 import TableTask from "../../compnents/tasks/table-task";
@@ -23,21 +24,10 @@ const classes = {
 function GestionTasks() {
     const [showOutlet, setShowOutlet] = useState(false);
     const tasks = useLoaderData();
-    const navigate = useNavigate();
-
-    const handlerBack = ev => {
-        ev.preventDefault();
-
-        setShowOutlet(false);
-        navigate(-1);
-    }
 
     return (
         <>
-        <Button variant="text" onClick={handlerBack}>
-                <KeyboardArrowLeftIcon /> Back
-            </Button>
-            <main className='container'>
+        <main className='container'>
                 <h1 className={`text-2xl font-bold text-center mb-4 ${showOutlet ? 'hidden' : ''}`}>Gestion de Tareas</h1>
                 <section className={`container flex justify-between ${showOutlet ? 'hidden' : ''}`}>
 
