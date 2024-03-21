@@ -88,22 +88,26 @@ const AddUsersButton = ({ setAddUser, adduser }) => {
     );
 }
 
-const AddUserForm = ({ users }) => {
+const AddUserForm = ({ users, setAddUserList }) => {
+    const [user, setUser] = useState('');
     const handleAddUser = e => {
         e.preventDefault();
+
+        setAddUserList(user);
+
+        //setUser('');
     }
     return (
-        <form className="flex felx-wrap items-center " onSubmit={handleAddUser}>
-            <select defaultValue="" className="block px-5 py-2 mr-4" name="user" id="user-select">
-                <option value="" selected> ||| Seleccionar usuario |||</option>
+        <form method="post" onSubmit={handleAddUser} className="flex felx-wrap items-center ">
+            <select onChange={e => setUser(e.target.value)} className="block px-5 py-2 mr-4" name="user" id="user-select">
+                <option value="" selected disabled> ||| Seleccionar usuario ||| </option>
                 {
-                    isValidArray(users) && users.map((u,i) => <option key={generateUniqueId()+ (users.id ?? i)} value={u}>{ u.name }</option>)
+                    isValidArray(users) && users?.map((u,i) => <option key={generateUniqueId()+ (u.id ?? i)} value={u.id}>{ u.name }</option>)
                 }
             </select>
 
             <div className="flex items-center justify-between">
                 <Fab
-                    title="nav to /create-project"
                     onClick={handleAddUser}
                     classes={classes.customFab}
                     aria-label="add"
@@ -119,11 +123,28 @@ const AddUserForm = ({ users }) => {
 }
 
 // page principal
-const ProjectDetail = ({ project, updateProjectTasks, usersList}) => {
+const ProjectDetail = ({ project, updateProjectTasks, usersList, updateProject }) => {
     const [addTask, setAddTask] = useState(false);
     const [addUsers, setAddUsers] = useState(false);
     const [tasks, setTasks] = useState(project?.tasks ?? []);
     const [newTask, errors] = useActionData() || [];
+    
+    const [users, setUsers] = useState(project?.users ?? []);// projecto inside and user list from bbdd
+
+    const setAddUserList = async (user) => {
+        const find = project?.users?.find(v => v.id === user);
+        const userToAdd = usersList.find(v => v.id === user);
+
+        if (!find && isValidObject(userToAdd)) {
+            await updateProject({ ...project, users: [...project.users, userToAdd] });
+
+        } else {
+            const message = find ? "user is already in the project" : "invalid user"
+            alert(message);
+            return;
+        }     
+        
+    }
 
     useEffect(
         () => {
@@ -145,7 +166,10 @@ const ProjectDetail = ({ project, updateProjectTasks, usersList}) => {
 
     useEffect(
         () => {
-            isValidObject(project) && setTasks(project?.tasks)
+            isValidObject(project) && setTasks(project?.tasks);
+            const res = usersList.filter(v => v.id === project?.users?.find(i => i.id === v.id)?.id );
+            if (isValidArray(project?.users) || isValidArray(res)) setUsers(res);
+            
         },[project]
     );
 
@@ -194,7 +218,7 @@ const ProjectDetail = ({ project, updateProjectTasks, usersList}) => {
             {/* user */}
             <section className="flex items-center py-6 my-auto w-2/3">
                 {
-                    addUsers && <AddUserForm errors={errors} users={usersList} />
+                    addUsers && <AddUserForm errors={errors} users={usersList} setAddUserList={setAddUserList} />
                 }
                 {
                     !addUsers && <AddUsersButton adduser={addUsers} setAddUser={setAddUsers} />
@@ -210,13 +234,15 @@ const ProjectDetail = ({ project, updateProjectTasks, usersList}) => {
                     Members
                 </Typography>
                 {
-                    !isValidArray(project?.users) &&
+                    isValidArray(project?.users) &&
                     <>
                         {
-                            project?.users?.length === 0 && !addUsers &&
-                                <p className="font-semibold mr-4">No members in this project add ones.</p>
+                            users?.length === 0 && <p className="font-semibold mr-4">No members in this project add ones.</p>
                         }
-                        <TableUsers users={project?.users}  />
+                        {
+
+                            isValidArray(users) && <TableUsers users={users} />
+                        }
                     </>
                 }
             </section>

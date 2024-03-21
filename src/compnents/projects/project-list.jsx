@@ -15,33 +15,34 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
 import TableTask from "../tasks/table-task";
 
 function Row({ project, withActions, setActionClicked, setIdClicked }) {
     const [open, setOpen] = useState(false);
-    
-    const handlerDelete = ev => {
+
+    const handlerDelete = (ev) => {
         ev.preventDefault();
-        setActionClicked('delete');
+        setActionClicked("delete");
         console.log("deleting project ", project.id);
-    }
+    };
 
     const handlerEdit = () => {
-        setActionClicked('edit');
+        setActionClicked("edit");
         setIdClicked(project.id);
     };
 
     const handlerVerProyecto = () => {
-        setActionClicked('ver');
+        setActionClicked("ver");
         setIdClicked(project.id);
-    }
+    };
     const isComplete = useMemo(
-        () => project.tasks.some(t => !t.complete), [project]
+        () => project.tasks.some((t) => !t.complete),
+        [project]
     );
 
     return (
@@ -49,29 +50,39 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
             <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
                 {/* Arrow Icon row */}
                 <TableCell>
-                    { isValidArray(project.tasks) ? (
+                    {isValidArray(project.tasks) ? (
                         <IconButton
                             aria-label="expand row"
                             size="small"
                             onClick={() => setOpen(!open)}
                         >
-                            { open ? ( <KeyboardArrowUpIcon />) : (<KeyboardArrowDownIcon />) }
+                            {open ? (
+                                <KeyboardArrowUpIcon />
+                            ) : (
+                                <KeyboardArrowDownIcon />
+                            )}
                         </IconButton>
-                    ) : "" }
+                    ) : (
+                        ""
+                    )}
                 </TableCell>
-                <TableCell component="th" scope="row">{project?.projectName}</TableCell>
+                <TableCell component="th" scope="row">
+                    {project?.projectName}
+                </TableCell>
                 <TableCell>{project?.limitDate}</TableCell>
                 <TableCell>{project?.description}</TableCell>
-                <TableCell>{!isComplete ? 'completed' : 'pending'}</TableCell>
+                <TableCell>{!isComplete ? "completed" : "pending"}</TableCell>
                 {/* actions edit/delete */}
+
+                <TableCell>
                     {withActions && (
-                        <TableCell>
+                        <>
                             <IconButton
                                 aria-label="expand row"
                                 size="small"
                                 onClick={handlerEdit}
-                                color='primary'
-                                title={'edit project'}
+                                color="primary"
+                                title={"edit project"}
                             >
                                 <EditOutlinedIcon />
                             </IconButton>
@@ -79,22 +90,22 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
                                 aria-label="expand row"
                                 size="small"
                                 onClick={handlerDelete}
-                                color='error'
-                                title={'delete project'}
+                                color="error"
+                                title={"delete project"}
                             >
-                                <DeleteOutlineOutlinedIcon />   
+                                <DeleteOutlineOutlinedIcon />
                             </IconButton>
-                            <IconButton
-                                aria-label="expand row"
-                                size="small"
-                                onClick={handlerVerProyecto}
-                                title={'project detail'}
-                            >
-                                <VisibilityOutlinedIcon />   
-                            </IconButton>
-                        </TableCell>
-                    )
-                }
+                        </>
+                    )}
+                    <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={handlerVerProyecto}
+                        title={"project detail"}
+                    >
+                        <VisibilityOutlinedIcon />
+                    </IconButton>
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell
@@ -119,7 +130,12 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
     );
 }
 
-export default function CollapsibleTable({ projects, withActions, setActionClicked, setIdClicked }) {
+export default function CollapsibleTable({
+    projects,
+    withActions,
+    setActionClicked,
+    setIdClicked,
+}) {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -130,7 +146,7 @@ export default function CollapsibleTable({ projects, withActions, setActionClick
                         <TableCell>Limit Date</TableCell>
                         <TableCell>Description</TableCell>
                         <TableCell>Status</TableCell>
-                        { withActions && <TableCell>Actions</TableCell>}
+                        <TableCell>Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

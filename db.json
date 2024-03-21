@@ -52,12 +52,7 @@
       "name": "Juan",
       "password": "123",
       "isLoged": true,
-      "token": "arq-17110208169639580arq-17110208169634040",
-      "projects": [
-        {
-          "id": "arq-1710519206020958"
-        }
-      ],
+      "token": "arq-17110544348672860arq-17110544348676530",
       "role": "ADMIN",
       "id": "a052"
     },
@@ -65,13 +60,8 @@
       "email": "asdf2@asdf.com",
       "name": "Juan",
       "password": "123",
-      "isLoged": true,
-      "token": "arq-17109324599251070arq-17109324599259850",
-      "projects": [
-        {
-          "id": "arq-1710519206020958"
-        }
-      ],
+      "isLoged": false,
+      "token": "",
       "role": "NORMAL",
       "id": "a0522"
     },
@@ -83,6 +73,15 @@
       "tasks": [],
       "role": "MANAGER",
       "isLoged": false
+    },
+    {
+      "id": "cc81",
+      "name": "benja benaj",
+      "email": "benaj@benja.benja",
+      "password": "benja",
+      "role": "ADMIN",
+      "isLoged": false,
+      "token": ""
     }
   ]
 }

@@ -37,12 +37,16 @@ const useProjects = () => {
         if (!isValidArray(projectsResponse)) {
             return;
         }
+        // verificar que sea admin (no filter ) else filter id by auth user id
 
+        // luego el dispatch
         dispatch(SET_GET_PROJECTS_SUCCESS(projectsResponse));
 
-        setProjects(() => auth.role === "ADMIN" ? [...projectsResponse] : [...projectsResponse.filter(
+        
+        setProjects(() => auth?.user?.role === "ADMIN" ? [...projectsResponse] : [...projectsResponse.filter(
             v => v?.user?.id === auth?.id
         )]);
+
     }
     // update projec individual
     const updateProject = async ({ id, ...values }) => {
@@ -69,7 +73,7 @@ const useProjects = () => {
     // get usuarios para el form
     const getUsersList = async () => {
         const usersResp = await get_users();
-        setUsersList(usersResp);
+        setUsersList(usersResp.filter( u => u.role !== "ADMIN"));
     }
 
     return {

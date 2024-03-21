@@ -9,7 +9,8 @@ import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 
 function Project() {
     const { projectId: id } = useParams();
-    const { project, getProjectById, updateProjectTasks, usersList, getUsersList } = useProjects();
+    const { project, getProjectById, updateProjectTasks, usersList, getUsersList, updateProject } = useProjects();
+    
     useEffect(
         () => {
             id && getProjectById({ id });
@@ -28,7 +29,13 @@ function Project() {
             <h1 className="text-2xl font-bold text-center mb-6">
                 {`${project.projectName ?? ''} - ${project.id ?? ''}`}
             </h1>
-            <ProjectDetail project={project} updateProjectTasks={updateProjectTasks} usersList={usersList} getUsersList={getUsersList} />
+            <ProjectDetail
+                project={project}
+                updateProjectTasks={updateProjectTasks}
+                usersList={usersList}
+                getUsersList={getUsersList}
+                updateProject={updateProject}
+            />
         </WrapperContainerPages>
     );
 }
