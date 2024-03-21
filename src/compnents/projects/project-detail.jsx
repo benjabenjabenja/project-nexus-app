@@ -2,8 +2,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-
-import { Box, Fab, Grid, Typography } from "@mui/material";
+import { Box, Fab, Grid, Typography, Button } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { isValidArray, isValidObject } from "../../helpers/validators";
 import TableUsers from "../users/table-users.jsx";
@@ -12,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useActionData } from "react-router-dom";
 import { generateUniqueId } from "../../helpers/unique_id.js";
 import FormAddTasks from "../tasks/form-add-task.jsx";
+import AddIcon from '@mui/icons-material/Add';
 
 // add task action form
 export async function action({ request }) {
@@ -73,18 +73,12 @@ const AddTasksButton = ({ addTask, setAddTask }) => {
     );
 }
 
-const AddUsersButton = () => {
-    
-    const handdlerAddUsers = ev => {
-        ev.preventDefault();
-
-    }
+const AddUsersButton = ({ setAddUser, adduser }) => {
     return (
         <Fab
             title="add members"
-            onClick={handdlerAddUsers}
-            classes={classes.customFab}
-            aria-label="add"
+            onClick={() => setAddUser(!adduser) }
+            aria-label="add users"
             variant="extended"
             size="small"
             color="primary"
@@ -94,11 +88,42 @@ const AddUsersButton = () => {
     );
 }
 
+const AddUserForm = ({ users }) => {
+    const handleAddUser = e => {
+        e.preventDefault();
+    }
+    return (
+        <form className="flex felx-wrap items-center " onSubmit={handleAddUser}>
+            <select defaultValue="" className="block px-5 py-2 mr-4" name="user" id="user-select">
+                <option value="" selected> ||| Seleccionar usuario |||</option>
+                {
+                    isValidArray(users) && users.map((u,i) => <option key={generateUniqueId()+ (users.id ?? i)} value={u}>{ u.name }</option>)
+                }
+            </select>
+
+            <div className="flex items-center justify-between">
+                <Fab
+                    title="nav to /create-project"
+                    onClick={handleAddUser}
+                    classes={classes.customFab}
+                    aria-label="add"
+                    variant="extended"
+                    size="medium"
+                    color="primary"
+                >
+                    <AddIcon sx={{ mr: 1 }} /> Add User
+                </Fab>
+            </div>
+        </form>
+    )
+}
+
 // page principal
-const ProjectDetail = ({ project, updateProjectTasks }) => {
+const ProjectDetail = ({ project, updateProjectTasks, usersList}) => {
     const [addTask, setAddTask] = useState(false);
+    const [addUsers, setAddUsers] = useState(false);
     const [tasks, setTasks] = useState(project?.tasks ?? []);
-    const [newTask, errors] = useActionData() || []; 
+    const [newTask, errors] = useActionData() || [];
 
     useEffect(
         () => {
@@ -147,7 +172,7 @@ const ProjectDetail = ({ project, updateProjectTasks }) => {
                     setAddTask={setAddTask}
                 />
             </section>
-            {/*  */}
+            {/* table task */}
             <section className="w-2/3 ml-0 mr-auto my-auto">
                 <Typography
                     className="text-left"
@@ -166,26 +191,33 @@ const ProjectDetail = ({ project, updateProjectTasks }) => {
                     </>
                 }
             </section>
-            <section className="w-2/3 ml-0 mr-auto my-auto">
-                <div className="flex items-center my-2 mx-auto">
-                    {
-                        !isValidArray(project?.users) && <p className="font-semibold mr-4">No members in this project.</p>
-                    }
-
-                    <AddUsersButton />
-                </div>
+            {/* user */}
+            <section className="flex items-center py-6 my-auto w-2/3">
                 {
-                    isValidArray(project?.users) &&
-                        <Box sx={{ margin: 1 }}>
-                            <Typography
-                                variant="h6"
-                                gutterBottom
-                                component="div"
-                            >
-                                Members
-                            </Typography>
-                            <TableUsers tasks={project.users} />
-                        </Box> 
+                    addUsers && <AddUserForm errors={errors} users={usersList} />
+                }
+                {
+                    !addUsers && <AddUsersButton adduser={addUsers} setAddUser={setAddUsers} />
+                }
+            </section>
+            {/* table users */}
+            <section className="w-2/3 ml-0 mr-auto my-auto">
+                <Typography
+                    variant="h5"
+                    gutterBottom
+                    component="div"
+                >
+                    Members
+                </Typography>
+                {
+                    !isValidArray(project?.users) &&
+                    <>
+                        {
+                            project?.users?.length === 0 && !addUsers &&
+                                <p className="font-semibold mr-4">No members in this project add ones.</p>
+                        }
+                        <TableUsers users={project?.users}  />
+                    </>
                 }
             </section>
         </main>

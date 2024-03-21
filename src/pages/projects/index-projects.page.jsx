@@ -3,14 +3,12 @@
 /* eslint-disable no-unused-vars */
 import { Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { get_projects } from "../../services/projects";
 import CollapsibleTable from "../../compnents/projects/project-list";
 import { isValidArray } from "../../helpers/validators";
 import useProjects from "./hooks/useProjects";
 import WrapperContainerPages from "../../compnents/wrapper-container-pages";
-import useAuth from "../../hooks/useAuth";
 
 const classes = {
     customFab: {
@@ -23,9 +21,9 @@ const classes = {
 const IndexProjects = () => {
     const [actionClicked, setActionClicked] = useState('');
     const [idClicked, setIdClicked] = useState('');
-    const { projects, getProjects } = useProjects();
+    const { projects, getProjects, auth } = useProjects();
+    const { user } = auth;
     const navigate = useNavigate();
-    const { auth } = useAuth();
     useEffect(
         () => {
             actionClicked === "ver" && navigate(`/projects/${idClicked}`);
@@ -41,6 +39,10 @@ const IndexProjects = () => {
             })();
         }, []
     );
+
+    const getActions = () => {
+        return user?.role === "ADMIN";
+    }
 
     const handlerCreateProject = ev => {
         ev.preventDefault();
@@ -73,7 +75,7 @@ const IndexProjects = () => {
                         isValidArray(projects) ? <CollapsibleTable
                             className="mb-3"
                             projects={projects}
-                            withActions={auth?.role === "ADMIN"}
+                            withActions={getActions()}
                             setActionClicked={setActionClicked}
                             setIdClicked={setIdClicked}
                         /> :

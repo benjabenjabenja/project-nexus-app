@@ -5,13 +5,16 @@ import useAuth from "../../../hooks/useAuth";
 import { get_project_by_id, get_projects, update_project } from "../../../services/projects";
 import { SET_GET_PROJECTS_SUCCESS } from "../../../store/actions/project.actions";
 import { isValidArray } from "../../../helpers/validators";
+import { get_users } from "../../../services/users";
 
 const useProjects = () => {
     const store = useSelector(state => state.projects);
 
     const [projects, setProjects] = useState(store ?? []);
     const [project, setProject] = useState({});
-    
+
+    const [usersList, setUsersList] = useState([]);
+
     const dispatch = useDispatch();
     const { auth } = useAuth();
 
@@ -41,7 +44,6 @@ const useProjects = () => {
             v => v?.user?.id === auth?.id
         )]);
     }
-
     // update projec individual
     const updateProject = async ({ id, ...values }) => {
         const res = await update_project({ id, data: values });
@@ -64,6 +66,11 @@ const useProjects = () => {
         });
         await updateProject({ id: project.id, tasks });
     }
+    // get usuarios para el form
+    const getUsersList = async () => {
+        const usersResp = await get_users();
+        setUsersList(usersResp);
+    }
 
     return {
         getProjects,
@@ -74,7 +81,10 @@ const useProjects = () => {
         updateProject,
         getProjectById,
         updateProjectTasks,
-        updateProjectTaskById
+        updateProjectTaskById,
+        auth,
+        usersList,
+        getUsersList
     }
 }
 

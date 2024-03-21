@@ -9,12 +9,18 @@ import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 
 function Project() {
     const { projectId: id } = useParams();
-    const { project, getProjectById, updateProjectTasks } = useProjects();
-
+    const { project, getProjectById, updateProjectTasks, usersList, getUsersList } = useProjects();
     useEffect(
         () => {
             id && getProjectById({ id });
         }, [id]
+    );
+    useEffect(
+        () => {
+            getUsersList && (async function () {
+                await getUsersList();
+            })();
+        }, []
     );
 
     return (
@@ -22,7 +28,7 @@ function Project() {
             <h1 className="text-2xl font-bold text-center mb-6">
                 {`${project.projectName ?? ''} - ${project.id ?? ''}`}
             </h1>
-            <ProjectDetail project={project} updateProjectTasks={updateProjectTasks} />
+            <ProjectDetail project={project} updateProjectTasks={updateProjectTasks} usersList={usersList} getUsersList={getUsersList} />
         </WrapperContainerPages>
     );
 }

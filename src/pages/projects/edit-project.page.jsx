@@ -15,7 +15,11 @@ function EditProject() {
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState({});
     const [errors, success] = useActionData() || [];
-    const { project, updateProject, getProjectById } = useProjects();
+    const { project, updateProject, getProjectById, auth } = useProjects();
+    const { user } = auth;
+    const getActions = () => {
+        return user?.role === "ADMIN";
+    }
 
     const params = useParams();
     const navigate = useNavigate();
@@ -89,7 +93,7 @@ function EditProject() {
                 
                 <TableTask
                     tasks={tasks}
-                    withActions={true}
+                    withActions={getActions()}
                     setTasks={setTasks}
                     setTask={setTask}
                 />
