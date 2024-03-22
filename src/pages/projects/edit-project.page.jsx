@@ -17,7 +17,7 @@ function EditProject() {
     const [errors, success] = useActionData() || [];
     const { project, updateProject, getProjectById, auth } = useProjects();
     const { user } = auth;
-    const getActions = () => {
+    const getIsAdmin = () => {
         return user?.role === "ADMIN";
     }
 
@@ -83,7 +83,7 @@ function EditProject() {
                     isValidArray(errors) && <AlertErrorForm errors={errors || []} />
                 }
                 {
-                    project && <FormEditProject className="m-auto" project={project} isAdmin={getActions()} />
+                    project && <FormEditProject className="m-auto" project={project} isAdmin={getIsAdmin()} />
                 }
             </section>
 
@@ -93,7 +93,7 @@ function EditProject() {
                 
                 <TableTask
                     tasks={tasks}
-                    withActions={getActions()}
+                    isAdmin={getIsAdmin()}
                     setTasks={setTasks}
                     setTask={setTask}
                 />

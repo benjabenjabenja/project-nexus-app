@@ -20,9 +20,9 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
-import TableTask from "../tasks/table-task";
+import TaskList from "../tasks/task-list";
 
-function Row({ project, withActions, setActionClicked, setIdClicked, deleteProject }) {
+function Row({ project, isAdmin, setActionClicked, setIdClicked, deleteProject }) {
     const [open, setOpen] = useState(false);
 
     const handlerDelete = (id,ev) => {
@@ -75,21 +75,20 @@ function Row({ project, withActions, setActionClicked, setIdClicked, deleteProje
                 </TableCell>
                 <TableCell>{project?.limitDate}</TableCell>
                 <TableCell>{project?.description}</TableCell>
-                <TableCell>{!isComplete ? "completed" : "pending"}</TableCell>
+                <TableCell> <span className={`${isComplete ? 'text-red-700' : 'text-green-700'}`}>{!isComplete ? "completed" : "pending"}</span></TableCell>
                 {/* actions edit/delete */}
 
                 <TableCell>
-                    {withActions && (
-                        <>
-                            <IconButton
-                                aria-label="expand row"
-                                size="small"
-                                onClick={handlerEdit}
-                                color="primary"
-                                title={"edit project"}
-                            >
-                                <EditOutlinedIcon />
-                            </IconButton>
+                    <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={handlerEdit}
+                        color="primary"
+                        title={"edit project"}
+                    >
+                        <EditOutlinedIcon />
+                    </IconButton>
+                    {isAdmin && (
                             <IconButton
                                 aria-label="expand row"
                                 size="small"
@@ -99,7 +98,6 @@ function Row({ project, withActions, setActionClicked, setIdClicked, deleteProje
                             >
                                 <DeleteOutlineOutlinedIcon />
                             </IconButton>
-                        </>
                     )}
                     <IconButton
                         aria-label="expand row"
@@ -125,7 +123,7 @@ function Row({ project, withActions, setActionClicked, setIdClicked, deleteProje
                             >
                                 Tasks
                             </Typography>
-                            <TableTask tasks={project.tasks} />
+                            <TaskList tasks={project.tasks} />
                         </Box>
                     </Collapse>
                 </TableCell>
@@ -136,7 +134,7 @@ function Row({ project, withActions, setActionClicked, setIdClicked, deleteProje
 
 export default function ProjectList({
     projects,
-    withActions,
+    isAdmin,
     setActionClicked,
     setIdClicked,
     deleteProject
@@ -158,7 +156,7 @@ export default function ProjectList({
                     {projects.map((row) => (
                         <Row
                             key={generateUniqueId()}
-                            withActions={withActions}
+                            isAdmin={isAdmin}
                             setActionClicked={setActionClicked}
                             project={row}
                             setIdClicked={setIdClicked}

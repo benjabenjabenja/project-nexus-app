@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import AuthLayout from "./layouts/auth.layout"; 
 import IndexProjects from "./pages/projects/index-projects.page";
-import ProjectsLayout, { loader as loaderMenu } from "./layouts/projects.layout";
+import ProjectsLayout from "./layouts/projects.layout";
 import CreateProject, { action as createProjectAction } from './pages/projects/create-project.page';
 import Project from './pages/projects/project.page';
 import { action as addTaskAction } from './compnents/projects/project-detail';
@@ -64,7 +64,6 @@ const routes = createBrowserRouter([
                 <ProjectsLayout />
             </RouteProtected>
         ))(),
-        loader: loaderMenu,
         children: [
             {
                 index: true,

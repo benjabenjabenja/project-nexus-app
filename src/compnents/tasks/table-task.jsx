@@ -16,9 +16,9 @@ import { isValidArray } from "../../helpers/validators";
 
 function TableTask({
     tasks,
-    withActions,
+    isAdmin,
     setTasks,
-    setTask,
+    setTask
 }) {
     const handleCheck = (e, task) => {
         
@@ -68,7 +68,7 @@ function TableTask({
                             
                             <TableCell>
                                 {/* edit button */}
-                                {withActions && (
+                                {isAdmin && (
                                     <IconButton
                                         aria-label="expand row"
                                         size="small"
@@ -81,7 +81,6 @@ function TableTask({
                                         <EditOutlinedIcon />
                                     </IconButton>
                                 )}
-
                                     {/* ckeck input */}
                                     <Checkbox
                                         checked={task.complete}

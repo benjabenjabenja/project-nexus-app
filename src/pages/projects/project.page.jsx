@@ -10,7 +10,7 @@ import WrapperContainerPages from "../../compnents/wrapper-container-pages";
 function Project() {
     const { projectId: id } = useParams();
     const { project, getProjectById, updateProjectTasks, usersList, getUsersList, updateProject } = useProjects();
-    
+
     useEffect(
         () => {
             id && getProjectById({ id });

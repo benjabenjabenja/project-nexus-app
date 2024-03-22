@@ -2,16 +2,18 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Box, Fab, Grid, Typography, Button } from "@mui/material";
+import { Fab, Grid, Typography } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { isValidArray, isValidObject } from "../../helpers/validators";
-import TableUsers from "../users/table-users.jsx";
-import TableTask from "../tasks/table-task";
+import TableUsers from "../users/table-users";
 import { useEffect, useState } from "react";
 import { useActionData } from "react-router-dom";
-import { generateUniqueId } from "../../helpers/unique_id.js";
-import FormAddTasks from "../tasks/form-add-task.jsx";
+import { generateUniqueId } from "../../helpers/unique_id";
+import FormAddTasks from "../tasks/form-add-task";
 import AddIcon from '@mui/icons-material/Add';
+import useAuth from "../../hooks/useAuth";
+import TableTask from "../tasks/table-task";
+import TaskList from "../tasks/task-list";
 
 // add task action form
 export async function action({ request }) {
@@ -131,6 +133,11 @@ const ProjectDetail = ({ project, updateProjectTasks, usersList, updateProject }
     
     const [users, setUsers] = useState(project?.users ?? []);// projecto inside and user list from bbdd
 
+    const { auth } = useAuth();
+    const { user } = auth;
+
+    const isAdmin = isValidObject(user) && user?.role === "ADMIN";
+    
     const setAddUserList = async (user) => {
         const find = project?.users?.find(v => v.id === user);
         const userToAdd = usersList.find(v => v.id === user);
@@ -187,15 +194,18 @@ const ProjectDetail = ({ project, updateProjectTasks, usersList, updateProject }
                 </Grid>
             </Grid>
             {/*  Tasks */}
-            <section className="flex items-center py-6 my-auto w-2/3">
-                {
-                    addTask && <FormAddTasks errors={errors} setAddTask={setAddTask} />
-                }
-                <AddTasksButton
-                    addTask={addTask}
-                    setAddTask={setAddTask}
-                />
-            </section>
+            {
+                isAdmin  && 
+                <section className="flex items-center py-6 my-auto w-2/3">
+                    {
+                        addTask && <FormAddTasks errors={errors} setAddTask={setAddTask} />
+                    }
+                    <AddTasksButton
+                        addTask={addTask}
+                        setAddTask={setAddTask}
+                    />
+                </section>
+            }
             {/* table task */}
             <section className="w-2/3 ml-0 mr-auto my-auto">
                 <Typography
@@ -211,19 +221,22 @@ const ProjectDetail = ({ project, updateProjectTasks, usersList, updateProject }
                             tasks?.length === 0 && !addTask && <p className="font-semibold mr-2">No task in this project.</p>
                         }
                         
-                        <TableTask tasks={project.tasks} errors={errors} />
+                        <TaskList tasks={project.tasks} />
                     </>
                 }
             </section>
             {/* user */}
-            <section className="flex items-center py-6 my-auto w-2/3">
-                {
-                    addUsers && <AddUserForm errors={errors} users={usersList} setAddUserList={setAddUserList} />
-                }
-                {
-                    !addUsers && <AddUsersButton adduser={addUsers} setAddUser={setAddUsers} />
-                }
-            </section>
+            {
+                isAdmin && 
+                <section className="flex items-center py-6 my-auto w-2/3">
+                    {
+                        addUsers && <AddUserForm errors={errors} users={usersList} setAddUserList={setAddUserList} />
+                    }
+                    {
+                        !addUsers && <AddUsersButton adduser={addUsers} setAddUser={setAddUsers} />
+                    }
+                </section>
+            }
             {/* table users */}
             <section className="w-2/3 ml-0 mr-auto my-auto">
                 <Typography
