@@ -30,7 +30,7 @@ function Row({ project, withActions, setActionClicked, setIdClicked, deleteProje
         setActionClicked("delete");
         const deleting = confirm("Are you sure to delete this element?");
         deleting && (async function () {
-            await deleteProject();
+            await deleteProject(id);
             
         })();
     };

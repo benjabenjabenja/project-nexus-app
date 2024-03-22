@@ -77,7 +77,7 @@ const useProjects = () => {
     }
     const deleteProject = async (id) => {
         const res = await delete_project({ id });
-        console.log({ res });
+        console.log({ res, id });
         await getProjects();
     }
     return {
