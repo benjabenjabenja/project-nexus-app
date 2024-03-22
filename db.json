@@ -52,14 +52,36 @@
       "name": "Juan",
       "password": "123",
       "isLoged": true,
-      "token": "arq-17109324599251070arq-17109324599259850",
-      "projects": [
-        {
-          "id": "arq-1710519206020958"
-        }
-      ],
+      "token": "arq-17111078965072460arq-17111078965074740",
       "role": "ADMIN",
       "id": "a052"
+    },
+    {
+      "email": "asdf2@asdf.com",
+      "name": "Juan",
+      "password": "123",
+      "isLoged": false,
+      "token": "",
+      "role": "NORMAL",
+      "id": "a0522"
+    },
+    {
+      "id": "ba5f",
+      "name": "",
+      "email": "",
+      "password": "hjgj",
+      "tasks": [],
+      "role": "MANAGER",
+      "isLoged": false
+    },
+    {
+      "id": "cc81",
+      "name": "benja benaj",
+      "email": "benaj@benja.benja",
+      "password": "benja",
+      "role": "ADMIN",
+      "isLoged": false,
+      "token": ""
     }
   ]
 }
