@@ -51,11 +51,9 @@ function TableTask({
                     <TableCell>
                         <strong>Limit Date </strong>
                     </TableCell>
-                    {withActions && (
-                        <TableCell>
-                            <strong>Actions </strong>
-                        </TableCell>
-                    )}
+                    <TableCell>
+                        <strong>Actions </strong>
+                    </TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -67,9 +65,10 @@ function TableTask({
                                 {task?.complete ? "complete" : "pending"}
                             </TableCell>
                             <TableCell>{task?.limitDate}</TableCell>
-                            {withActions && (
-                                <TableCell>
-                                    {/* edit button */}
+                            
+                            <TableCell>
+                                {/* edit button */}
+                                {withActions && (
                                     <IconButton
                                         aria-label="expand row"
                                         size="small"
@@ -81,6 +80,7 @@ function TableTask({
                                     >
                                         <EditOutlinedIcon />
                                     </IconButton>
+                                )}
 
                                     {/* ckeck input */}
                                     <Checkbox
@@ -88,7 +88,6 @@ function TableTask({
                                         onChange={ e => handleCheck(e,task) }
                                     />
                                 </TableCell>
-                            )}
                         </TableRow>
                     ))}
             </TableBody>

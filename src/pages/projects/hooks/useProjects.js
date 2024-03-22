@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useAuth from "../../../hooks/useAuth";
-import { get_project_by_id, get_projects, update_project } from "../../../services/projects";
+import { delete_project, get_project_by_id, get_projects, update_project } from "../../../services/projects";
 import { SET_GET_PROJECTS_SUCCESS } from "../../../store/actions/project.actions";
 import { isValidArray } from "../../../helpers/validators";
 import { get_users } from "../../../services/users";
@@ -75,7 +75,11 @@ const useProjects = () => {
         const usersResp = await get_users();
         setUsersList(usersResp.filter( u => u.role !== "ADMIN"));
     }
-
+    const deleteProject = async (id) => {
+        const res = await delete_project({ id });
+        console.log({ res });
+        await getProjects();
+    }
     return {
         getProjects,
         setProjects,
@@ -88,7 +92,8 @@ const useProjects = () => {
         updateProjectTaskById,
         auth,
         usersList,
-        getUsersList
+        getUsersList,
+        deleteProject
     }
 }
 

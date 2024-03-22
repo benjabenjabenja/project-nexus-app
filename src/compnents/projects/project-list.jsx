@@ -22,13 +22,17 @@ import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
 import TableTask from "../tasks/table-task";
 
-function Row({ project, withActions, setActionClicked, setIdClicked }) {
+function Row({ project, withActions, setActionClicked, setIdClicked, deleteProject }) {
     const [open, setOpen] = useState(false);
 
-    const handlerDelete = (ev) => {
+    const handlerDelete = (id,ev) => {
         ev.preventDefault();
         setActionClicked("delete");
-        console.log("deleting project ", project.id);
+        const deleting = confirm("Are you sure to delete this element?");
+        deleting && (async function () {
+            await deleteProject();
+            
+        })();
     };
 
     const handlerEdit = () => {
@@ -89,7 +93,7 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
                             <IconButton
                                 aria-label="expand row"
                                 size="small"
-                                onClick={handlerDelete}
+                                onClick={(e) => handlerDelete(project.id,e)}
                                 color="error"
                                 title={"delete project"}
                             >
@@ -130,11 +134,12 @@ function Row({ project, withActions, setActionClicked, setIdClicked }) {
     );
 }
 
-export default function CollapsibleTable({
+export default function ProjectList({
     projects,
     withActions,
     setActionClicked,
     setIdClicked,
+    deleteProject
 }) {
     return (
         <TableContainer component={Paper}>
@@ -157,6 +162,7 @@ export default function CollapsibleTable({
                             setActionClicked={setActionClicked}
                             project={row}
                             setIdClicked={setIdClicked}
+                            deleteProject={deleteProject}
                         />
                     ))}
                 </TableBody>

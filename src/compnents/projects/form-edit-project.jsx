@@ -29,7 +29,7 @@ export async function action({ request }) {
     }
 }
 
-function FormEditProject({ project }) {
+function FormEditProject({ project, isAdmin }) {
     
     const [limitDate, setLimitDate] = useState(project?.limitDate || '');
     const [projectName, setProjectName] = useState(project?.projectName || '');
@@ -60,6 +60,7 @@ function FormEditProject({ project }) {
                     variant="outlined"
                     value={projectName || ''}
                     onChange={e => setProjectName(e.target.value)}
+                    disabled={!isAdmin}
                 />
             </div>
             {/* Edit project limit date */}
@@ -74,6 +75,7 @@ function FormEditProject({ project }) {
                     id="limit-date"
                     value={limitDate || ''}
                     onChange={ ev => setLimitDate(ev.target.value)}
+                    disabled={!isAdmin}
                 />
             </div>
             {/* Edit project description */}
@@ -87,6 +89,7 @@ function FormEditProject({ project }) {
                     name="description"
                     value={description || ''}
                     onChange={e => setDescription(e.target.value)}
+                    disabled={!isAdmin}
                 />
             </div>
             {/* button edit */}

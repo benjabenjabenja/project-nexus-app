@@ -6,7 +6,6 @@ import { generateUniqueId } from "../../helpers/unique_id";
 import { isValidArray } from "../../helpers/validators";
 
 function TableUsers({ users }) {
-    console.log({users})
     return (
         <Table size="small" className="mx-auto my-6" aria-label="purchases">
             <TableHead>

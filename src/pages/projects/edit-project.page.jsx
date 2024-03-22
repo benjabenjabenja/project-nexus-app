@@ -83,7 +83,7 @@ function EditProject() {
                     isValidArray(errors) && <AlertErrorForm errors={errors || []} />
                 }
                 {
-                    project && <FormEditProject className="m-auto" project={project} />
+                    project && <FormEditProject className="m-auto" project={project} isAdmin={getActions()} />
                 }
             </section>
 
