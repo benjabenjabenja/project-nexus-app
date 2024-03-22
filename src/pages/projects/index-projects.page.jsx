@@ -40,7 +40,7 @@ const IndexProjects = () => {
         }, []
     );
 
-    const getActions = () => {
+    const getIsAdmin = () => {
         return user?.role === "ADMIN";
     }
 
@@ -59,7 +59,7 @@ const IndexProjects = () => {
 
                     <h2 className="text-left text-xl py-5 my-auto">Aqui podras gestionar tus proyectos.</h2>
                     {
-                        getActions() && <Fab
+                        getIsAdmin() && <Fab
                             title="nav to /create-project"
                             onClick={handlerCreateProject}
                             classes={classes.customFab}
@@ -77,7 +77,7 @@ const IndexProjects = () => {
                         isValidArray(projects) ? <ProjectList
                             className="mb-3"
                             projects={projects}
-                            withActions={getActions()}
+                            isAdmin={getIsAdmin()}
                             setActionClicked={setActionClicked}
                             setIdClicked={setIdClicked}
                             deleteProject={deleteProject}

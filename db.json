@@ -1,85 +1,47 @@
 {
-  "routes": [
-    {
-      "url": "/projects",
-      "view-id": "projects",
-      "id": "3da0"
-    },
-    {
-      "url": "/projects/tasks",
-      "view-id": "tasks",
-      "id": "1a85"
-    },
-    {
-      "url": "/projects/control-panel",
-      "view-id": "control panel",
-      "id": "deadsa"
-    }
-  ],
-  "projects": [
-    {
-      "id": "arq-171051920602094",
-      "projectName": "asdfasdf2",
-      "description": "asdfasdfasdf",
-      "limitDate": "2024-03-25",
-      "tasks": [],
-      "users": [],
-      "createdAt": "2024-03-15T16:13:26.020Z"
-    },
-    {
-      "id": "arq-1710519206020958",
-      "projectName": "asdfasdf2",
-      "description": "asdfasdfasdf",
-      "limitDate": "2024-03-25",
-      "tasks": [],
-      "users": [],
-      "createdAt": "2024-03-15T16:13:26.020Z"
-    },
-    {
-      "id": "arq-1710519206020956",
-      "projectName": "asdfasdf3",
-      "description": "asdfasdfasdf",
-      "limitDate": "2024-03-25",
-      "tasks": [],
-      "users": [],
-      "createdAt": "2024-03-15T16:13:26.020Z"
-    }
-  ],
-  "tasks": [],
   "users": [
     {
-      "email": "asdf@asdf.com",
-      "name": "Juan",
-      "password": "123",
+      "email": "admin@admin.com",
+      "name": "Juan Martin",
+      "password": "admin",
       "isLoged": true,
-      "token": "arq-17111078965072460arq-17111078965074740",
+      "token": "arq-17111125731507630arq-17111125731508470",
       "role": "ADMIN",
       "id": "a052"
     },
     {
       "email": "asdf2@asdf.com",
-      "name": "Juan",
-      "password": "123",
+      "name": "Juan Carlos",
+      "password": "normal",
       "isLoged": false,
       "token": "",
       "role": "NORMAL",
       "id": "a0522"
     },
     {
-      "id": "ba5f",
-      "name": "",
-      "email": "",
-      "password": "hjgj",
-      "tasks": [],
-      "role": "MANAGER",
-      "isLoged": false
+      "id": "cc81DFG",
+      "name": "benja gonzalez",
+      "email": "benaj3@benja.com",
+      "password": "normal",
+      "role": "NORMAL",
+      "isLoged": false,
+      "token": ""
     },
     {
-      "id": "cc81",
-      "name": "benja benaj",
-      "email": "benaj@benja.benja",
-      "password": "benja",
-      "role": "ADMIN",
+      "id": "cc81RFDS",
+      "name": "benja gomex",
+      "email": "benaj1@benja.com",
+      "password": "normal",
+      "role": "NORMAL",
+      "isLoged": false,
+      "token": ""
+    },
+    {
+      "id": "cc81EW",
+      "name": "benja g. gons",
+      "email": "benaj2@benja.com",
+      "password": "normal",
+      "role": "NORMAL",
       "isLoged": false,
       "token": ""
     }

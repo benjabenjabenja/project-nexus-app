@@ -10,13 +10,6 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Button } from "@mui/material";
 import { ProjectProvider } from "../context/ProjectProvider";
 
-export async function loader() {
-    const url = enviroment.api_url;
-    const router = await fetch(`${url}/routes`);
-	const json = await router.json();
-    return json || [];
-}
-
 const Wrapper = styled.div`
     background-color: #edede9;
     display: flex;
@@ -27,13 +20,11 @@ const Wrapper = styled.div`
 `;
 
 function ProjectsLayout() {
-    
-    const menuItems = useLoaderData();
+
     const location = useLocation();
     const navigate = useNavigate();
     
     const handlerBack = ev => {
-        ev.preventDefault();
         navigate(-1);
     }
 

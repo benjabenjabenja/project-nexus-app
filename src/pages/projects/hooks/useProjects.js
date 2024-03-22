@@ -75,6 +75,7 @@ const useProjects = () => {
         const usersResp = await get_users();
         setUsersList(usersResp.filter( u => u.role !== "ADMIN"));
     }
+    // delete project
     const deleteProject = async (id) => {
         const res = await delete_project({ id });
         console.log({ res, id });
