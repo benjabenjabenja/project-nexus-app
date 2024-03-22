@@ -83,7 +83,7 @@ const IndexProjects = () => {
                             deleteProject={deleteProject}
                         /> :
                             <main className="p-5 mx-0 my-auto text-center font-black text-3xl">
-                                No tienes projectos, crea uno!
+                                No tienes projectos, { getIsAdmin() ? 'crea uno!' : 'Avisale al admin para que te asigne uno'}
                             </main>
                     }
                 </section>
